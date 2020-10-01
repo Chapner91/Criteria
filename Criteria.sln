@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2016
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Criteria", "Criteria\Criteria.csproj", "{04390A51-2B60-422A-AB0B-D61ABC607789}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CriteriaTests", "CriteriaTests\CriteriaTests.csproj", "{E68B2CB1-23EA-4CDE-B211-90D5FD2C9286}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{04390A51-2B60-422A-AB0B-D61ABC607789}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04390A51-2B60-422A-AB0B-D61ABC607789}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04390A51-2B60-422A-AB0B-D61ABC607789}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E68B2CB1-23EA-4CDE-B211-90D5FD2C9286}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E68B2CB1-23EA-4CDE-B211-90D5FD2C9286}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E68B2CB1-23EA-4CDE-B211-90D5FD2C9286}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E68B2CB1-23EA-4CDE-B211-90D5FD2C9286}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

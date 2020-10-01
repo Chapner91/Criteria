@@ -9,12 +9,12 @@
 			"CriteriaItems": [
 				{
 					"LeftSide": "A",
-					"CriteriaItemOperator": "=",
+					"CriteriaItemOperator": "equal",
 					"RightSide": "B"
 				},
 				{
 					"LeftSide": "C",
-					"CriteriaItemOperator": "<",
+					"CriteriaItemOperator": "lessThan",
 					"RightSide": "5000"
 				}
 			]
