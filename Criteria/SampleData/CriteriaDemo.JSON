@@ -1,0 +1,23 @@
+﻿{
+	"CriteriaID": "85395418-7a28-498e-82c9-ae9b05f87bc5",
+	"CriteriaGroupOperator": "OR",
+	"CriteriaGroups": [
+		{
+			"CriteriaGroupID": "e4d1ecd2-9cee-4266-b6d2-64b116a43ac8",
+			"CriteriaGroupOperator": "AND",
+			"CriteriaGroups": [],
+			"CriteriaItems": [
+				{
+					"LeftSide": "A",
+					"CriteriaItemOperator": "=",
+					"RightSide": "B"
+				},
+				{
+					"LeftSide": "C",
+					"CriteriaItemOperator": "<",
+					"RightSide": "5000"
+				}
+			]
+		}
+	]
+}
