@@ -8,26 +8,30 @@ using System.Threading.Tasks;
 
 namespace CriteriaHelper
 {
-	public class CriteriaItem
+	public class CriteriaPredicate
 	{
 		private static Dictionary<CriteriaItemOperator, string> _OperatorSQLTranslator = new Dictionary<CriteriaItemOperator, string>
 		{
-			{ CriteriaItemOperator.equal				, "="	},
-			{ CriteriaItemOperator.lessThan				, "<"   },
-			{ CriteriaItemOperator.lessThanOrEqual		, "<="  },
-			{ CriteriaItemOperator.greaterThan          , ">"	},
-			{ CriteriaItemOperator.greaterThanOrEqual   , ">="  },
-			{ CriteriaItemOperator.notEqual				, "!="  }
+			{ CriteriaItemOperator.Equal				, "{leftSide} = {rightSide}"	},
+			{ CriteriaItemOperator.NotEqual				, "{leftSide} != {rightSide}"  },
+			{ CriteriaItemOperator.LessThan				, "{leftSide} < {rightSide}"   },
+			{ CriteriaItemOperator.LessThanOrEqual		, "{leftSide} <=  {rightSide}"  },
+			{ CriteriaItemOperator.GreaterThan          , "{leftSide} > {rightSide}"  },
+			{ CriteriaItemOperator.GreaterThanOrEqual   , "{leftSide} >= {rightSide}"  },
+			{ CriteriaItemOperator.InList				, "{leftSide} IN ( {rightSide} )" },
+			{ CriteriaItemOperator.NotInList            , "{leftSide} NOT IN ( {rightSide} )" }
 		};
 
 		private static Dictionary<CriteriaItemOperator, string> _OperatorEnglishTranslator = new Dictionary<CriteriaItemOperator, string>
 		{
-			{ CriteriaItemOperator.equal                , "is equal to"   },
-			{ CriteriaItemOperator.lessThan             , "is less than"   },
-			{ CriteriaItemOperator.lessThanOrEqual      , "is less than or equal to"  },
-			{ CriteriaItemOperator.greaterThan          , "is greater than"   },
-			{ CriteriaItemOperator.greaterThanOrEqual   , "is greater than or equal to"  },
-			{ CriteriaItemOperator.notEqual             , "is not equal to"  }
+			{ CriteriaItemOperator.Equal                , "{leftSide} is equal to {rightSide}"   },
+			{ CriteriaItemOperator.NotEqual             , "{leftSide} is not equal to {rightSide}"  },
+			{ CriteriaItemOperator.LessThan             , "{leftSide} is less than {rightSide}"   },
+			{ CriteriaItemOperator.LessThanOrEqual      , "{leftSide} is less than or equal to {rightSide}"  },
+			{ CriteriaItemOperator.GreaterThan          , "{leftSide} is greater than {rightSide}"   },
+			{ CriteriaItemOperator.GreaterThanOrEqual   , "{leftSide} is greater than or equal to {rightSide}"  },
+			{ CriteriaItemOperator.InList               , "{leftSide} is in the list ( {rightSide} )" },
+			{ CriteriaItemOperator.NotInList            , "{leftSide} is not in the list ( {rightSide} )" }
 		};
 
 		private string _criteriaItemJson { get; set; }
@@ -45,9 +49,9 @@ namespace CriteriaHelper
 		//------------------------------------------------------------------------------------
 		//	CONSTRUCTORS
 		//------------------------------------------------------------------------------------
-		public CriteriaItem() {	}
+		public CriteriaPredicate() {	}
 
-		public CriteriaItem(string json)
+		public CriteriaPredicate(string json)
 		{
 			_criteriaItemJson = json;
 
@@ -56,7 +60,7 @@ namespace CriteriaHelper
 			using (var reader = new StringReader(json))
 			using (var jsonReader = new JsonTextReader(reader))
 			{
-				var criteriaItemFromJson = serializer.Deserialize<CriteriaItem>(jsonReader);
+				var criteriaItemFromJson = serializer.Deserialize<CriteriaPredicate>(jsonReader);
 
 				RightSide = criteriaItemFromJson.RightSide;
 				CriteriaItemOperator = criteriaItemFromJson.CriteriaItemOperator;
@@ -64,7 +68,7 @@ namespace CriteriaHelper
 			}			
 		}
 
-		public CriteriaItem(string leftSide, CriteriaItemOperator criteriaItemOperator, string rightSide)
+		public CriteriaPredicate(string leftSide, CriteriaItemOperator criteriaItemOperator, string rightSide)
 		{
 			LeftSide = leftSide;
 			CriteriaItemOperator = criteriaItemOperator;
@@ -75,12 +79,12 @@ namespace CriteriaHelper
 		//	Methods
 		//------------------------------------------------------------------------------------
 
-		public string GetCriteriaItemEnglish()
+		public string GetCriteriaPredicateEnglish()
 		{
 			return $"( {LeftSide} {_OperatorEnglishTranslator[CriteriaItemOperator]} {RightSide} )";
 		}
 
-		public string GetCriteriaItemSQL()
+		public string GetCriteriaPredicateSQL()
 		{
 			return $"( {LeftSide} {_OperatorSQLTranslator[CriteriaItemOperator]} {RightSide} )";
 		}
@@ -89,11 +93,13 @@ namespace CriteriaHelper
 
 	public enum CriteriaItemOperator
 	{
-		equal,
-		lessThan,
-		lessThanOrEqual,
-		greaterThan,
-		greaterThanOrEqual,
-		notEqual		
+		Equal,
+		NotEqual,
+		LessThan,
+		LessThanOrEqual,
+		GreaterThan,
+		GreaterThanOrEqual,
+		InList,
+		NotInList
 	}
 }
