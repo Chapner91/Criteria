@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Criteria.cs" />
     <Compile Include="CriteriaGroup.cs" />
+    <Compile Include="CriteriaItem.cs" />
     <Compile Include="CriteriaPredicate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

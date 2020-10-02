@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CriteriaHelper
+namespace Criteria
 {
 	public class CriteriaPredicate
 	{
@@ -34,8 +34,11 @@ namespace CriteriaHelper
 			{ CriteriaItemOperator.NotInList            , "{leftSide} is not in the list ( {rightSide} )" }
 		};
 
-		private string _criteriaItemJson { get; set; }
+		private string _criteriaPredicateJson { get; set; }
 
+		//------------------------------------------------------------------------------------
+		//	PROPERTIES
+		//------------------------------------------------------------------------------------
 		[JsonProperty(PropertyName = "LeftSide")]
 		public string LeftSide { get; set; }
 
@@ -53,7 +56,7 @@ namespace CriteriaHelper
 
 		public CriteriaPredicate(string json)
 		{
-			_criteriaItemJson = json;
+			_criteriaPredicateJson = json;
 
 			var serializer = new JsonSerializer();
 
@@ -76,7 +79,7 @@ namespace CriteriaHelper
 		}
 
 		//------------------------------------------------------------------------------------
-		//	Methods
+		//	METHODS
 		//------------------------------------------------------------------------------------
 
 		public string GetCriteriaPredicateEnglish()
