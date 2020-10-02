@@ -82,9 +82,7 @@ namespace CriteriaHelper
 
 		public string GetCriteriaPredicateEnglish()
 		{
-			string result = $"( {_OperatorEnglishTranslator[CriteriaItemOperator].Replace("{leftSide}", LeftSide).Replace("{rightSide}", RightSide)} )";
-			return result;
-			//return $"( {LeftSide} {_OperatorEnglishTranslator[CriteriaItemOperator]} {RightSide} )";
+			return $"( {_OperatorEnglishTranslator[CriteriaItemOperator].Replace("{leftSide}", LeftSide).Replace("{rightSide}", RightSide)} )";
 		}
 
 		public string GetCriteriaPredicateSQL()
