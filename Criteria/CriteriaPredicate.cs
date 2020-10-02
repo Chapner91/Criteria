@@ -12,24 +12,24 @@ namespace CriteriaHelper
 	{
 		private static Dictionary<CriteriaItemOperator, string> _OperatorSQLTranslator = new Dictionary<CriteriaItemOperator, string>
 		{
-			{ CriteriaItemOperator.Equal				, "{leftSide} = {rightSide}"	},
-			{ CriteriaItemOperator.NotEqual				, "{leftSide} != {rightSide}"  },
-			{ CriteriaItemOperator.LessThan				, "{leftSide} < {rightSide}"   },
-			{ CriteriaItemOperator.LessThanOrEqual		, "{leftSide} <=  {rightSide}"  },
-			{ CriteriaItemOperator.GreaterThan          , "{leftSide} > {rightSide}"  },
-			{ CriteriaItemOperator.GreaterThanOrEqual   , "{leftSide} >= {rightSide}"  },
+			{ CriteriaItemOperator.Equal				, "{leftSide} = {rightSide}" },
+			{ CriteriaItemOperator.NotEqual				, "{leftSide} != {rightSide}" },
+			{ CriteriaItemOperator.LessThan				, "{leftSide} < {rightSide}" },
+			{ CriteriaItemOperator.LessThanOrEqual		, "{leftSide} <= {rightSide}" },
+			{ CriteriaItemOperator.GreaterThan          , "{leftSide} > {rightSide}" },
+			{ CriteriaItemOperator.GreaterThanOrEqual   , "{leftSide} >= {rightSide}" },
 			{ CriteriaItemOperator.InList				, "{leftSide} IN ( {rightSide} )" },
 			{ CriteriaItemOperator.NotInList            , "{leftSide} NOT IN ( {rightSide} )" }
 		};
 
 		private static Dictionary<CriteriaItemOperator, string> _OperatorEnglishTranslator = new Dictionary<CriteriaItemOperator, string>
 		{
-			{ CriteriaItemOperator.Equal                , "{leftSide} is equal to {rightSide}"   },
-			{ CriteriaItemOperator.NotEqual             , "{leftSide} is not equal to {rightSide}"  },
-			{ CriteriaItemOperator.LessThan             , "{leftSide} is less than {rightSide}"   },
-			{ CriteriaItemOperator.LessThanOrEqual      , "{leftSide} is less than or equal to {rightSide}"  },
-			{ CriteriaItemOperator.GreaterThan          , "{leftSide} is greater than {rightSide}"   },
-			{ CriteriaItemOperator.GreaterThanOrEqual   , "{leftSide} is greater than or equal to {rightSide}"  },
+			{ CriteriaItemOperator.Equal                , "{leftSide} is equal to {rightSide}" },
+			{ CriteriaItemOperator.NotEqual             , "{leftSide} is not equal to {rightSide}" },
+			{ CriteriaItemOperator.LessThan             , "{leftSide} is less than {rightSide}" },
+			{ CriteriaItemOperator.LessThanOrEqual      , "{leftSide} is less than or equal to {rightSide}" },
+			{ CriteriaItemOperator.GreaterThan          , "{leftSide} is greater than {rightSide}" },
+			{ CriteriaItemOperator.GreaterThanOrEqual   , "{leftSide} is greater than or equal to {rightSide}" },
 			{ CriteriaItemOperator.InList               , "{leftSide} is in the list ( {rightSide} )" },
 			{ CriteriaItemOperator.NotInList            , "{leftSide} is not in the list ( {rightSide} )" }
 		};
@@ -81,12 +81,12 @@ namespace CriteriaHelper
 
 		public string GetCriteriaPredicateEnglish()
 		{
-			return $"( {LeftSide} {_OperatorEnglishTranslator[CriteriaItemOperator]} {RightSide} )";
+			return $"( {_OperatorEnglishTranslator[CriteriaItemOperator].Replace("{leftSide}", LeftSide).Replace("{rightSide}", RightSide)} )";
 		}
 
 		public string GetCriteriaPredicateSQL()
 		{
-			return $"( {LeftSide} {_OperatorSQLTranslator[CriteriaItemOperator]} {RightSide} )";
+			return $"( {_OperatorSQLTranslator[CriteriaItemOperator].Replace("{leftSide}", LeftSide).Replace("{rightSide}", RightSide)} )"; ;
 		}
 
 	}
