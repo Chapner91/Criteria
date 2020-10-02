@@ -12,12 +12,12 @@ namespace CriteriaHelper
 	{
 		private static Dictionary<CriteriaItemOperator, string> _OperatorSQLTranslator = new Dictionary<CriteriaItemOperator, string>
 		{
-			{ CriteriaItemOperator.Equal				, "{leftSide} = {rightSide}"	},
-			{ CriteriaItemOperator.NotEqual				, "{leftSide} != {rightSide}"  },
-			{ CriteriaItemOperator.LessThan				, "{leftSide} < {rightSide}"   },
-			{ CriteriaItemOperator.LessThanOrEqual		, "{leftSide} <= {rightSide}"  },
-			{ CriteriaItemOperator.GreaterThan          , "{leftSide} > {rightSide}"  },
-			{ CriteriaItemOperator.GreaterThanOrEqual   , "{leftSide} >= {rightSide}"  },
+			{ CriteriaItemOperator.Equal				, "{leftSide} = {rightSide}" },
+			{ CriteriaItemOperator.NotEqual				, "{leftSide} != {rightSide}" },
+			{ CriteriaItemOperator.LessThan				, "{leftSide} < {rightSide}" },
+			{ CriteriaItemOperator.LessThanOrEqual		, "{leftSide} <= {rightSide}" },
+			{ CriteriaItemOperator.GreaterThan          , "{leftSide} > {rightSide}" },
+			{ CriteriaItemOperator.GreaterThanOrEqual   , "{leftSide} >= {rightSide}" },
 			{ CriteriaItemOperator.InList				, "{leftSide} IN ( {rightSide} )" },
 			{ CriteriaItemOperator.NotInList            , "{leftSide} NOT IN ( {rightSide} )" }
 		};
