@@ -15,7 +15,7 @@ namespace CriteriaHelper
 			{ CriteriaItemOperator.Equal				, "{leftSide} = {rightSide}"	},
 			{ CriteriaItemOperator.NotEqual				, "{leftSide} != {rightSide}"  },
 			{ CriteriaItemOperator.LessThan				, "{leftSide} < {rightSide}"   },
-			{ CriteriaItemOperator.LessThanOrEqual		, "{leftSide} <=  {rightSide}"  },
+			{ CriteriaItemOperator.LessThanOrEqual		, "{leftSide} <= {rightSide}"  },
 			{ CriteriaItemOperator.GreaterThan          , "{leftSide} > {rightSide}"  },
 			{ CriteriaItemOperator.GreaterThanOrEqual   , "{leftSide} >= {rightSide}"  },
 			{ CriteriaItemOperator.InList				, "{leftSide} IN ( {rightSide} )" },
@@ -49,6 +49,7 @@ namespace CriteriaHelper
 		//------------------------------------------------------------------------------------
 		//	CONSTRUCTORS
 		//------------------------------------------------------------------------------------
+
 		public CriteriaPredicate() {	}
 
 		public CriteriaPredicate(string json)
@@ -81,12 +82,14 @@ namespace CriteriaHelper
 
 		public string GetCriteriaPredicateEnglish()
 		{
-			return $"( {LeftSide} {_OperatorEnglishTranslator[CriteriaItemOperator]} {RightSide} )";
+			string result = $"( {_OperatorEnglishTranslator[CriteriaItemOperator].Replace("{leftSide}", LeftSide).Replace("{rightSide}", RightSide)} )";
+			return result;
+			//return $"( {LeftSide} {_OperatorEnglishTranslator[CriteriaItemOperator]} {RightSide} )";
 		}
 
 		public string GetCriteriaPredicateSQL()
 		{
-			return $"( {LeftSide} {_OperatorSQLTranslator[CriteriaItemOperator]} {RightSide} )";
+			return $"( {_OperatorSQLTranslator[CriteriaItemOperator].Replace("{leftSide}", LeftSide).Replace("{rightSide}", RightSide)} )"; ;
 		}
 
 	}
