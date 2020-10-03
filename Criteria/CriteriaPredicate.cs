@@ -48,6 +48,8 @@ namespace Criteria
 		[JsonProperty(PropertyName = "RightSide")]
 		public string RightSide { get; set; }
 
+		[JsonProperty(PropertyName = "DataType")]
+		public DataType DataType { get; set; }
 
 		//------------------------------------------------------------------------------------
 		//	CONSTRUCTORS
@@ -65,14 +67,16 @@ namespace Criteria
 			{
 				var criteriaItemFromJson = serializer.Deserialize<CriteriaPredicate>(jsonReader);
 
+				DataType = criteriaItemFromJson.DataType;
 				RightSide = criteriaItemFromJson.RightSide;
 				CriteriaItemOperator = criteriaItemFromJson.CriteriaItemOperator;
 				LeftSide = criteriaItemFromJson.LeftSide;
 			}			
 		}
 
-		public CriteriaPredicate(string leftSide, CriteriaItemOperator criteriaItemOperator, string rightSide)
+		public CriteriaPredicate(DataType dataType, string leftSide, CriteriaItemOperator criteriaItemOperator, string rightSide)
 		{
+			DataType = dataType;
 			LeftSide = leftSide;
 			CriteriaItemOperator = criteriaItemOperator;
 			RightSide = rightSide;

@@ -5,12 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Criteria.CriteriaExceptions;
 
 namespace Criteria.Tests
 {
 	public class CriteriaItemTests
 	{
-		private string _jsonStringTest = "{\"DataType\" = \"String\", \"Value\" = \"Test\"}";
+		private string _jsonStringTest = "{\"DataType\" : \"String\", \"Value\" : \"Test\"}";
+		private string _jsonDataTypeValueMismatch = "{\"DataType\" : \"Numeric\", \"Value\" : \"Test\"}";
 
 		[Fact()]
 		public void CriteriaItem_InitializeWithJsonString()
@@ -37,9 +39,9 @@ namespace Criteria.Tests
 		}
 
 		[Fact()]
-		public void GetAvailableFunctionsTest()
+		public void CriteriaItem_InitializeWithMismatchedTypes()
 		{
-			Assert.True(false, "This test needs an implementation");
+			Assert.Throws<CriteriaItemDataTypeClashException>(() => new CriteriaItem(_jsonDataTypeValueMismatch));
 		}
 	}
 }
