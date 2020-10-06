@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="CriteriaItemTests.cs" />
     <Compile Include="CriteriaPredicateTests.cs" />
+    <Compile Include="CriteriaTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

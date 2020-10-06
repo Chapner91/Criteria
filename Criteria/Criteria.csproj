@@ -47,8 +47,10 @@
     <Compile Include="Criteria.cs" />
     <Compile Include="CriteriaExceptions\CriteriaException.cs" />
     <Compile Include="CriteriaGroup.cs" />
+    <Compile Include="CriteriaGroupsWrapper.cs" />
     <Compile Include="CriteriaItem.cs" />
     <Compile Include="CriteriaPredicate.cs" />
+    <Compile Include="ICriteriaItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
