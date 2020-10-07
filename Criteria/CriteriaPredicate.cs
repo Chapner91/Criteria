@@ -43,7 +43,7 @@ namespace Criteria
 		public string LeftSide { get; set; }
 
 		[JsonProperty(PropertyName = "CriteriaItemOperator")]
-		public CriteriaItemOperator CriteriaItemOperator { get; set; }
+		public string CriteriaItemOperator { get; set; }
 
 		[JsonProperty(PropertyName = "RightSide")]
 		public string RightSide { get; set; }
@@ -51,6 +51,9 @@ namespace Criteria
 		[JsonProperty(PropertyName = "DataType")]
 		public DataType DataType { get; set; }
 
+		public string SQL => CriteriaItemOperatorTranslator.TranslateToSQL(CriteriaItemOperator, LeftSide, RightSide);
+		public string English
+		
 		//------------------------------------------------------------------------------------
 		//	CONSTRUCTORS
 		//------------------------------------------------------------------------------------
@@ -97,16 +100,6 @@ namespace Criteria
 		}
 
 	}
-
-	public enum CriteriaItemOperator
-	{
-		Equal,
-		NotEqual,
-		LessThan,
-		LessThanOrEqual,
-		GreaterThan,
-		GreaterThanOrEqual,
-		InList,
-		NotInList
-	}
 }
+
+

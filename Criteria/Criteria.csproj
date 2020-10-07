@@ -49,6 +49,8 @@
     <Compile Include="CriteriaGroup.cs" />
     <Compile Include="CriteriaGroupsWrapper.cs" />
     <Compile Include="CriteriaItem.cs" />
+    <Compile Include="CriteriaItemOperator.cs" />
+    <Compile Include="CriteriaItemOperatorTranslator.cs" />
     <Compile Include="CriteriaPredicate.cs" />
     <Compile Include="ICriteriaItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

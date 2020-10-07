@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Criteria
 {
-	interface ICriteriaItem
+	public interface ICriteriaItem
 	{
 		DataType DataType { get; set; }
 		string Value { get; set; }
