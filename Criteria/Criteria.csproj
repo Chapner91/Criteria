@@ -48,11 +48,12 @@
     <Compile Include="CriteriaGroup.cs" />
     <Compile Include="CriteriaItem.cs" />
     <Compile Include="CriteriaPredicate.cs" />
+    <Compile Include="Enums\CriteriaItemFunction.cs" />
+    <Compile Include="Enums\Datatype.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="SampleData\CriteriaDemo.json" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
