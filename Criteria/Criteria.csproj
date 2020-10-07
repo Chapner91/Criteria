@@ -45,11 +45,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Criteria.cs" />
+    <Compile Include="CriteriaExceptions\CriteriaItemException.cs" />
     <Compile Include="CriteriaGroup.cs" />
-    <Compile Include="CriteriaItem.cs" />
+    <Compile Include="CriteriaItems\CompoundCriteriaItem.cs" />
+    <Compile Include="CriteriaItems\SimpleCriteriaItem.cs" />
     <Compile Include="CriteriaPredicate.cs" />
     <Compile Include="Enums\CriteriaItemFunction.cs" />
     <Compile Include="Enums\Datatype.cs" />
+    <Compile Include="CriteriaItems\ICriteriaItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,45 @@
+[
+
+	{
+		"$type": "Criteria.CriteriaItems.SimpleCriteriaItem, Criteria",
+		"DataType": "String",
+		"Value": "Test"
+	},
+	{
+		"$type": "Criteria.CriteriaItems.SimpleCriteriaItem, Criteria",
+		"DataType": 1,
+		"Value": "Test"
+	},
+	{
+		"$type": "Criteria.CriteriaItems.SimpleCriteriaItem, Criteria",
+		"DataType": 1,
+		"Value": "Test"
+	},
+	{
+
+		"$type": "Criteria.CriteriaItems.CompoundCriteriaItem, Criteria",
+		"DataType": 0,
+		"Value": "(1),(2)",
+		"CriteriaItems": {
+			"$type": "System.Collections.Generic.List`1[[Criteria.ICriteriaItem, Criteria]], mscorlib",
+			"$values": [
+				{
+					"$type": "Criteria.CriteriaItems.SimpleCriteriaItem, Criteria",
+					"DataType": 0,
+					"Value": "1"
+				},
+				{
+					"$type": "Criteria.CriteriaItems.SimpleCriteriaItem, Criteria",
+					"DataType": 0,
+					"Value": "2"
+				}
+			]
+		}
+
+	}
+
+]
+
+
+
+
