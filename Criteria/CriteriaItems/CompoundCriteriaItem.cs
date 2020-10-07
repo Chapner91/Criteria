@@ -31,6 +31,7 @@ namespace Criteria.CriteriaItems
 				return result;
 			}
 		}
+
 		private List<ICriteriaItem> _criteriaItems = new List<ICriteriaItem>();
 		public List<ICriteriaItem> CriteriaItems
 		{
@@ -107,6 +108,18 @@ namespace Criteria.CriteriaItems
 			hashCode = hashCode * -1521134295 + DataType.GetHashCode();
 			hashCode = hashCode * -1521134295 + EqualityComparer<List<ICriteriaItem>>.Default.GetHashCode(CriteriaItems);
 			return hashCode;
+		}
+
+		public void AddCriteriaItem(ICriteriaItem criteriaItem)
+		{
+			if (ChildIsCorrectDataType(criteriaItem))
+			{
+				_criteriaItems.Add(criteriaItem);
+			}
+			else
+			{
+				throw new CriteriaItemTypeMismatchException(DataType, criteriaItem);
+			}
 		}
 
 		//*****************************************************************************

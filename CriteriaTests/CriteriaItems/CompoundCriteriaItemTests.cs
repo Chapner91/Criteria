@@ -280,6 +280,16 @@ namespace Criteria.CriteriaItems.Tests
 			Assert.Equal(expected, actual);
 		}
 
+		[Fact()]
+		public void AddCriteriaItem_CorrectType()
+		{
+			var target = _numericCompoundCriteriaItem;
+			var criteriaItem = new SimpleCriteriaItem(DataType.Numeric, "3");
+
+			target.AddCriteriaItem(criteriaItem);
+
+			Assert.Contains(criteriaItem, target.CriteriaItems);
+		}
 
 		//************************************************************************************
 		// exception tests
@@ -318,6 +328,15 @@ namespace Criteria.CriteriaItems.Tests
 			}
 
 			Assert.DoesNotContain(new SimpleCriteriaItem(DataType.String, "Test"), target.CriteriaItems);
+		}
+
+		[Fact()]
+		public void AddCriteriaItem_WrongDataType()
+		{
+			var target = _numericCompoundCriteriaItem;
+			var criteriaItem = new SimpleCriteriaItem(DataType.String, "Test");
+
+			Assert.Throws<CriteriaItemTypeMismatchException>(() => target.AddCriteriaItem(criteriaItem));
 		}
 	}
 }
