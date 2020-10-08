@@ -63,10 +63,10 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="CriteriaItems\CompoundCriteriaItemTests.cs" />
+    <Compile Include="CriteriaItems\CriteriaItemCompoundTests.cs" />
     <Compile Include="CriteriaPredicateTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CriteriaItems\SimpleCriteriaItemTests.cs" />
+    <Compile Include="CriteriaItems\CriteriaItemSimpleTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace Criteria.CriteriaItems
 {
-	public class CompoundCriteriaItem : ICriteriaItem
+	public class CriteriaItemCompound : ICriteriaItem
 	{
 		public DataType DataType { get; set; }
 		public string Value
@@ -53,16 +53,16 @@ namespace Criteria.CriteriaItems
 		// ******** CONSTRUCTORS
 		//*****************************************************************************
 
-		public CompoundCriteriaItem() { }
+		public CriteriaItemCompound() { }
 
-		public CompoundCriteriaItem(string criteriaItemJson)
+		public CriteriaItemCompound(string criteriaItemJson)
 		{
-			CompoundCriteriaItem that = Deserialize(criteriaItemJson);
+			CriteriaItemCompound that = Deserialize(criteriaItemJson);
 			this.DataType = that.DataType;
 			this.CriteriaItems = that.CriteriaItems;
 		}
 
-		public CompoundCriteriaItem(DataType dataType, List<ICriteriaItem> criteriaItems)
+		public CriteriaItemCompound(DataType dataType, List<ICriteriaItem> criteriaItems)
 		{
 			this.DataType = dataType;
 			this.CriteriaItems = criteriaItems;
@@ -84,7 +84,7 @@ namespace Criteria.CriteriaItems
 
 		public override bool Equals(object obj)
 		{
-			var that = obj as CompoundCriteriaItem;
+			var that = obj as CriteriaItemCompound;
 			if (that == null)
 			{
 				return false;
@@ -126,14 +126,14 @@ namespace Criteria.CriteriaItems
 		// ******** PRIVATE METHODS
 		//*****************************************************************************
 
-		private static CompoundCriteriaItem Deserialize(string criteriaItemJson)
+		private static CriteriaItemCompound Deserialize(string criteriaItemJson)
 		{
 			var settings = new JsonSerializerSettings()
 			{
 				TypeNameHandling = TypeNameHandling.Objects
 			};
 
-			return (CompoundCriteriaItem)JsonConvert.DeserializeObject(criteriaItemJson, settings);
+			return (CriteriaItemCompound)JsonConvert.DeserializeObject(criteriaItemJson, settings);
 		}
 
 		private bool ChildIsCorrectDataType(ICriteriaItem criteriaItem)

@@ -10,11 +10,11 @@ using Criteria.CriteriaExceptions;
 
 namespace Criteria.CriteriaItems.Tests
 {
-	public class SimpleCriteriaItemTests
+	public class CriteriaItemSimpleTests
 	{
 
-		private string _BasicStringSimpleCriteriaItemjson = "{\"$type\":\"Criteria.CriteriaItems.SimpleCriteriaItem, Criteria\",\"DataType\":1,\"Value\":\"Test\"}";
-		private SimpleCriteriaItem _BasicStringSimpleCriteriaItem = new SimpleCriteriaItem()
+		private string _BasicStringCriteriaItemSimplejson = "{\"$type\":\"Criteria.CriteriaItems.CriteriaItemSimple, Criteria\",\"DataType\":1,\"Value\":\"Test\"}";
+		private CriteriaItemSimple _BasicStringCriteriaItemSimple = new CriteriaItemSimple()
 		{
 			DataType = DataType.String,
 			Value = "Test"
@@ -25,20 +25,20 @@ namespace Criteria.CriteriaItems.Tests
 		//************************************************************************************
 
 		[Fact()]
-		public void SimpleCriteriaItem_ConstructorFromJson()
+		public void CriteriaItemSimple_ConstructorFromJson()
 		{
 
-			var expected = _BasicStringSimpleCriteriaItem;
-			var actual = new SimpleCriteriaItem(_BasicStringSimpleCriteriaItemjson);
+			var expected = _BasicStringCriteriaItemSimple;
+			var actual = new CriteriaItemSimple(_BasicStringCriteriaItemSimplejson);
 
 			Assert.Equal(expected, actual);
 		}
 
 		[Fact]
-		public void SimpleCriteriaItem_ConstructorFromPropertyArguments()
+		public void CriteriaItemSimple_ConstructorFromPropertyArguments()
 		{
-			var expected = _BasicStringSimpleCriteriaItem;
-			var actual = new SimpleCriteriaItem(DataType.String, "Test");
+			var expected = _BasicStringCriteriaItemSimple;
+			var actual = new CriteriaItemSimple(DataType.String, "Test");
 
 			Assert.Equal(expected, actual);
 		}
@@ -50,12 +50,12 @@ namespace Criteria.CriteriaItems.Tests
 		[Fact()]
 		public void Equal_EqualObjects()
 		{
-			var a = new SimpleCriteriaItem()
+			var a = new CriteriaItemSimple()
 			{
 				DataType = DataType.String,
 				Value = "Test"
 			};
-			var b = new SimpleCriteriaItem()
+			var b = new CriteriaItemSimple()
 			{
 				DataType = DataType.String,
 				Value = "Test"
@@ -67,12 +67,12 @@ namespace Criteria.CriteriaItems.Tests
 		[Fact()]
 		public void Equal_NotEqualObjects()
 		{
-			var a = new SimpleCriteriaItem()
+			var a = new CriteriaItemSimple()
 			{
 				DataType = DataType.String,
 				Value = "Test"
 			};
-			var b = new SimpleCriteriaItem()
+			var b = new CriteriaItemSimple()
 			{
 				DataType = DataType.String,
 				Value = "Test1"
@@ -82,16 +82,16 @@ namespace Criteria.CriteriaItems.Tests
 		}
 
 		[Fact()]
-		public void Serialize_BasicSimpleCriteriaItem()
+		public void Serialize_BasicCriteriaItemSimple()
 		{
-			var target = new SimpleCriteriaItem()
+			var target = new CriteriaItemSimple()
 			{
 				DataType = DataType.String,
 				Value = "Test"
 			};
 
 			var actual = target.Serialize();
-			var expected = _BasicStringSimpleCriteriaItemjson;
+			var expected = _BasicStringCriteriaItemSimplejson;
 
 			Assert.Equal(expected, actual);
 		}
@@ -103,7 +103,7 @@ namespace Criteria.CriteriaItems.Tests
 		[Fact()]
 		public void SetValue_DoesNotMatchDataType()
 		{
-			var target = new SimpleCriteriaItem()
+			var target = new CriteriaItemSimple()
 			{
 				DataType = DataType.Numeric,
 				Value = "1"
@@ -115,7 +115,7 @@ namespace Criteria.CriteriaItems.Tests
 		[Fact()]
 		public void SetValue_DoesMatchDataType()
 		{
-			var target = new SimpleCriteriaItem()
+			var target = new CriteriaItemSimple()
 			{
 				DataType = DataType.Numeric,
 				Value = "1"

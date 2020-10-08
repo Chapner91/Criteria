@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Criteria.CriteriaItems
 {
-	public class SimpleCriteriaItem : ICriteriaItem
+	public class CriteriaItemSimple : ICriteriaItem
 	{
 		private string _value;
 	
@@ -38,17 +38,17 @@ namespace Criteria.CriteriaItems
 		// ******** CONSTRUCTORS
 		//*****************************************************************************
 
-		public SimpleCriteriaItem()	{ }
+		public CriteriaItemSimple()	{ }
 
-		public SimpleCriteriaItem(string criteriaItemJson)
+		public CriteriaItemSimple(string criteriaItemJson)
 		{
-			SimpleCriteriaItem criteriaItemFromJson = Deserialize(criteriaItemJson);
+			CriteriaItemSimple criteriaItemFromJson = Deserialize(criteriaItemJson);
 
 			this.DataType = criteriaItemFromJson.DataType;
 			this.Value = criteriaItemFromJson.Value;
 		}
 
-		public SimpleCriteriaItem(DataType dataType, string value)
+		public CriteriaItemSimple(DataType dataType, string value)
 		{
 			this.DataType = dataType;
 			this.Value = value;
@@ -70,7 +70,7 @@ namespace Criteria.CriteriaItems
 
 		public override bool Equals(object obj)
 		{
-			SimpleCriteriaItem that = obj as SimpleCriteriaItem;
+			CriteriaItemSimple that = obj as CriteriaItemSimple;
 			if (that == null)
 			{
 				return false;
@@ -93,14 +93,14 @@ namespace Criteria.CriteriaItems
 		// ******** PRIVATE METHODS
 		//*****************************************************************************
 
-		private static SimpleCriteriaItem Deserialize(string criteriaItemJson)
+		private static CriteriaItemSimple Deserialize(string criteriaItemJson)
 		{
 			var settings = new JsonSerializerSettings()
 			{
 				TypeNameHandling = TypeNameHandling.All
 			};
 
-			return (SimpleCriteriaItem)JsonConvert.DeserializeObject(criteriaItemJson, settings);
+			return (CriteriaItemSimple)JsonConvert.DeserializeObject(criteriaItemJson, settings);
 		}
 
 		private bool ValueIsCorrectDataType(string value)
