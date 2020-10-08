@@ -1,5 +1,6 @@
 ﻿using Criteria.CriteriaExceptions;
 using Criteria.Enums;
+using Criteria.JsonConverters;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,12 @@ using System.Threading.Tasks;
 
 namespace Criteria.CriteriaItems
 {
+	[JsonConverter(typeof(ICriteriaItemConverter))]
 	public class CriteriaItemSimple : ICriteriaItem
 	{
 		private string _value;
-	
+
+		public string CriteriaItemType => "simple";
 		[JsonProperty(PropertyName = "DataType")]
 		public DataType DataType { get; set; }
 
@@ -62,7 +65,7 @@ namespace Criteria.CriteriaItems
 		{
 			var settings = new JsonSerializerSettings()
 			{
-				TypeNameHandling = TypeNameHandling.All
+				//TypeNameHandling = TypeNameHandling.All
 			};
 
 			return JsonConvert.SerializeObject(this, settings);
@@ -97,10 +100,10 @@ namespace Criteria.CriteriaItems
 		{
 			var settings = new JsonSerializerSettings()
 			{
-				TypeNameHandling = TypeNameHandling.All
+				//TypeNameHandling = TypeNameHandling.All
 			};
 
-			return (CriteriaItemSimple)JsonConvert.DeserializeObject(criteriaItemJson, settings);
+			return JsonConvert.DeserializeObject<CriteriaItemSimple>(criteriaItemJson, settings);
 		}
 
 		private bool ValueIsCorrectDataType(string value)

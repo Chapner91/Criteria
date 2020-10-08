@@ -50,10 +50,13 @@
     <Compile Include="CriteriaItems\CriteriaItemCompound.cs" />
     <Compile Include="CriteriaItems\CriteriaItemFunction.cs" />
     <Compile Include="CriteriaItems\CriteriaItemSimple.cs" />
+    <Compile Include="CriteriaItems\ICriteriaItemHelper.cs" />
     <Compile Include="CriteriaPredicate.cs" />
     <Compile Include="Enums\CriteriaItemFunction.cs" />
     <Compile Include="Enums\Datatype.cs" />
     <Compile Include="CriteriaItems\ICriteriaItem.cs" />
+    <Compile Include="JsonConverters\ICriteriaItemConverter.cs" />
+    <Compile Include="JsonConverters\ICriteriaItemListConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

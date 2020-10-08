@@ -13,12 +13,14 @@ namespace Criteria.CriteriaItems.Tests
 	public class CriteriaItemSimpleTests
 	{
 
-		private string _BasicStringCriteriaItemSimplejson = "{\"$type\":\"Criteria.CriteriaItems.CriteriaItemSimple, Criteria\",\"DataType\":1,\"Value\":\"Test\"}";
-		private CriteriaItemSimple _BasicStringCriteriaItemSimple = new CriteriaItemSimple()
+		private string _BasicStringCriteriaItemSimplejson;
+		private CriteriaItemSimple _BasicStringCriteriaItemSimple;
+		
+		public CriteriaItemSimpleTests()
 		{
-			DataType = DataType.String,
-			Value = "Test"
-		};
+			_BasicStringCriteriaItemSimple = new CriteriaItemSimple(DataType.String, "Test");
+			_BasicStringCriteriaItemSimplejson = _BasicStringCriteriaItemSimple.Serialize();//"{\"$type\":\"Criteria.CriteriaItems.CriteriaItemSimple, Criteria\",\"DataType\":1,\"Value\":\"Test\"}";
+		}
 
 		//************************************************************************************
 		// constructor tests
