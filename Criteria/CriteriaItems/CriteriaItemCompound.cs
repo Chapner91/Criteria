@@ -5,12 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Criteria.CriteriaExceptions;
 using Criteria.Enums;
+using Criteria.JsonConverters;
 using Newtonsoft.Json;
 
 namespace Criteria.CriteriaItems
 {
+	[JsonConverter(typeof(ICriteriaItemConverter))]
 	public class CriteriaItemCompound : ICriteriaItem
 	{
+		public string CriteriaItemType => "compound";
 		public DataType DataType { get; set; }
 		public string Value
 		{
@@ -33,6 +36,8 @@ namespace Criteria.CriteriaItems
 		}
 
 		private List<ICriteriaItem> _criteriaItems = new List<ICriteriaItem>();
+
+		[JsonConverter(typeof(ICriteriaItemListConverter))]
 		public List<ICriteriaItem> CriteriaItems
 		{
 			get => _criteriaItems;
@@ -76,7 +81,7 @@ namespace Criteria.CriteriaItems
 		{
 			var settings = new JsonSerializerSettings()
 			{
-				TypeNameHandling = TypeNameHandling.Objects
+				//TypeNameHandling = TypeNameHandling.Objects
 			};
 
 			return JsonConvert.SerializeObject(this, settings);
@@ -130,10 +135,10 @@ namespace Criteria.CriteriaItems
 		{
 			var settings = new JsonSerializerSettings()
 			{
-				TypeNameHandling = TypeNameHandling.Objects
+				//TypeNameHandling = TypeNameHandling.Objects
 			};
 
-			return (CriteriaItemCompound)JsonConvert.DeserializeObject(criteriaItemJson, settings);
+			return JsonConvert.DeserializeObject<CriteriaItemCompound>(criteriaItemJson, settings);
 		}
 
 		private bool ChildIsCorrectDataType(ICriteriaItem criteriaItem)

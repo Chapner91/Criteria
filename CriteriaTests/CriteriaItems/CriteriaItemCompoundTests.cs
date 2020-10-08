@@ -12,22 +12,29 @@ namespace Criteria.CriteriaItems.Tests
 {
 	public class CriteriaItemCompoundTests
 	{
-		private string _numericCriteriaItemCompoundJson = "{\"$type\":\"Criteria.CriteriaItems.CriteriaItemCompound, Criteria\",\"DataType\":0,\"Value\":\"((1),(2))\",\"CriteriaItems\":[{\"$type\":\"Criteria.CriteriaItems.CriteriaItemSimple, Criteria\",\"DataType\":0,\"Value\":\"1\"},{\"$type\":\"Criteria.CriteriaItems.CriteriaItemSimple, Criteria\",\"DataType\":0,\"Value\":\"2\"}]}";
-		private CriteriaItemCompound _numericCriteriaItemCompound = new CriteriaItemCompound()
+		private string _numericCriteriaItemCompoundJson;
+		private CriteriaItemCompound _numericCriteriaItemCompound;
+		private string _nestedNumericCriteriaItemCompoundJson; 
+		private CriteriaItemCompound _nestedNumericCriteriaItemCompound;
+		private string _stringCriteriaItemCompoundJson;
+		private CriteriaItemCompound _stringCriteriaItemCompound;
+		private string _nestedStringCriteriaItemCompoundJson;
+		private CriteriaItemCompound _nestedStringCriteriaItemCompound;
+		private string _dateTimeCriteriaItemCompoundJson;
+		private CriteriaItemCompound _dateTimeCriteriaItemCompound;
+		private string _booleanCriteriaItemCompoundJson;
+		private CriteriaItemCompound _booleanCriteriaItemCompound;
+
+		public CriteriaItemCompoundTests()
 		{
-			DataType = DataType.Numeric,
-			CriteriaItems = new List<ICriteriaItem>()
+			_numericCriteriaItemCompound = new CriteriaItemCompound(DataType.Numeric, new List<ICriteriaItem>()
 				{
 					new CriteriaItemSimple(DataType.Numeric, "1"),
 					new CriteriaItemSimple(DataType.Numeric, "2")
-				}
-		};
+				});
+			_numericCriteriaItemCompoundJson = _numericCriteriaItemCompound.Serialize();
 
-		private string _nestedNumericCriteriaItemCompoundJson = "{\"$type\":\"Criteria.CriteriaItems.CriteriaItemCompound, Criteria\",\"DataType\":0,\"Value\":\"(1),(2),((3),(4))\",\"CriteriaItems\":[{\"$type\":\"Criteria.CriteriaItems.CriteriaItemSimple, Criteria\",\"DataType\":0,\"Value\":\"1\"},{\"$type\":\"Criteria.CriteriaItems.CriteriaItemSimple, Criteria\",\"DataType\":0,\"Value\":\"2\"},{\"$type\":\"Criteria.CriteriaItems.CriteriaItemCompound, Criteria\",\"DataType\":0,\"Value\":\"(3),(4)\",\"CriteriaItems\":[{\"$type\":\"Criteria.CriteriaItems.CriteriaItemSimple, Criteria\",\"DataType\":0,\"Value\":\"3\"},{\"$type\":\"Criteria.CriteriaItems.CriteriaItemSimple, Criteria\",\"DataType\":0,\"Value\":\"4\"}]}]}";
-		private CriteriaItemCompound _nestedNumericCriteriaItemCompound = new CriteriaItemCompound()
-		{
-			DataType = DataType.Numeric,
-			CriteriaItems = new List<ICriteriaItem>()
+			_nestedNumericCriteriaItemCompound = new CriteriaItemCompound(DataType.Numeric, new List<ICriteriaItem>()
 				{
 					new CriteriaItemSimple(DataType.Numeric, "1"),
 					new CriteriaItemSimple(DataType.Numeric, "2"),
@@ -40,26 +47,17 @@ namespace Criteria.CriteriaItems.Tests
 							new CriteriaItemSimple(DataType.Numeric, "4")
 						}
 					}
-				}
-		};
+				});
+			_nestedNumericCriteriaItemCompoundJson = _nestedNumericCriteriaItemCompound.Serialize();
 
-		private string _stringCriteriaItemCompoundJson = "{\"$type\":\"Criteria.CriteriaItems.CriteriaItemCompound, Criteria\",\"DataType\":1,\"Value\":\"((Test1),(Test2))\",\"CriteriaItems\":[{\"$type\":\"Criteria.CriteriaItems.CriteriaItemSimple, Criteria\",\"DataType\":1,\"Value\":\"Test1\"},{\"$type\":\"Criteria.CriteriaItems.CriteriaItemSimple, Criteria\",\"DataType\":1,\"Value\":\"Test2\"}]}";
-		private CriteriaItemCompound _stringCriteriaItemCompound = new CriteriaItemCompound()
-		{
-			DataType = DataType.String,
-			CriteriaItems = new List<ICriteriaItem>()
+			_stringCriteriaItemCompound = new CriteriaItemCompound(DataType.String, new List<ICriteriaItem>()
 				{
 					new CriteriaItemSimple(DataType.String, "Test1"),
 					new CriteriaItemSimple(DataType.String, "Test2")
-				}
-		};
+				});
+			_stringCriteriaItemCompoundJson = _stringCriteriaItemCompound.Serialize();
 
-
-		private string _nestedStringCriteriaItemCompoundJson = "{\"$type\":\"Criteria.CriteriaItems.CriteriaItemCompound, Criteria\",\"DataType\":1,\"Value\":\"((Test1),(Test2)),(((Test3),(Test4)))\",\"CriteriaItems\":[{\"$type\":\"Criteria.CriteriaItems.CriteriaItemSimple, Criteria\",\"DataType\":1,\"Value\":\"Test1\"},{\"$type\":\"Criteria.CriteriaItems.CriteriaItemSimple, Criteria\",\"DataType\":1,\"Value\":\"Test2\"},{\"$type\":\"Criteria.CriteriaItems.CriteriaItemCompound, Criteria\",\"DataType\":1,\"Value\":\"((Test3),(Test4))\",\"CriteriaItems\":[{\"$type\":\"Criteria.CriteriaItems.CriteriaItemSimple, Criteria\",\"DataType\":1,\"Value\":\"Test3\"},{\"$type\":\"Criteria.CriteriaItems.CriteriaItemSimple, Criteria\",\"DataType\":1,\"Value\":\"Test4\"}]}]}";
-		private CriteriaItemCompound _nestedStringCriteriaItemCompound = new CriteriaItemCompound()
-		{
-			DataType = DataType.String,
-			CriteriaItems = new List<ICriteriaItem>()
+			_nestedStringCriteriaItemCompound = new CriteriaItemCompound(DataType.String, new List<ICriteriaItem>()
 				{
 					new CriteriaItemSimple(DataType.String, "Test1"),
 					new CriteriaItemSimple(DataType.String, "Test2"),
@@ -72,30 +70,23 @@ namespace Criteria.CriteriaItems.Tests
 									new CriteriaItemSimple(DataType.String, "Test4")
 								}
 						}
-				}
-		};
+				});
+			_nestedStringCriteriaItemCompoundJson = _nestedStringCriteriaItemCompound.Serialize();
 
-		private string _dateTimeCriteriaItemCompoundJson = "{\"$type\":\"Criteria.CriteriaItems.CriteriaItemCompound, Criteria\",\"DataType\":2,\"Value\":\"((2020-01-01),(2020-01-02))\",\"CriteriaItems\":[{\"$type\":\"Criteria.CriteriaItems.CriteriaItemSimple, Criteria\",\"DataType\":2,\"Value\":\"2020-01-01\"},{\"$type\":\"Criteria.CriteriaItems.CriteriaItemSimple, Criteria\",\"DataType\":2,\"Value\":\"2020-01-02\"}]}";
-		private CriteriaItemCompound _dateTimeCriteriaItemCompound = new CriteriaItemCompound()
-		{
-			DataType = DataType.DateTime,
-			CriteriaItems = new List<ICriteriaItem>()
+			_dateTimeCriteriaItemCompound = new CriteriaItemCompound(DataType.DateTime, new List<ICriteriaItem>()
 				{
 					new CriteriaItemSimple(DataType.DateTime, "2020-01-01"),
 					new CriteriaItemSimple(DataType.DateTime, "2020-01-02")
-				}
-		};
+				});
+			_dateTimeCriteriaItemCompoundJson = _dateTimeCriteriaItemCompound.Serialize();
 
-		private string _booleanCriteriaItemCompoundJson = "{\"$type\":\"Criteria.CriteriaItems.CriteriaItemCompound, Criteria\",\"DataType\":3,\"Value\":\"((true),(false))\",\"CriteriaItems\":[{\"$type\":\"Criteria.CriteriaItems.CriteriaItemSimple, Criteria\",\"DataType\":3,\"Value\":\"true\"},{\"$type\":\"Criteria.CriteriaItems.CriteriaItemSimple, Criteria\",\"DataType\":3,\"Value\":\"false\"}]}";
-		private CriteriaItemCompound _booleanCriteriaItemCompound = new CriteriaItemCompound()
-		{
-			DataType = DataType.Boolean,
-			CriteriaItems = new List<ICriteriaItem>()
+			_booleanCriteriaItemCompound = new CriteriaItemCompound(DataType.Boolean, new List<ICriteriaItem>()
 				{
 					new CriteriaItemSimple(DataType.Boolean, "true"),
 					new CriteriaItemSimple(DataType.Boolean, "false")
-				}
-		};
+				});
+			_booleanCriteriaItemCompoundJson = _booleanCriteriaItemCompound.Serialize();
+		}
 
 		//************************************************************************************
 		// constructor tests
@@ -208,25 +199,17 @@ namespace Criteria.CriteriaItems.Tests
 		[Fact()]
 		public void Equal_EqualObjects()
 		{
-			var a = new CriteriaItemCompound()
-			{
-				DataType = DataType.Numeric,
-				CriteriaItems = new List<ICriteriaItem>()
+			var a = new CriteriaItemCompound(DataType.Numeric, new List<ICriteriaItem>()
 				{
 					new CriteriaItemSimple(DataType.Numeric, "1"),
 					new CriteriaItemSimple(DataType.Numeric, "2")
-				}
-			};
+				});
 
-			var b = new CriteriaItemCompound()
-			{
-				DataType = DataType.Numeric,
-				CriteriaItems = new List<ICriteriaItem>()
+			var b = new CriteriaItemCompound(DataType.Numeric, new List<ICriteriaItem>()
 				{
 					new CriteriaItemSimple(DataType.Numeric, "1"),
 					new CriteriaItemSimple(DataType.Numeric, "2")
-				}
-			};
+				});
 
 			Assert.Equal(a, b);
 		}
@@ -234,26 +217,18 @@ namespace Criteria.CriteriaItems.Tests
 		[Fact()]
 		public void Equal_NotEqualObjects()
 		{
-			var a = new CriteriaItemCompound()
-			{
-				DataType = DataType.Numeric,
-				CriteriaItems = new List<ICriteriaItem>()
+			var a = new CriteriaItemCompound(DataType.Numeric, new List<ICriteriaItem>()
 				{
 					new CriteriaItemSimple(DataType.Numeric, "1"),
 					new CriteriaItemSimple(DataType.Numeric, "2")
-				}
-			};
+				});
 
-			var b = new CriteriaItemCompound()
-			{
-				DataType = DataType.Numeric,
-				CriteriaItems = new List<ICriteriaItem>()
+			var b = new CriteriaItemCompound(DataType.Numeric, new List<ICriteriaItem>()
 				{
 					new CriteriaItemSimple(DataType.Numeric, "1"),
 					new CriteriaItemSimple(DataType.Numeric, "2"),
 					new CriteriaItemSimple(DataType.Numeric, "3"),
-				}
-			};
+				});
 
 			Assert.NotEqual(a, b);
 		}

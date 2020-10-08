@@ -1,34 +1,17 @@
 {
-	"$type": "Criteria.CriteriaItems.CompoundCriteriaItem, Criteria",
+	"CriteriaItemType": "compound",
 	"DataType": 0,
-	"Value": "(1),(2),((3),(4))",
+	"Value": "((1),(2))",
 	"CriteriaItems": [
 		{
-			"$type": "Criteria.CriteriaItems.SimpleCriteriaItem, Criteria",
+			"CriteriaItemType": "simple",
 			"DataType": 0,
 			"Value": "1"
 		},
 		{
-			"$type": "Criteria.CriteriaItems.SimpleCriteriaItem, Criteria",
+			"CriteriaItemType": "simple",
 			"DataType": 0,
 			"Value": "2"
-		},
-		{
-			"$type": "Criteria.CriteriaItems.CompoundCriteriaItem, Criteria",
-			"DataType": 0,
-			"Value": "(3),(4)",
-			"CriteriaItems": [
-				{
-					"$type": "Criteria.CriteriaItems.SimpleCriteriaItem, Criteria",
-					"DataType": 0,
-					"Value": "3"
-				},
-				{
-					"$type": "Criteria.CriteriaItems.SimpleCriteriaItem, Criteria",
-					"DataType": 0,
-					"Value": "4"
-				}
-			]
 		}
 	]
 }

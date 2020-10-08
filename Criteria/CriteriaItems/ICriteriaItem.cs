@@ -9,6 +9,8 @@ namespace Criteria
 {
 	public interface ICriteriaItem
 	{
+		string CriteriaItemType { get; }
+
 		DataType DataType { get; set; }
 		string Value { get; }
 
