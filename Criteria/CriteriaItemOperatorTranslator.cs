@@ -13,6 +13,7 @@ namespace Criteria
 		static CriteriaItemOperatorTranslator()
 		{
 			// get criteriaItemOperators from DB
+			// TODO make the list of criteriaItemOperators read in from a database
 			var criteriaItemOperators = new List<CriteriaItemOperator>
 			{
 				new CriteriaItemOperator("Equal", "{leftSide} = {rightSide}", "{leftSide} is equal to {rightSide}"),
