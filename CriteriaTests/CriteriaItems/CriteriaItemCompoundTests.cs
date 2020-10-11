@@ -40,7 +40,7 @@ namespace Criteria.CriteriaItems.Tests
 					new CriteriaItemSimple(DataType.Numeric, "2"),
 					new CriteriaItemCompound()
 					{
-						DataType = DataType.Numeric,
+						ReturnDataType = DataType.Numeric,
 						CriteriaItems = new List<ICriteriaItem>()
 						{
 							new CriteriaItemSimple(DataType.Numeric, "3"),
@@ -63,7 +63,7 @@ namespace Criteria.CriteriaItems.Tests
 					new CriteriaItemSimple(DataType.String, "Test2"),
 					new CriteriaItemCompound()
 						{
-							DataType = DataType.String,
+							ReturnDataType = DataType.String,
 							CriteriaItems = new List<ICriteriaItem>()
 								{
 									new CriteriaItemSimple(DataType.String, "Test3"),

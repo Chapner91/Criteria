@@ -16,9 +16,11 @@ namespace Criteria.CriteriaItems
 	{
 		private string _value;
 
+		[JsonProperty(PropertyName = "CriteriaItemType")]
 		public string CriteriaItemType => "simple";
+
 		[JsonProperty(PropertyName = "DataType")]
-		public DataType DataType { get; set; }
+		public DataType ReturnDataType { get; set; }
 
 		[JsonProperty(PropertyName = "Value")]
 		public string Value
@@ -32,7 +34,39 @@ namespace Criteria.CriteriaItems
 				} 
 				else
 				{
-					throw new CriteriaItemTypeMismatchException(DataType, value);
+					throw new CriteriaItemTypeMismatchException(ReturnDataType, value);
+				}
+			}
+		}
+
+		[JsonIgnore]
+		public string SQLValue
+		{
+			get
+			{
+				if(ReturnDataType = DataType.String && IsLiteral = true)
+				{
+					return $"'{Value}'";
+				} 
+				else
+				{
+					return Value;
+				}
+			}
+		}
+		
+		[JsonIgnore]
+		public string EnglishValue
+		{
+			get
+			{
+				if (ReturnDataType = DataType.String && IsLiteral = true)
+				{
+					return $"\"{Value}\"";
+				}
+				else
+				{
+					return Value;
 				}
 			}
 		}
@@ -47,13 +81,13 @@ namespace Criteria.CriteriaItems
 		{
 			CriteriaItemSimple criteriaItemFromJson = Deserialize(criteriaItemJson);
 
-			this.DataType = criteriaItemFromJson.DataType;
+			this.ReturnDataType = criteriaItemFromJson.ReturnDataType;
 			this.Value = criteriaItemFromJson.Value;
 		}
 
 		public CriteriaItemSimple(DataType dataType, string value)
 		{
-			this.DataType = dataType;
+			this.ReturnDataType = dataType;
 			this.Value = value;
 		}
 
@@ -80,14 +114,14 @@ namespace Criteria.CriteriaItems
 			}
 			else
 			{
-				return (this.DataType == that.DataType && this.Value == that.Value);
+				return (this.ReturnDataType == that.ReturnDataType && this.Value == that.Value);
 			}
 		}
 
 		public override int GetHashCode()
 		{
 			var hashCode = -1382053921;
-			hashCode = hashCode * -1521134295 + DataType.GetHashCode();
+			hashCode = hashCode * -1521134295 + ReturnDataType.GetHashCode();
 			hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Value);
 			return hashCode;
 		}
@@ -108,22 +142,22 @@ namespace Criteria.CriteriaItems
 
 		private bool ValueIsCorrectDataType(string value)
 		{
-			if(DataType == DataType.DateTime)
+			if(ReturnDataType == DataType.DateTime)
 			{
 				DateTime output;
 				return DateTime.TryParse(value, out output);
 			}
-			else if (DataType == DataType.Numeric)
+			else if (ReturnDataType == DataType.Numeric)
 			{
 				double output;
 				return Double.TryParse(value, out output);
 			}
-			else if (DataType == DataType.Boolean)
+			else if (ReturnDataType == DataType.Boolean)
 			{
 				bool output;
 				return Boolean.TryParse(value, out output);
 			}
-			else if (DataType == DataType.String)
+			else if (ReturnDataType == DataType.String)
 			{
 				return true;
 			}

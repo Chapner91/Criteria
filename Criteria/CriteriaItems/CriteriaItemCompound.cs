@@ -14,7 +14,9 @@ namespace Criteria.CriteriaItems
 	public class CriteriaItemCompound : ICriteriaItem
 	{
 		public string CriteriaItemType => "compound";
-		public DataType DataType { get; set; }
+		public DataType ReturnDataType { get; set; }
+
+		[JsonIgnore]
 		public string Value
 		{
 			get
@@ -35,6 +37,11 @@ namespace Criteria.CriteriaItems
 			}
 		}
 
+		[JsonIgnore]
+		public string SQLValue => Value;
+		[JsonIgnore]
+		public string EnglishValue => Value;
+
 		private List<ICriteriaItem> _criteriaItems = new List<ICriteriaItem>();
 
 		[JsonConverter(typeof(ICriteriaItemListConverter))]
@@ -47,7 +54,7 @@ namespace Criteria.CriteriaItems
 				{
 					if (!ChildIsCorrectDataType(criteriaItem))
 					{
-						throw new CriteriaItemTypeMismatchException(DataType, criteriaItem);
+						throw new CriteriaItemTypeMismatchException(ReturnDataType, criteriaItem);
 					}
 				}
 				_criteriaItems = value;
@@ -63,13 +70,13 @@ namespace Criteria.CriteriaItems
 		public CriteriaItemCompound(string criteriaItemJson)
 		{
 			CriteriaItemCompound that = Deserialize(criteriaItemJson);
-			this.DataType = that.DataType;
+			this.ReturnDataType = that.ReturnDataType;
 			this.CriteriaItems = that.CriteriaItems;
 		}
 
 		public CriteriaItemCompound(DataType dataType, List<ICriteriaItem> criteriaItems)
 		{
-			this.DataType = dataType;
+			this.ReturnDataType = dataType;
 			this.CriteriaItems = criteriaItems;
 		}
 
@@ -98,7 +105,7 @@ namespace Criteria.CriteriaItems
 			{
 				return 
 				(
-					this.DataType == that.DataType && 
+					this.ReturnDataType == that.ReturnDataType && 
 					(
 						this.CriteriaItems.All(that.CriteriaItems.Contains) && 
 						that.CriteriaItems.All(this.CriteriaItems.Contains)
@@ -110,7 +117,7 @@ namespace Criteria.CriteriaItems
 		public override int GetHashCode()
 		{
 			var hashCode = 1365839669;
-			hashCode = hashCode * -1521134295 + DataType.GetHashCode();
+			hashCode = hashCode * -1521134295 + ReturnDataType.GetHashCode();
 			hashCode = hashCode * -1521134295 + EqualityComparer<List<ICriteriaItem>>.Default.GetHashCode(CriteriaItems);
 			return hashCode;
 		}
@@ -123,7 +130,7 @@ namespace Criteria.CriteriaItems
 			}
 			else
 			{
-				throw new CriteriaItemTypeMismatchException(DataType, criteriaItem);
+				throw new CriteriaItemTypeMismatchException(ReturnDataType, criteriaItem);
 			}
 		}
 
@@ -143,7 +150,7 @@ namespace Criteria.CriteriaItems
 
 		private bool ChildIsCorrectDataType(ICriteriaItem criteriaItem)
 		{
-			if(criteriaItem.DataType == DataType)
+			if(criteriaItem.ReturnDataType == ReturnDataType)
 			{
 				return true;
 			}

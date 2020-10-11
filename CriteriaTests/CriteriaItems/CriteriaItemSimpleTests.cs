@@ -45,6 +45,54 @@ namespace Criteria.CriteriaItems.Tests
 			Assert.Equal(expected, actual);
 		}
 
+
+		//************************************************************************************
+		// property tests
+		//************************************************************************************
+		[Fact()]
+		public void CriteriaItemSimple_Value()
+		{
+			var target = _BasicStringCriteriaItemSimple;
+
+			var expected = "Test";
+			var actual = target.Value;
+
+			Assert.Equal(expected, actual);
+		}
+
+		[Fact()]
+		public void CriteriaItemSimple_ReturnDataType()
+		{
+			var target = _BasicStringCriteriaItemSimple;
+
+			var expected = DataType.String;
+			var actual = target.ReturnDataType;
+
+			Assert.Equal(expected, actual);
+		}
+
+		[Fact()]
+		public void CriteriaItemSimple_SQLValue()
+		{
+			var target = _BasicStringCriteriaItemSimple;
+
+			var expected = "'Test'";
+			var actual = target.SQLValue;
+
+			Assert.Equal(expected, actual);
+		}
+
+		[Fact()]
+		public void CriteriaItemSimple_EnglishValue()
+		{
+			var target = _BasicStringCriteriaItemSimple;
+
+			var expected = "\"Test\"";
+			var actual = target.EnglishValue;
+
+			Assert.Equal(expected, actual);
+		}
+
 		//************************************************************************************
 		// public method tests
 		//************************************************************************************
@@ -54,12 +102,12 @@ namespace Criteria.CriteriaItems.Tests
 		{
 			var a = new CriteriaItemSimple()
 			{
-				DataType = DataType.String,
+				ReturnDataType = DataType.String,
 				Value = "Test"
 			};
 			var b = new CriteriaItemSimple()
 			{
-				DataType = DataType.String,
+				ReturnDataType = DataType.String,
 				Value = "Test"
 			};
 
@@ -71,12 +119,12 @@ namespace Criteria.CriteriaItems.Tests
 		{
 			var a = new CriteriaItemSimple()
 			{
-				DataType = DataType.String,
+				ReturnDataType = DataType.String,
 				Value = "Test"
 			};
 			var b = new CriteriaItemSimple()
 			{
-				DataType = DataType.String,
+				ReturnDataType = DataType.String,
 				Value = "Test1"
 			};
 
@@ -88,7 +136,7 @@ namespace Criteria.CriteriaItems.Tests
 		{
 			var target = new CriteriaItemSimple()
 			{
-				DataType = DataType.String,
+				ReturnDataType = DataType.String,
 				Value = "Test"
 			};
 
@@ -107,7 +155,7 @@ namespace Criteria.CriteriaItems.Tests
 		{
 			var target = new CriteriaItemSimple()
 			{
-				DataType = DataType.Numeric,
+				ReturnDataType = DataType.Numeric,
 				Value = "1"
 			};
 
@@ -119,7 +167,7 @@ namespace Criteria.CriteriaItems.Tests
 		{
 			var target = new CriteriaItemSimple()
 			{
-				DataType = DataType.Numeric,
+				ReturnDataType = DataType.Numeric,
 				Value = "1"
 			};
 

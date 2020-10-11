@@ -8,8 +8,8 @@ using Criteria.Enums;
 using Criteria.JsonConverters;
 using Newtonsoft.Json;
 
-namespace Criteria.CriteriaItems
-{
+//namespace Criteria.CriteriaItems
+//{
 
 
 	//	Date functions 
@@ -50,12 +50,12 @@ namespace Criteria.CriteriaItems
 	//Nullif(ICriteriaItem ExpressionToCheck, ICriteriaItem ExpressionToCheckFor)
 
 
-
+	/*
 	[JsonConverter(typeof(ICriteriaItemConverter))]
 	class CriteriaItemFunction : ICriteriaItem
 	{
 		public string CriteriaItemType => "function";
-		public DataType DataType { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+		public DataType ReturnDataType { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 		public string Value => throw new NotImplementedException();
 
 
@@ -71,7 +71,7 @@ namespace Criteria.CriteriaItems
 				{
 					if (!ChildIsCorrectDataType(criteriaItem))
 					{
-						throw new CriteriaItemTypeMismatchException(DataType, criteriaItem);
+						throw new CriteriaItemTypeMismatchException(ReturnDataType, criteriaItem);
 					}
 				}
 				_criteriaItems = value;
@@ -106,7 +106,7 @@ namespace Criteria.CriteriaItems
 
 		private bool ChildIsCorrectDataType(ICriteriaItem criteriaItem)
 		{
-			if (criteriaItem.DataType == DataType)
+			if (criteriaItem.ReturnDataType == ReturnDataType)
 			{
 				return true;
 			}
@@ -117,3 +117,4 @@ namespace Criteria.CriteriaItems
 		}
 	}
 }
+*/

@@ -11,8 +11,10 @@ namespace Criteria
 	{
 		string CriteriaItemType { get; }
 
-		DataType DataType { get; set; }
+		DataType ReturnDataType { get; set; }
 		string Value { get; }
+		string SQLValue { get; }
+		string EnglishValue { get; }
 
 		string Serialize();
 		//string Deserialize();
