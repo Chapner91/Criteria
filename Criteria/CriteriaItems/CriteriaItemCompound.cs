@@ -144,6 +144,47 @@ namespace Criteria.CriteriaItems
 			return JsonConvert.SerializeObject(this, settings);
 		}
 
+		public void AddCriteriaItem(ICriteriaItem criteriaItem)
+		{
+			if (ValueIsCorrectDataType(criteriaItem))
+			{
+				_criteriaItems.Add(criteriaItem);
+			}
+			else
+			{
+				throw new CriteriaItemTypeMismatchException(ReturnDataType, criteriaItem);
+			}
+		}
+
+		public void AddCriteriaItem(int index, ICriteriaItem criteriaItem)
+		{
+			if (ValueIsCorrectDataType(criteriaItem))
+			{
+				_criteriaItems.Insert(index, criteriaItem);
+			}
+			else
+			{
+				throw new CriteriaItemTypeMismatchException(ReturnDataType, criteriaItem);
+			}
+		}
+
+		public void RemoveCriteriaItem(Guid criteriaItemID)
+		{
+			while(_criteriaItems.Exists(x => x.CriteriaItemID == criteriaItemID))
+			{
+				int index = _criteriaItems.FindIndex(x => x.CriteriaItemID == criteriaItemID);
+				_criteriaItems.RemoveAt(index);
+			}
+		}
+
+		public void RemoveCriteriaItem(ICriteriaItem criteriaItem)
+		{
+			while(_criteriaItems.Contains(criteriaItem))
+			{
+				_criteriaItems.Remove(criteriaItem);
+			}
+		}
+
 		public override bool Equals(object obj)
 		{
 			var that = obj as CriteriaItemCompound;
@@ -153,13 +194,13 @@ namespace Criteria.CriteriaItems
 			}
 			else
 			{
-				return 
+				return
 				(
 					this.CriteriaItemID == that.CriteriaItemID &&
 					this.ReturnDataType == that.ReturnDataType &&
 					(
-						this.CriteriaItems.All(that.CriteriaItems.Contains) && 
-						that.CriteriaItems.All(this.CriteriaItems.Contains)
+						this.CriteriaItems.Count == that.CriteriaItems.Count() &&
+						this.CriteriaItems.SequenceEqual(that.CriteriaItems) 
 					)
 				);
 			}
@@ -173,17 +214,6 @@ namespace Criteria.CriteriaItems
 			return hashCode;
 		}
 
-		public void AddCriteriaItem(ICriteriaItem criteriaItem)
-		{
-			if (ValueIsCorrectDataType(criteriaItem))
-			{
-				_criteriaItems.Add(criteriaItem);
-			}
-			else
-			{
-				throw new CriteriaItemTypeMismatchException(ReturnDataType, criteriaItem);
-			}
-		}
 
 		//*****************************************************************************
 		// ******** PRIVATE METHODS

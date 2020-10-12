@@ -165,28 +165,35 @@ namespace Criteria.CriteriaItems
 
 		private bool ValueIsCorrectDataType(string value)
 		{
-			if(ReturnDataType == DataType.DateTime)
+			if(IsValueLiteral)
 			{
-				DateTime output;
-				return DateTime.TryParse(value, out output);
-			}
-			else if (ReturnDataType == DataType.Numeric)
-			{
-				double output;
-				return Double.TryParse(value, out output);
-			}
-			else if (ReturnDataType == DataType.Boolean)
-			{
-				bool output;
-				return Boolean.TryParse(value, out output);
-			}
-			else if (ReturnDataType == DataType.String)
-			{
-				return true;
+				if (ReturnDataType == DataType.DateTime)
+				{
+					DateTime output;
+					return DateTime.TryParse(value, out output);
+				}
+				else if (ReturnDataType == DataType.Numeric)
+				{
+					double output;
+					return Double.TryParse(value, out output);
+				}
+				else if (ReturnDataType == DataType.Boolean)
+				{
+					bool output;
+					return Boolean.TryParse(value, out output);
+				}
+				else if (ReturnDataType == DataType.String)
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
 			}
 			else
 			{
-				return false;
+				return true;
 			}
 		}
 	}

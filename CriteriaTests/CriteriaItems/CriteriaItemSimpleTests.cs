@@ -63,6 +63,7 @@ namespace Criteria.CriteriaItems.Tests
 		//************************************************************************************
 		// property tests
 		//************************************************************************************
+
 		[Fact()]
 		public void CriteriaItemSimple_Value()
 		{
@@ -202,6 +203,37 @@ namespace Criteria.CriteriaItems.Tests
 		}
 
 		[Fact()]
+		public void SetValue_NumericTypeAllowsStringValueIfNotLiteral()
+		{
+			var target = new CriteriaItemSimple(DataType.Numeric, "1", true);
+			try
+			{
+				target.IsValueLiteral = false;
+				target.Value = "Test";
+			}
+			catch (CriteriaItemTypeMismatchException ex)
+			{
+
+			}
+
+			Assert.True(target.Value == "Test");
+		}
+
+		[Fact()]
+		public void SetValue_NumericTypeDoesNotAllowStringValueIfLiteral()
+		{
+			var target = new CriteriaItemSimple(DataType.Numeric, "1", true);
+			Assert.Throws<CriteriaItemTypeMismatchException>(() => target.Value = "Test");
+		}
+
+		[Fact()]
+		public void SetValue_BooleanTypeDoesNotAllowStringValueIfLiteral()
+		{
+			var target = new CriteriaItemSimple(DataType.Boolean, "true", true);
+			Assert.Throws<CriteriaItemTypeMismatchException>(() => target.Value = "Test");
+		}
+
+		[Fact()]
 		public void SetValue_DoesMatchDataType()
 		{
 			var target = new CriteriaItemSimple(DataType.Numeric, "1", true);
@@ -217,5 +249,7 @@ namespace Criteria.CriteriaItems.Tests
 
 			Assert.True(target.Value == "2");
 		}
+
+
 	}
 }
