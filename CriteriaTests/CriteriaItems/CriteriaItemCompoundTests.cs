@@ -402,7 +402,7 @@ namespace Criteria.CriteriaItems.Tests
 			actual.AddCriteriaItem(0, new CriteriaItemSimple(_CommonGuidC, DataType.Numeric, "0", true));
 
 			Assert.True(
-				actual.CriteriaItems.Count == expected.CriteriaItems.Count &&
+				actual.CriteriaItems.Count() == expected.CriteriaItems.Count() &&
 				actual.CriteriaItems.SequenceEqual(expected.CriteriaItems)
 				);
 		}
@@ -427,7 +427,7 @@ namespace Criteria.CriteriaItems.Tests
 			actual.AddCriteriaItem(1, new CriteriaItemSimple(_CommonGuidC, DataType.Numeric, "0", true));
 
 			Assert.True(
-				actual.CriteriaItems.Count == expected.CriteriaItems.Count &&
+				actual.CriteriaItems.Count() == expected.CriteriaItems.Count() &&
 				actual.CriteriaItems.SequenceEqual(expected.CriteriaItems)
 				);
 		}
@@ -451,7 +451,7 @@ namespace Criteria.CriteriaItems.Tests
 			actual.RemoveCriteriaItem(_CommonGuidB);
 
 			Assert.True(
-				actual.CriteriaItems.Count == expected.CriteriaItems.Count &&
+				actual.CriteriaItems.Count() == expected.CriteriaItems.Count() &&
 				actual.CriteriaItems.SequenceEqual(expected.CriteriaItems)
 				);
 		}
@@ -476,7 +476,7 @@ namespace Criteria.CriteriaItems.Tests
 			actual.RemoveCriteriaItem(Guid.NewGuid());
 
 			Assert.True(
-				actual.CriteriaItems.Count == expected.CriteriaItems.Count &&
+				actual.CriteriaItems.Count() == expected.CriteriaItems.Count() &&
 				actual.CriteriaItems.SequenceEqual(expected.CriteriaItems)
 				);
 		}
@@ -501,7 +501,7 @@ namespace Criteria.CriteriaItems.Tests
 			actual.RemoveCriteriaItem(_CommonGuidB);
 
 			Assert.True(
-				actual.CriteriaItems.Count == expected.CriteriaItems.Count &&
+				actual.CriteriaItems.Count() == expected.CriteriaItems.Count() &&
 				actual.CriteriaItems.SequenceEqual(expected.CriteriaItems)
 				);
 		}
@@ -525,7 +525,7 @@ namespace Criteria.CriteriaItems.Tests
 			actual.RemoveCriteriaItem(new CriteriaItemSimple(_CommonGuidB, DataType.Numeric, "2", true));
 
 			Assert.True(
-				actual.CriteriaItems.Count == expected.CriteriaItems.Count &&
+				actual.CriteriaItems.Count() == expected.CriteriaItems.Count() &&
 				actual.CriteriaItems.SequenceEqual(expected.CriteriaItems)
 				);
 		}
@@ -550,7 +550,7 @@ namespace Criteria.CriteriaItems.Tests
 			actual.RemoveCriteriaItem(new CriteriaItemSimple(_CommonGuidB, DataType.Numeric, "2", true));
 
 			Assert.True(
-				actual.CriteriaItems.Count == expected.CriteriaItems.Count &&
+				actual.CriteriaItems.Count() == expected.CriteriaItems.Count() &&
 				actual.CriteriaItems.SequenceEqual(expected.CriteriaItems)
 				);
 		}
@@ -575,7 +575,7 @@ namespace Criteria.CriteriaItems.Tests
 			actual.RemoveCriteriaItem(new CriteriaItemSimple(Guid.NewGuid(), DataType.Numeric, "2", true));
 
 			Assert.True(
-				actual.CriteriaItems.Count == expected.CriteriaItems.Count &&
+				actual.CriteriaItems.Count() == expected.CriteriaItems.Count() &&
 				actual.CriteriaItems.SequenceEqual(expected.CriteriaItems)
 				);
 		}

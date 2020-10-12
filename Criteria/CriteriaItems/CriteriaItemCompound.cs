@@ -23,7 +23,7 @@ namespace Criteria.CriteriaItems
 
 		[JsonConverter(typeof(ICriteriaItemListConverter))]
 		[JsonProperty(PropertyName = "CriteriaItems")]
-		public List<ICriteriaItem> CriteriaItems
+		public IEnumerable<ICriteriaItem> CriteriaItems
 		{
 			get => _criteriaItems;
 			set
@@ -35,7 +35,7 @@ namespace Criteria.CriteriaItems
 						throw new CriteriaItemTypeMismatchException(ReturnDataType, criteriaItem);
 					}
 				}
-				_criteriaItems = value;
+				_criteriaItems = value.ToList< ICriteriaItem>();
 			}
 		}
 
@@ -199,8 +199,8 @@ namespace Criteria.CriteriaItems
 					this.CriteriaItemID == that.CriteriaItemID &&
 					this.ReturnDataType == that.ReturnDataType &&
 					(
-						this.CriteriaItems.Count == that.CriteriaItems.Count() &&
-						this.CriteriaItems.SequenceEqual(that.CriteriaItems) 
+						this._criteriaItems.Count == that.CriteriaItems.Count() &&
+						this._criteriaItems.SequenceEqual(that.CriteriaItems) 
 					)
 				);
 			}
@@ -210,7 +210,7 @@ namespace Criteria.CriteriaItems
 		{
 			var hashCode = 1365839669;
 			hashCode = hashCode * -1521134295 + ReturnDataType.GetHashCode();
-			hashCode = hashCode * -1521134295 + EqualityComparer<List<ICriteriaItem>>.Default.GetHashCode(CriteriaItems);
+			hashCode = hashCode * -1521134295 + EqualityComparer<List<ICriteriaItem>>.Default.GetHashCode(_criteriaItems);
 			return hashCode;
 		}
 
