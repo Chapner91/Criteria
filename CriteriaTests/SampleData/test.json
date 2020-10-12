@@ -1,17 +1,2 @@
-{
-	"CriteriaItemType": "compound",
-	"DataType": 0,
-	"Value": "((1),(2))",
-	"CriteriaItems": [
-		{
-			"CriteriaItemType": "simple",
-			"DataType": 0,
-			"Value": "1"
-		},
-		{
-			"CriteriaItemType": "simple",
-			"DataType": 0,
-			"Value": "2"
-		}
-	]
-}
+"{\"CriteriaItemType\":\"simple\",\"DataType\":1,\"IsValueLiteral\":false,\"Value\":\"Test\"}"
+"{\"CriteriaItemType\":\"simple\",\"DataType\":1,\"IsValueLiteral\":true,\"Value\":\"Test\"}"

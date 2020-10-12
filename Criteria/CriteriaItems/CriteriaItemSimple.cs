@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Criteria.CriteriaItems
 {
-	[JsonConverter(typeof(ICriteriaItemConverter))]
+	//[JsonConverter(typeof(ICriteriaItemConverter))]
 	public class CriteriaItemSimple : ICriteriaItem
 	{
 		private string _value;
@@ -19,8 +19,14 @@ namespace Criteria.CriteriaItems
 		[JsonProperty(PropertyName = "CriteriaItemType")]
 		public string CriteriaItemType => "simple";
 
-		[JsonProperty(PropertyName = "DataType")]
+		[JsonProperty(PropertyName = "CriteriaItemID")]
+		public Guid CriteriaItemID { get; private set; }
+
+		[JsonProperty(PropertyName = "ReturnDataType")]
 		public DataType ReturnDataType { get; set; }
+
+		[JsonProperty(PropertyName = "IsValueLiteral")]
+		public bool IsValueLiteral { get; set; }
 
 		[JsonProperty(PropertyName = "Value")]
 		public string Value
@@ -44,7 +50,7 @@ namespace Criteria.CriteriaItems
 		{
 			get
 			{
-				if(ReturnDataType = DataType.String && IsLiteral = true)
+				if(ReturnDataType == DataType.String && IsValueLiteral == true)
 				{
 					return $"'{Value}'";
 				} 
@@ -60,7 +66,7 @@ namespace Criteria.CriteriaItems
 		{
 			get
 			{
-				if (ReturnDataType = DataType.String && IsLiteral = true)
+				if (ReturnDataType == DataType.String && IsValueLiteral == true)
 				{
 					return $"\"{Value}\"";
 				}
@@ -79,16 +85,28 @@ namespace Criteria.CriteriaItems
 
 		public CriteriaItemSimple(string criteriaItemJson)
 		{
-			CriteriaItemSimple criteriaItemFromJson = Deserialize(criteriaItemJson);
-
-			this.ReturnDataType = criteriaItemFromJson.ReturnDataType;
-			this.Value = criteriaItemFromJson.Value;
+			CriteriaItemSimple that = Deserialize(criteriaItemJson);
+			
+			this.CriteriaItemID = that.CriteriaItemID;
+			this.ReturnDataType = that.ReturnDataType;
+			this.Value = that.Value;
+			this.IsValueLiteral = that.IsValueLiteral;
 		}
 
-		public CriteriaItemSimple(DataType dataType, string value)
+		public CriteriaItemSimple(DataType dataType, string value, bool isValueLiteral)
 		{
+			this.CriteriaItemID = Guid.NewGuid();
 			this.ReturnDataType = dataType;
 			this.Value = value;
+			this.IsValueLiteral = isValueLiteral;
+		}
+
+		public CriteriaItemSimple(Guid criteriaItemID, DataType dataType, string value, bool isValueLiteral)
+		{
+			this.CriteriaItemID = criteriaItemID;
+			this.ReturnDataType = dataType;
+			this.Value = value;
+			this.IsValueLiteral = isValueLiteral;
 		}
 
 		//*****************************************************************************
@@ -114,7 +132,12 @@ namespace Criteria.CriteriaItems
 			}
 			else
 			{
-				return (this.ReturnDataType == that.ReturnDataType && this.Value == that.Value);
+				return (
+					this.ReturnDataType == that.ReturnDataType && 
+					this.Value == that.Value && 
+					this.CriteriaItemID == that.CriteriaItemID &&
+					this.IsValueLiteral == that.IsValueLiteral
+					);
 			}
 		}
 

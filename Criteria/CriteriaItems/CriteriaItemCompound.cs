@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Criteria.CriteriaExceptions;
 using Criteria.Enums;
 using Criteria.JsonConverters;
@@ -14,7 +12,32 @@ namespace Criteria.CriteriaItems
 	public class CriteriaItemCompound : ICriteriaItem
 	{
 		public string CriteriaItemType => "compound";
+
+		[JsonProperty(PropertyName = "CriteriaItemID")]
+		public Guid CriteriaItemID { get; private set; }
+
+		[JsonProperty(PropertyName = "ReturnDataType")]
 		public DataType ReturnDataType { get; set; }
+
+		private List<ICriteriaItem> _criteriaItems = new List<ICriteriaItem>();
+
+		[JsonConverter(typeof(ICriteriaItemListConverter))]
+		[JsonProperty(PropertyName = "CriteriaItems")]
+		public List<ICriteriaItem> CriteriaItems
+		{
+			get => _criteriaItems;
+			set
+			{
+				foreach (ICriteriaItem criteriaItem in value)
+				{
+					if (!ValueIsCorrectDataType(criteriaItem))
+					{
+						throw new CriteriaItemTypeMismatchException(ReturnDataType, criteriaItem);
+					}
+				}
+				_criteriaItems = value;
+			}
+		}
 
 		[JsonIgnore]
 		public string Value
@@ -29,7 +52,7 @@ namespace Criteria.CriteriaItems
 					{
 						result += ",";
 					}
-					result += $"({criteriaItem.Value})";
+					result += $"{criteriaItem.Value}";
 					i++;
 				}
 				result += ")";
@@ -38,26 +61,44 @@ namespace Criteria.CriteriaItems
 		}
 
 		[JsonIgnore]
-		public string SQLValue => Value;
-		[JsonIgnore]
-		public string EnglishValue => Value;
-
-		private List<ICriteriaItem> _criteriaItems = new List<ICriteriaItem>();
-
-		[JsonConverter(typeof(ICriteriaItemListConverter))]
-		public List<ICriteriaItem> CriteriaItems
+		public string SQLValue
 		{
-			get => _criteriaItems;
-			set
+			get
 			{
-				foreach (ICriteriaItem criteriaItem in value)
+				string result = "(";
+				int i = 0;
+				foreach (ICriteriaItem criteriaItem in CriteriaItems)
 				{
-					if (!ChildIsCorrectDataType(criteriaItem))
+					if (i > 0)
 					{
-						throw new CriteriaItemTypeMismatchException(ReturnDataType, criteriaItem);
+						result += ",";
 					}
+					result += $"{criteriaItem.SQLValue}";
+					i++;
 				}
-				_criteriaItems = value;
+				result += ")";
+				return result;
+			}
+		}
+
+		[JsonIgnore]
+		public string EnglishValue
+		{
+			get
+			{
+				string result = "(";
+				int i = 0;
+				foreach (ICriteriaItem criteriaItem in CriteriaItems)
+				{
+					if (i > 0)
+					{
+						result += ",";
+					}
+					result += $"{criteriaItem.EnglishValue}";
+					i++;
+				}
+				result += ")";
+				return result;
 			}
 		}
 
@@ -70,12 +111,21 @@ namespace Criteria.CriteriaItems
 		public CriteriaItemCompound(string criteriaItemJson)
 		{
 			CriteriaItemCompound that = Deserialize(criteriaItemJson);
+			this.CriteriaItemID = that.CriteriaItemID;
 			this.ReturnDataType = that.ReturnDataType;
 			this.CriteriaItems = that.CriteriaItems;
 		}
 
 		public CriteriaItemCompound(DataType dataType, List<ICriteriaItem> criteriaItems)
 		{
+			this.CriteriaItemID = Guid.NewGuid();
+			this.ReturnDataType = dataType;
+			this.CriteriaItems = criteriaItems;
+		}
+
+		public CriteriaItemCompound(Guid criteriaItemId, DataType dataType, List<ICriteriaItem> criteriaItems)
+		{
+			this.CriteriaItemID = criteriaItemId;
 			this.ReturnDataType = dataType;
 			this.CriteriaItems = criteriaItems;
 		}
@@ -105,7 +155,8 @@ namespace Criteria.CriteriaItems
 			{
 				return 
 				(
-					this.ReturnDataType == that.ReturnDataType && 
+					this.CriteriaItemID == that.CriteriaItemID &&
+					this.ReturnDataType == that.ReturnDataType &&
 					(
 						this.CriteriaItems.All(that.CriteriaItems.Contains) && 
 						that.CriteriaItems.All(this.CriteriaItems.Contains)
@@ -124,7 +175,7 @@ namespace Criteria.CriteriaItems
 
 		public void AddCriteriaItem(ICriteriaItem criteriaItem)
 		{
-			if (ChildIsCorrectDataType(criteriaItem))
+			if (ValueIsCorrectDataType(criteriaItem))
 			{
 				_criteriaItems.Add(criteriaItem);
 			}
@@ -148,7 +199,7 @@ namespace Criteria.CriteriaItems
 			return JsonConvert.DeserializeObject<CriteriaItemCompound>(criteriaItemJson, settings);
 		}
 
-		private bool ChildIsCorrectDataType(ICriteriaItem criteriaItem)
+		private bool ValueIsCorrectDataType(ICriteriaItem criteriaItem)
 		{
 			if(criteriaItem.ReturnDataType == ReturnDataType)
 			{

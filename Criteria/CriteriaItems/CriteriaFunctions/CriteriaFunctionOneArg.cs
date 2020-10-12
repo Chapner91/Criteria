@@ -11,6 +11,7 @@ namespace Criteria.CriteriaItems.CriteriaFunctions
 	{
 		public string CriteriaItemType => throw new NotImplementedException();
 		public string CriteriaItemFunctionType => throw new NotImplementedException();
+		public Guid CriteriaItemID => throw new NotImplementedException();
 		public DataType ReturnDataType { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
 		public string Value => throw new NotImplementedException();
@@ -18,6 +19,7 @@ namespace Criteria.CriteriaItems.CriteriaFunctions
 		public string EnglishValue => throw new NotImplementedException();
 
 		public List<DataType> AcceptedDataTypes => throw new NotImplementedException();
+
 
 		public string Serialize()
 		{

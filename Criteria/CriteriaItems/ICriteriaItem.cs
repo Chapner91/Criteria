@@ -11,6 +11,7 @@ namespace Criteria
 	{
 		string CriteriaItemType { get; }
 
+		Guid CriteriaItemID { get; }
 		DataType ReturnDataType { get; set; }
 		string Value { get; }
 		string SQLValue { get; }
