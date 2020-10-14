@@ -12,7 +12,8 @@ namespace Criteria
 		string CriteriaItemType { get; }
 
 		Guid CriteriaItemID { get; }
-		DataType ReturnDataType { get; set; }
+		DataType ReturnDataType { get; }
+		bool ReturnsSingleValue { get; }
 		string Value { get; }
 		string SQLValue { get; }
 		string EnglishValue { get; }

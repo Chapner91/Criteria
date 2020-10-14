@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Criteria.CriteriaItems
 {
-	//[JsonConverter(typeof(ICriteriaItemConverter))]
+	[JsonConverter(typeof(ICriteriaItemConverter))]
 	public class CriteriaItemSimple : ICriteriaItem
 	{
 		private string _value;
@@ -44,6 +44,9 @@ namespace Criteria.CriteriaItems
 				}
 			}
 		}
+
+		[JsonIgnore]
+		public bool ReturnsSingleValue => true;
 
 		[JsonIgnore]
 		public string SQLValue

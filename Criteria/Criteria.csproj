@@ -47,7 +47,10 @@
     <Compile Include="Criteria.cs" />
     <Compile Include="CriteriaExceptions\CriteriaItemException.cs" />
     <Compile Include="CriteriaGroup.cs" />
+    <Compile Include="CriteriaItems\CriteriaFunctions\Argument.cs" />
+    <Compile Include="CriteriaItems\CriteriaFunctions\CriteriaFunctionScheme.cs" />
     <Compile Include="CriteriaItems\CriteriaFunctions\CriteriaFunctionOneArg.cs" />
+    <Compile Include="CriteriaItems\CriteriaFunctions\CriteriaFunctionRepository.cs" />
     <Compile Include="CriteriaItems\CriteriaFunctions\ICriteriaFunction.cs" />
     <Compile Include="CriteriaItems\CriteriaItemCompound.cs" />
     <Compile Include="CriteriaItems\CriteriaFunctions\CriteriaItemFunction.cs" />

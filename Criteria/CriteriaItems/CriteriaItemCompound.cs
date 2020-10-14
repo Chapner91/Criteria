@@ -40,6 +40,9 @@ namespace Criteria.CriteriaItems
 		}
 
 		[JsonIgnore]
+		public bool ReturnsSingleValue => CriteriaItems.Count() > 1 ? false : true;
+
+		[JsonIgnore]
 		public string Value
 		{
 			get

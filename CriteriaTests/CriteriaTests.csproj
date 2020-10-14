@@ -66,6 +66,9 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="CriteriaItems\CriteriaFunctions\ArgumentTests.cs" />
+    <Compile Include="CriteriaItems\CriteriaFunctions\CriteriaFunctionSchemeTests.cs" />
+    <Compile Include="CriteriaItems\CriteriaFunctions\CriteriaFunctionOneArgumentTests.cs" />
     <Compile Include="CriteriaItems\CriteriaItemCompoundTests.cs" />
     <Compile Include="CriteriaItems\ICriteriaItemHelperTests.cs" />
     <Compile Include="CriteriaPredicateTests.cs" />
@@ -88,6 +91,7 @@
       <Name>Criteria</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

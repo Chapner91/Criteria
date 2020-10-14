@@ -10,6 +10,8 @@ namespace Criteria.CriteriaItems.CriteriaFunctions
 	public interface ICriteriaFunction : ICriteriaItem
 	{
 		string CriteriaItemFunctionType { get; }
-		List<DataType> AcceptedDataTypes { get; }  
+		string FunctionName { get; }
+		
+		//List<DataType> AcceptedDataTypes { get; }  
 	}
 }
