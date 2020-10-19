@@ -8,6 +8,7 @@ namespace Criteria.Enums
 {
 	public enum DataType
 	{
+		Null,
 		Numeric,
 		String,
 		DateTime,

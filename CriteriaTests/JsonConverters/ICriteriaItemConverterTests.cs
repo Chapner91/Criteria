@@ -22,12 +22,12 @@ namespace Criteria.JsonConverters.Tests
 
 		public ICriteriaItemConverterTests()
 		{
-			_criteriaItemSimple = new CriteriaItemSimple(DataType.String, "Test");
+			_criteriaItemSimple = new CriteriaItemSimple(DataType.String, "Test", true);
 			_criteriaItemSimpleJson = _criteriaItemSimple.Serialize();
 			_criteriaItemCompound = new CriteriaItemCompound(DataType.Numeric, new List<ICriteriaItem>()
 			{
-				new CriteriaItemSimple(DataType.Numeric, "1"),
-				new CriteriaItemSimple(DataType.Numeric, "2")
+				new CriteriaItemSimple(DataType.Numeric, "1", true),
+				new CriteriaItemSimple(DataType.Numeric, "2", true)
 			});
 			_criteriaItemCompoundJson = _criteriaItemCompound.Serialize();
 		}

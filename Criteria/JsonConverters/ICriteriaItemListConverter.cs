@@ -40,6 +40,5 @@ namespace Criteria.JsonConverters
 
 			return criteriaItems;
 		}
-
 	}
 }

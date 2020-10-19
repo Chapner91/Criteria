@@ -16,9 +16,17 @@ namespace Criteria.CriteriaItems
 	{
 		private string _value;
 
+		[JsonProperty(PropertyName = "CriteriaItemType")]
 		public string CriteriaItemType => "simple";
-		[JsonProperty(PropertyName = "DataType")]
-		public DataType DataType { get; set; }
+
+		[JsonProperty(PropertyName = "CriteriaItemID")]
+		public Guid CriteriaItemID { get; private set; }
+
+		[JsonProperty(PropertyName = "ReturnDataType")]
+		public DataType ReturnDataType { get; set; }
+
+		[JsonProperty(PropertyName = "IsValueLiteral")]
+		public bool IsValueLiteral { get; set; }
 
 		[JsonProperty(PropertyName = "Value")]
 		public string Value
@@ -32,7 +40,42 @@ namespace Criteria.CriteriaItems
 				} 
 				else
 				{
-					throw new CriteriaItemTypeMismatchException(DataType, value);
+					throw new CriteriaItemTypeMismatchException(ReturnDataType, value);
+				}
+			}
+		}
+
+		[JsonIgnore]
+		public bool ReturnsSingleValue => true;
+
+		[JsonIgnore]
+		public string SQLValue
+		{
+			get
+			{
+				if(ReturnDataType == DataType.String && IsValueLiteral == true)
+				{
+					return $"'{Value}'";
+				} 
+				else
+				{
+					return Value;
+				}
+			}
+		}
+		
+		[JsonIgnore]
+		public string EnglishValue
+		{
+			get
+			{
+				if (ReturnDataType == DataType.String && IsValueLiteral == true)
+				{
+					return $"\"{Value}\"";
+				}
+				else
+				{
+					return Value;
 				}
 			}
 		}
@@ -45,16 +88,28 @@ namespace Criteria.CriteriaItems
 
 		public CriteriaItemSimple(string criteriaItemJson)
 		{
-			CriteriaItemSimple criteriaItemFromJson = Deserialize(criteriaItemJson);
-
-			this.DataType = criteriaItemFromJson.DataType;
-			this.Value = criteriaItemFromJson.Value;
+			CriteriaItemSimple that = Deserialize(criteriaItemJson);
+			
+			this.CriteriaItemID = that.CriteriaItemID;
+			this.ReturnDataType = that.ReturnDataType;
+			this.Value = that.Value;
+			this.IsValueLiteral = that.IsValueLiteral;
 		}
 
-		public CriteriaItemSimple(DataType dataType, string value)
+		public CriteriaItemSimple(DataType dataType, string value, bool isValueLiteral)
 		{
-			this.DataType = dataType;
+			this.CriteriaItemID = Guid.NewGuid();
+			this.ReturnDataType = dataType;
 			this.Value = value;
+			this.IsValueLiteral = isValueLiteral;
+		}
+
+		public CriteriaItemSimple(Guid criteriaItemID, DataType dataType, string value, bool isValueLiteral) : this(dataType, value, isValueLiteral)
+		{
+			this.CriteriaItemID = criteriaItemID;
+			//this.ReturnDataType = dataType;
+			//this.Value = value;
+			//this.IsValueLiteral = isValueLiteral;
 		}
 
 		//*****************************************************************************
@@ -80,14 +135,19 @@ namespace Criteria.CriteriaItems
 			}
 			else
 			{
-				return (this.DataType == that.DataType && this.Value == that.Value);
+				return (
+					this.ReturnDataType == that.ReturnDataType && 
+					this.Value == that.Value && 
+					this.CriteriaItemID == that.CriteriaItemID &&
+					this.IsValueLiteral == that.IsValueLiteral
+					);
 			}
 		}
 
 		public override int GetHashCode()
 		{
 			var hashCode = -1382053921;
-			hashCode = hashCode * -1521134295 + DataType.GetHashCode();
+			hashCode = hashCode * -1521134295 + ReturnDataType.GetHashCode();
 			hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Value);
 			return hashCode;
 		}
@@ -108,28 +168,35 @@ namespace Criteria.CriteriaItems
 
 		private bool ValueIsCorrectDataType(string value)
 		{
-			if(DataType == DataType.DateTime)
+			if(IsValueLiteral)
 			{
-				DateTime output;
-				return DateTime.TryParse(value, out output);
-			}
-			else if (DataType == DataType.Numeric)
-			{
-				double output;
-				return Double.TryParse(value, out output);
-			}
-			else if (DataType == DataType.Boolean)
-			{
-				bool output;
-				return Boolean.TryParse(value, out output);
-			}
-			else if (DataType == DataType.String)
-			{
-				return true;
+				if (ReturnDataType == DataType.DateTime)
+				{
+					DateTime output;
+					return DateTime.TryParse(value, out output);
+				}
+				else if (ReturnDataType == DataType.Numeric)
+				{
+					double output;
+					return Double.TryParse(value, out output);
+				}
+				else if (ReturnDataType == DataType.Boolean)
+				{
+					bool output;
+					return Boolean.TryParse(value, out output);
+				}
+				else if (ReturnDataType == DataType.String)
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
 			}
 			else
 			{
-				return false;
+				return true;
 			}
 		}
 	}

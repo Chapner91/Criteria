@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Criteria.CriteriaItems.CriteriaFunctions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
