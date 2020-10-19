@@ -1,4 +1,6 @@
 ﻿using Criteria.Enums;
+using Criteria.JsonConverters;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,15 +9,28 @@ using System.Threading.Tasks;
 
 namespace Criteria.CriteriaItems.CriteriaFunctions
 {
-	public class Argument
+	[JsonConverter(typeof(IArgumentConverter))]
+	public class Argument : IArgument
 	{
+		[JsonProperty(PropertyName = "Name")]
 		public string Name { get; private set; }
+		[JsonProperty(PropertyName = "DataType")]
 		public DataType DataType { get; private set; }
+		[JsonProperty(PropertyName = "RequiresSingleValue")]
 		public bool RequiresSingleValue { get; private set; }
+		[JsonProperty(PropertyName = "ArgumentID")]
+		public Guid ArgumentID { get; private set; }
 
+		public Argument() { }
+
+		public Argument(Guid argumentID, string name, DataType dataType, bool requiresSingleValue) : this(name, dataType, requiresSingleValue)
+		{
+			this.ArgumentID = argumentID;
+		}
 
 		public Argument(string name, DataType dataType, bool requiresSingleValue)
 		{
+			this.ArgumentID = Guid.NewGuid();
 			Name = name;
 			DataType = dataType;
 			RequiresSingleValue = requiresSingleValue;
@@ -30,6 +45,7 @@ namespace Criteria.CriteriaItems.CriteriaFunctions
 				return false;
 			}
 			else if(
+				this.ArgumentID == that.ArgumentID &&
 				this.Name == that.Name && 
 				this.RequiresSingleValue == that.RequiresSingleValue &&
 				this.DataType == that.DataType

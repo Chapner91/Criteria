@@ -1,0 +1,86 @@
+{
+	"FunctionScheme": {
+		"CriteriaFunctionSchemeID": "e4d7e1c9-71ff-429b-9835-ee4bbe25e164",
+		"FunctionSchemeName": "Substring",
+		"Arguments": [
+			{
+				"Name": "expression",
+				"DataType": 2,
+				"RequiresSingleValue": true,
+				"ArgumentID": "8b776698-0a80-4773-b5d8-ab575d314b6b"
+			},
+			{
+				"Name": "startFromIndex",
+				"DataType": 1,
+				"RequiresSingleValue": true,
+				"ArgumentID": "fdf4e1c9-8762-4e7e-8372-23e618727c5f"
+			},
+			{
+				"Name": "lengthOfSubstring",
+				"DataType": 1,
+				"RequiresSingleValue": true,
+				"ArgumentID": "67c4d2c4-e613-4a61-a136-750126745baf"
+			}
+		],
+		"ReturnsSingleValue": true,
+		"ReturnDataType": 2,
+		"SQLTranslationString": "SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})",
+		"EnglishTranslationString": "Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}"
+	},
+	"ArgumentAssignments": [
+		{
+			"ArgumentAssignmentID": "fbc4c2ce-0f1e-4cf4-80fe-7ffa231c8052",
+			"Argument": {
+				"Name": "expression",
+				"DataType": 2,
+				"RequiresSingleValue": true,
+				"ArgumentID": "8b776698-0a80-4773-b5d8-ab575d314b6b"
+			},
+			"CriteriaItem": {
+				"CriteriaItemType": "simple",
+				"CriteriaItemID": "6bcafbb5-7326-4cf2-9a27-33d25ca7a11c",
+				"ReturnDataType": 2,
+				"IsValueLiteral": false,
+				"Value": "ExpressionColumnName"
+			}
+		},
+		{
+			"ArgumentAssignmentID": "c332141f-e073-41e6-bc49-c10fef25a8d7",
+			"Argument": {
+				"Name": "startFromIndex",
+				"DataType": 1,
+				"RequiresSingleValue": true,
+				"ArgumentID": "fdf4e1c9-8762-4e7e-8372-23e618727c5f"
+			},
+			"CriteriaItem": {
+				"CriteriaItemType": "simple",
+				"CriteriaItemID": "4ce7b8f3-3e16-4538-a1bb-1a03ca5d4c52",
+				"ReturnDataType": 1,
+				"IsValueLiteral": false,
+				"Value": "StartFromIndexColumnName"
+			}
+		},
+		{
+			"ArgumentAssignmentID": "1f468ecf-368e-44c7-b904-8fc23a705d56",
+			"Argument": {
+				"Name": "lengthOfSubstring",
+				"DataType": 1,
+				"RequiresSingleValue": true,
+				"ArgumentID": "67c4d2c4-e613-4a61-a136-750126745baf"
+			},
+			"CriteriaItem": {
+				"CriteriaItemType": "simple",
+				"CriteriaItemID": "2ed2192e-3243-42ae-907b-038871b79b1e",
+				"ReturnDataType": 1,
+				"IsValueLiteral": false,
+				"Value": "LengthOfSubstringColumnName"
+			}
+		}
+	],
+	"CriteriaItemType": "function",
+	"FunctionName": "substring",
+	"CriteriaItemID": "04d295e7-640c-4d83-bf0b-f6797954865e",
+	"SQLValue": "SUBSTRING(ExpressionColumnName, StartFromIndexColumnName, LengthOfSubstringColumnName)",
+	"EnglishValue": "Substring LengthOfSubstringColumnName characters from the StartFromIndexColumnName character of ExpressionColumnName"
+}
+

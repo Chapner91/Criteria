@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Criteria.CriteriaItems.CriteriaFunctions;
 
 namespace Criteria.CriteriaItems.Tests
 {
@@ -31,5 +32,13 @@ namespace Criteria.CriteriaItems.Tests
 			Assert.Equal(expected, actual);
 		}
 
+		[Fact()]
+		public void InstantiateCriteriaItemByType_Function()
+		{
+			var expected = new CriteriaItemFunction().GetType();
+			var actual = ICriteriaItemHelper.InstantiateCriteriaItemByType("function").GetType();
+
+			Assert.Equal(expected, actual);
+		}
 	}
 }

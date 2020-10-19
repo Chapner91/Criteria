@@ -104,12 +104,12 @@ namespace Criteria.CriteriaItems
 			this.IsValueLiteral = isValueLiteral;
 		}
 
-		public CriteriaItemSimple(Guid criteriaItemID, DataType dataType, string value, bool isValueLiteral)
+		public CriteriaItemSimple(Guid criteriaItemID, DataType dataType, string value, bool isValueLiteral) : this(dataType, value, isValueLiteral)
 		{
 			this.CriteriaItemID = criteriaItemID;
-			this.ReturnDataType = dataType;
-			this.Value = value;
-			this.IsValueLiteral = isValueLiteral;
+			//this.ReturnDataType = dataType;
+			//this.Value = value;
+			//this.IsValueLiteral = isValueLiteral;
 		}
 
 		//*****************************************************************************

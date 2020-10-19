@@ -185,27 +185,27 @@ namespace Criteria.CriteriaItems.Tests
 		// calculated property tests
 		//************************************************************************************
 
-		[Fact]
-		public void Value_CriteriaItemCompound()
-		{
-			var target = _numericCriteriaItemCompound;
+		//[Fact]
+		//public void Value_CriteriaItemCompound()
+		//{
+		//	var target = _numericCriteriaItemCompound;
 
-			var expected = "(1,2)";
-			var actual = target.Value;
+		//	var expected = "(1,2)";
+		//	var actual = target.Value;
 
-			Assert.Equal(expected, actual);
-		}
+		//	Assert.Equal(expected, actual);
+		//}
 
-		[Fact]
-		public void Value_NestedCriteriaItemCompound()
-		{
-			var target = _nestedNumericCriteriaItemCompound;
+		//[Fact]
+		//public void Value_NestedCriteriaItemCompound()
+		//{
+		//	var target = _nestedNumericCriteriaItemCompound;
 
-			var expected = "(1,2,(3,4))";
-			var actual = target.Value;
+		//	var expected = "(1,2,(3,4))";
+		//	var actual = target.Value;
 
-			Assert.Equal(expected, actual);
-		}
+		//	Assert.Equal(expected, actual);
+		//}
 
 		[Fact]
 		public void SQLValue_NestedCriteriaItemCompoundAllNonstringLiterals()

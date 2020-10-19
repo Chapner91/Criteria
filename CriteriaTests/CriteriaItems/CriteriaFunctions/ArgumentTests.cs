@@ -23,8 +23,9 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 		[Fact()]
 		public void Equal_EqualObjects()
 		{
-			var a = new Argument("expression", DataType.String, true);
-			var b = new Argument("expression", DataType.String, true);
+			var argumentID = System.Guid.NewGuid();
+			var a = new Argument(argumentID, "expression", DataType.String, true);
+			var b = new Argument(argumentID, "expression", DataType.String, true);
 			
 			Assert.Equal(a, b);
 		}
@@ -32,8 +33,9 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 		[Fact()]
 		public void NotEqual_DifferentDataTypes()
 		{
-			var a = new Argument("expression", DataType.Numeric, true);
-			var b = new Argument("expression", DataType.Boolean, true);
+			var argumentID = System.Guid.NewGuid();
+			var a = new Argument(argumentID, "expression", DataType.Numeric, true);
+			var b = new Argument(argumentID, "expression", DataType.Boolean, true);
 
 			Assert.NotEqual(a, b);
 		}
@@ -41,8 +43,18 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 		[Fact()]
 		public void NotEqual_DifferentSingleValue()
 		{
+			var argumentID = System.Guid.NewGuid();
+			var a = new Argument(argumentID, "expression", DataType.Numeric, true);
+			var b = new Argument(argumentID, "expression", DataType.Numeric, false);
+
+			Assert.NotEqual(a, b);
+		}
+
+		[Fact()]
+		public void NotEqual_DifferentArgumentID()
+		{
 			var a = new Argument("expression", DataType.Numeric, true);
-			var b = new Argument("expression", DataType.Boolean, false);
+			var b = new Argument("expression", DataType.Numeric, true);
 
 			Assert.NotEqual(a, b);
 		}

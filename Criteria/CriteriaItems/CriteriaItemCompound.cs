@@ -43,27 +43,6 @@ namespace Criteria.CriteriaItems
 		public bool ReturnsSingleValue => CriteriaItems.Count() > 1 ? false : true;
 
 		[JsonIgnore]
-		public string Value
-		{
-			get
-			{
-				string result = "(";
-				int i = 0;
-				foreach(ICriteriaItem criteriaItem in CriteriaItems)
-				{
-					if (i > 0)
-					{
-						result += ",";
-					}
-					result += $"{criteriaItem.Value}";
-					i++;
-				}
-				result += ")";
-				return result;
-			}
-		}
-
-		[JsonIgnore]
 		public string SQLValue
 		{
 			get
@@ -126,11 +105,11 @@ namespace Criteria.CriteriaItems
 			this.CriteriaItems = criteriaItems;
 		}
 
-		public CriteriaItemCompound(Guid criteriaItemId, DataType dataType, List<ICriteriaItem> criteriaItems)
+		public CriteriaItemCompound(Guid criteriaItemId, DataType dataType, List<ICriteriaItem> criteriaItems) : this(dataType, criteriaItems)
 		{
 			this.CriteriaItemID = criteriaItemId;
-			this.ReturnDataType = dataType;
-			this.CriteriaItems = criteriaItems;
+			//this.ReturnDataType = dataType;
+			//this.CriteriaItems = criteriaItems;
 		}
 
 		//*****************************************************************************

@@ -4,92 +4,88 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Criteria.CriteriaExceptions;
+using Criteria.CriteriaItems.CriteriaFunctions;
 using Criteria.Enums;
 using Criteria.JsonConverters;
 using Newtonsoft.Json;
 
-//namespace Criteria.CriteriaItems
-//{
+namespace Criteria.CriteriaItems.CriteriaFunctions
+{
 
-
-	//	Date functions 
-	//-------------------------------------------------------------------------------------
-	//DateAdd(enum interval, int increment, ICriteriaItem Date)
-	//DateDiff(enum interval, ICriteriaItem StartDate, ICriteriaItem EndDate)
-	//DateName(enum interval, ICriteriaItem Date)
-	//GetDate()
-	//Day(ICriteriaItem EndDate)
-	//Month(ICriteriaItem EndDate)
-	//Year(ICriteriaItem EndDate)
-
-	//	String functions
-	//-------------------------------------------------------------------------------------
-	//Left(CriteriaItemSimple, Int increment)
-	//Substring(CriteriaItemSimple, Int StartingIndex, Int Length)
-	//Len(CriteriaItemSimple)
-	//Lower(CriteriaItemSimple)
-	//Upper(CriteriaItemSimple)
-	//LTrim(CriteriaItemSimple)
-	//RTrim(CriteriaItemSimple)
-	//Trim(CriteriaItemSimple)
-	//Lpad(CriteriaItemSimple, char padding)
-	//RPad(CriteriaItemSimple, char padding)
-
-	//	Math Functions
-	//-------------------------------------------------------------------------------------
-	//ABS(CriteriaItemSimple)
-	//Ceiling(CriteriaItemSimple)
-	//Floor(CriteriaItemSimple)
-	//Round(CriteriaItemSimple, Int precision)
-
-	// General Functions
-	//-------------------------------------------------------------------------------------
-	//Concat(Ordered list of ICriteriaItems)
-	//Coalesce(Ordered list of ICriteriaItem)
-	//Isnull(ICriteriaItem ExpressionToCheck, ICriteriaItem Replacement)
-	//Nullif(ICriteriaItem ExpressionToCheck, ICriteriaItem ExpressionToCheckFor)
-
-
-	/*
 	[JsonConverter(typeof(ICriteriaItemConverter))]
-	class CriteriaItemFunction : ICriteriaItem
+	public class CriteriaItemFunction : ICriteriaItem
 	{
+		[JsonProperty(PropertyName = "CriteriaItemType")]
 		public string CriteriaItemType => "function";
-		public DataType ReturnDataType { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-		public string Value => throw new NotImplementedException();
 
-
-		private List<ICriteriaItem> _criteriaItems = new List<ICriteriaItem>();
-
-		[JsonConverter(typeof(ICriteriaItemListConverter))]
-		public List<ICriteriaItem> CriteriaItems
+		[JsonProperty(PropertyName = "FunctionScheme")]
+		[JsonConverter(typeof(ICriteriaFunctionSchemeConverter))]
+		private ICriteriaFunctionScheme _functionScheme;
+		[JsonProperty(PropertyName = "FunctionName")]
+		public string FunctionName { get; private set; }
+		[JsonProperty(PropertyName = "CriteriaItemID")]
+		public Guid CriteriaItemID { get; private set; }
+		[JsonIgnore]
+		public DataType ReturnDataType => _functionScheme.ReturnDataType;
+		[JsonIgnore]
+		public bool ReturnsSingleValue => _functionScheme.ReturnsSingleValue;
+		public string SQLValue
 		{
-			get => _criteriaItems;
-			set
+			get
 			{
-				foreach (ICriteriaItem criteriaItem in value)
+				string result = _functionScheme.SQLTranslationString;
+				foreach(ArgumentAssignment argumentAssignment in _argumentAssignments)
 				{
-					if (!ChildIsCorrectDataType(criteriaItem))
-					{
-						throw new CriteriaItemTypeMismatchException(ReturnDataType, criteriaItem);
-					}
+					string criteriaString = argumentAssignment.CriteriaItem == null ? "NULL" : argumentAssignment.CriteriaItem.SQLValue;
+					string translatorIndex = $"{{{argumentAssignment.Argument.Name}}}";
+					result = result.Replace($"{{{argumentAssignment.Argument.Name}}}", criteriaString);
 				}
-				_criteriaItems = value;
+				return result;
 			}
 		}
+		public string EnglishValue
+		{
+			get
+			{
+				string result = _functionScheme.EnglishTranslationString;
+				foreach (ArgumentAssignment argumentAssignment in _argumentAssignments)
+				{
+					string criteriaString = argumentAssignment.CriteriaItem == null ? "UNASSIGNED" : argumentAssignment.CriteriaItem.EnglishValue;
+					string translatorIndex = $"{{{argumentAssignment.Argument.Name}}}";
+					result = result.Replace($"{{{argumentAssignment.Argument.Name}}}", criteriaString);
+				}
+				return result;
+			}
+		}
+		[JsonProperty(PropertyName = "ArgumentAssignments")]
+		private List<ArgumentAssignment> _argumentAssignments = new List<ArgumentAssignment>();
+
+		[JsonIgnore]
+		public IEnumerable<ArgumentAssignment> ArgumentAssignments { get => _argumentAssignments; }
 
 
 		//*****************************************************************************
 		// ******** CONSTRUCTORS
 		//*****************************************************************************
 
+		public CriteriaItemFunction() { }
 
+		public CriteriaItemFunction(string functionName, ICriteriaFunctionScheme functionScheme)
+		{
+			this.CriteriaItemID = Guid.NewGuid();
+			this.FunctionName = functionName;
+			this._functionScheme = functionScheme;
 
+			foreach (Argument argument in _functionScheme.Arguments)
+			{
+				_argumentAssignments.Add(new ArgumentAssignment(argument));
+			}
+		}
 
-
-
-
-
+		public CriteriaItemFunction(Guid criteriaItemID, string functionName, ICriteriaFunctionScheme functionScheme) : this(functionName, functionScheme)
+		{
+			this.CriteriaItemID = criteriaItemID;
+		}
 
 		//*****************************************************************************
 		// ******** PUBLIC METHODS
@@ -97,24 +93,38 @@ using Newtonsoft.Json;
 
 		public string Serialize()
 		{
-			throw new NotImplementedException();
+			var settings = new JsonSerializerSettings()
+			{
+				//TypeNameHandling = TypeNameHandling.All
+			};
+
+			return JsonConvert.SerializeObject(this, settings);
+		}
+
+		public void AssignArgument(Guid argumentAssignmentID, ICriteriaItem criteriaItem)
+		{
+			var argumentAssignment = _argumentAssignments.Find(x => x.ArgumentAssignmentID == argumentAssignmentID);
+			argumentAssignment.CriteriaItem = criteriaItem;
+		}
+
+		public void AssignArgument(string argumentName, ICriteriaItem criteriaItem)
+		{
+			var argumentAssignment = _argumentAssignments.Find(x => x.Argument.Name == argumentName);
+			argumentAssignment.CriteriaItem = criteriaItem;
 		}
 
 		//*****************************************************************************
 		// ******** PRIVATE METHODS
 		//*****************************************************************************
 
-		private bool ChildIsCorrectDataType(ICriteriaItem criteriaItem)
+		public static CriteriaItemFunction Deserialize(string criteriaItemJson)
 		{
-			if (criteriaItem.ReturnDataType == ReturnDataType)
+			var settings = new JsonSerializerSettings()
 			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
+				//TypeNameHandling = TypeNameHandling.All
+			};
+
+			return JsonConvert.DeserializeObject<CriteriaItemFunction>(criteriaItemJson, settings);
 		}
 	}
 }
-*/

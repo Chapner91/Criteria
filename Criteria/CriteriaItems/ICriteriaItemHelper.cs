@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Criteria.CriteriaItems.CriteriaFunctions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,9 @@ namespace Criteria.CriteriaItems
 				case "compound":
 					criteriaItem = new CriteriaItemCompound();
 					break;
-				//case "function":
-				//	criteriaItem = new CriteriaItemFunction();
-				//	break;
+				case "function":
+					criteriaItem = new CriteriaItemFunction();
+					break;
 			}
 			return criteriaItem;
 		}
