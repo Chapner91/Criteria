@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Criteria.CriteriaItems.CriteriaFunctions
 {
-	public class ArgumentAssignment
+	public class ArgumentAssignment : IEquatable<ArgumentAssignment>
 	{
 		[JsonProperty(PropertyName = "ArgumentAssignmentID")]
 		public Guid ArgumentAssignmentID { get; }
@@ -66,6 +66,19 @@ namespace Criteria.CriteriaItems.CriteriaFunctions
 			return new ArgumentAssignment(Argument.Copy(), CriteriaItem.Copy());
 		}
 
+		public override bool Equals(object obj)
+		{
+			var that = obj as ArgumentAssignment;
+			if (that == null)
+			{
+				return false;
+			}
+			else
+			{
+				return (this.Argument.Equals(that.Argument) && this.CriteriaItem.Equals(that.CriteriaItem));
+			}
+		}
+
 		private bool ArgumentTypeMatchesCriteriaItemType(IArgument argument)
 		{
 			if(CriteriaItem == null)
@@ -94,6 +107,21 @@ namespace Criteria.CriteriaItems.CriteriaFunctions
 				else return false;
 			}
 			else return false;
+		}
+
+		public bool Equals(ArgumentAssignment that)
+		{
+			return that != null &&
+				   EqualityComparer<IArgument>.Default.Equals(Argument, that.Argument) &&
+				   EqualityComparer<ICriteriaItem>.Default.Equals(CriteriaItem, that.CriteriaItem);
+		}
+
+		public override int GetHashCode()
+		{
+			var hashCode = 1392270585;
+			hashCode = hashCode * -1521134295 + EqualityComparer<IArgument>.Default.GetHashCode(Argument);
+			hashCode = hashCode * -1521134295 + EqualityComparer<ICriteriaItem>.Default.GetHashCode(CriteriaItem);
+			return hashCode;
 		}
 	}
 }

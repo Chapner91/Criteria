@@ -252,17 +252,200 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 
 		//**********************************************************************
 		// Should be able to create deep distinct copies of them
+		// these tests ensure that the reference types are actually distinct, and not
+		// just a reference that is shared by the two resulting copies
+
+
+		[Fact]
+		public void Equal_EqualObjects()
+		{
+
+			var a = new CriteriaItemFunction("substring", 
+				new CriteriaFunctionScheme(
+					"Substring", 
+					new List<Argument>()
+					{
+						new Argument("expression", DataType.String, true),
+						new Argument("startFromIndex", DataType.Numeric, true),
+						new Argument("lengthOfSubstring", DataType.Numeric, true)
+					}, 
+					true, 
+					DataType.String, 
+					"SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})", 
+					"Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}")
+				);
+			a.AssignArgument("expression", new CriteriaItemSimple(DataType.String, "ExpressionColumnName", false));
+			a.AssignArgument("startFromIndex", new CriteriaItemSimple(DataType.Numeric, "StartFromIndexColumnName", false));
+			a.AssignArgument("lengthOfSubstring", new CriteriaItemSimple(DataType.Numeric, "LengthOfSubstringColumnName", false));
+
+			var b = new CriteriaItemFunction("substring",
+				new CriteriaFunctionScheme(
+					"Substring",
+					new List<Argument>()
+					{
+						new Argument("expression", DataType.String, true),
+						new Argument("startFromIndex", DataType.Numeric, true),
+						new Argument("lengthOfSubstring", DataType.Numeric, true)
+					},
+					true,
+					DataType.String,
+					"SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})",
+					"Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}")
+				);
+			b.AssignArgument("expression", new CriteriaItemSimple(DataType.String, "ExpressionColumnName", false));
+			b.AssignArgument("startFromIndex", new CriteriaItemSimple(DataType.Numeric, "StartFromIndexColumnName", false));
+			b.AssignArgument("lengthOfSubstring", new CriteriaItemSimple(DataType.Numeric, "LengthOfSubstringColumnName", false));
+
+			Assert.Equal(a, b);
+		}
+
+		[Fact]
+		public void Equal_ListItemOrderDifferent()
+		{
+
+			var a = new CriteriaItemFunction("substring",
+				new CriteriaFunctionScheme(
+					"Substring",
+					new List<Argument>()
+					{
+						new Argument("startFromIndex", DataType.Numeric, true),
+						new Argument("expression", DataType.String, true),
+						new Argument("lengthOfSubstring", DataType.Numeric, true)
+					},
+					true,
+					DataType.String,
+					"SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})",
+					"Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}")
+				);
+			a.AssignArgument("expression", new CriteriaItemSimple(DataType.String, "ExpressionColumnName", false));
+			a.AssignArgument("startFromIndex", new CriteriaItemSimple(DataType.Numeric, "StartFromIndexColumnName", false));
+			a.AssignArgument("lengthOfSubstring", new CriteriaItemSimple(DataType.Numeric, "LengthOfSubstringColumnName", false));
+
+			var b = new CriteriaItemFunction("substring",
+				new CriteriaFunctionScheme(
+					"Substring",
+					new List<Argument>()
+					{
+						new Argument("expression", DataType.String, true),
+						new Argument("startFromIndex", DataType.Numeric, true),
+						new Argument("lengthOfSubstring", DataType.Numeric, true)
+					},
+					true,
+					DataType.String,
+					"SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})",
+					"Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}")
+				);
+			b.AssignArgument("expression", new CriteriaItemSimple(DataType.String, "ExpressionColumnName", false));
+			b.AssignArgument("startFromIndex", new CriteriaItemSimple(DataType.Numeric, "StartFromIndexColumnName", false));
+			b.AssignArgument("lengthOfSubstring", new CriteriaItemSimple(DataType.Numeric, "LengthOfSubstringColumnName", false));
+
+			Assert.Equal(a, b);
+		}
+
+		[Fact]
+		public void NotEqual_FunctionName()
+		{
+
+			var a = new CriteriaItemFunction("Test",
+				new CriteriaFunctionScheme(
+					"Substring",
+					new List<Argument>()
+					{
+						new Argument("expression", DataType.String, true),
+						new Argument("startFromIndex", DataType.Numeric, true),
+						new Argument("lengthOfSubstring", DataType.Numeric, true)
+					},
+					true,
+					DataType.String,
+					"SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})",
+					"Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}")
+				);
+			a.AssignArgument("expression", new CriteriaItemSimple(DataType.String, "ExpressionColumnName", false));
+			a.AssignArgument("startFromIndex", new CriteriaItemSimple(DataType.Numeric, "StartFromIndexColumnName", false));
+			a.AssignArgument("lengthOfSubstring", new CriteriaItemSimple(DataType.Numeric, "LengthOfSubstringColumnName", false));
+
+			var b = new CriteriaItemFunction("substring",
+				new CriteriaFunctionScheme(
+					"Substring",
+					new List<Argument>()
+					{
+						new Argument("expression", DataType.String, true),
+						new Argument("startFromIndex", DataType.Numeric, true),
+						new Argument("lengthOfSubstring", DataType.Numeric, true)
+					},
+					true,
+					DataType.String,
+					"SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})",
+					"Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}")
+				);
+			b.AssignArgument("expression", new CriteriaItemSimple(DataType.String, "ExpressionColumnName", false));
+			b.AssignArgument("startFromIndex", new CriteriaItemSimple(DataType.Numeric, "StartFromIndexColumnName", false));
+			b.AssignArgument("lengthOfSubstring", new CriteriaItemSimple(DataType.Numeric, "LengthOfSubstringColumnName", false));
+
+			Assert.NotEqual(a, b);
+		}
+
+		[Fact]
+		public void NotEqual_ArgumentAssignments()
+		{
+
+			var a = new CriteriaItemFunction("substring",
+				new CriteriaFunctionScheme(
+					"Substring",
+					new List<Argument>()
+					{
+						new Argument("expression", DataType.String, true),
+						new Argument("startFromIndex", DataType.Numeric, true),
+						new Argument("lengthOfSubstring", DataType.Numeric, true)
+					},
+					true,
+					DataType.String,
+					"SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})",
+					"Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}")
+				);
+			a.AssignArgument("expression", new CriteriaItemSimple(DataType.String, "ExpressionColumnName", false));
+			a.AssignArgument("startFromIndex", new CriteriaItemSimple(DataType.Numeric, "StartFromIndexColumnName", false));
+			a.AssignArgument("lengthOfSubstring", new CriteriaItemSimple(DataType.Numeric, "TestColumnName", false));
+
+			var b = new CriteriaItemFunction("substring",
+				new CriteriaFunctionScheme(
+					"Substring",
+					new List<Argument>()
+					{
+						new Argument("expression", DataType.String, true),
+						new Argument("startFromIndex", DataType.Numeric, true),
+						new Argument("lengthOfSubstring", DataType.Numeric, true)
+					},
+					true,
+					DataType.String,
+					"SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})",
+					"Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}")
+				);
+			b.AssignArgument("expression", new CriteriaItemSimple(DataType.String, "ExpressionColumnName", false));
+			b.AssignArgument("startFromIndex", new CriteriaItemSimple(DataType.Numeric, "StartFromIndexColumnName", false));
+			b.AssignArgument("lengthOfSubstring", new CriteriaItemSimple(DataType.Numeric, "LengthOfSubstringColumnName", false));
+
+			Assert.NotEqual(a, b);
+		}
 
 		[Fact()]
 		public void Copy_CreatesAnEqualObject()
 		{
-			Assert.True(false, "This test is not implemented");
+			var a = _substringFunctionAssignedArguments;
+			var b = a.Copy();
+
+			Assert.Equal(a, b);
 		}
 
 		[Fact()]
 		public void Copy_CreatesADeepDistinctCopy()
 		{
-			Assert.True(false, "This test is not implemented");
+			var a = _substringFunctionAssignedArguments;
+			var b = (CriteriaItemFunction)a.Copy();
+
+			b.AssignArgument("lengthOfSubstring", new CriteriaItemSimple(DataType.Numeric, "TestColumnName", false));
+
+			Assert.NotEqual(a, b);
 		}
 	}
 }

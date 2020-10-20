@@ -123,15 +123,47 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 		}
 
 		[Fact()]
+		public void Equal_EqualObject()
+		{
+			var a = new ArgumentAssignment(new Argument("expression", DataType.String, true), new CriteriaItemSimple(DataType.String, "test", true));
+			var b = new ArgumentAssignment(new Argument("expression", DataType.String, true), new CriteriaItemSimple(DataType.String, "test", true));
+			Assert.Equal(a, b);
+		}
+
+		[Fact()]
+		public void NotEqual_NotEqualArgument()
+		{
+			var a = new ArgumentAssignment(new Argument("expression", DataType.String, true), new CriteriaItemSimple(DataType.String, "test", true));
+			var b = new ArgumentAssignment(new Argument("expression1", DataType.String, true), new CriteriaItemSimple(DataType.String, "test", true));
+			Assert.NotEqual(a, b);
+		}
+
+		[Fact()]
+		public void NotEqual_NotEqualCriteria()
+		{
+			var a = new ArgumentAssignment(new Argument("expression", DataType.String, true), new CriteriaItemSimple(DataType.String, "test", true));
+			var b = new ArgumentAssignment(new Argument("expression", DataType.String, true), new CriteriaItemSimple(DataType.String, "test1", true));
+			Assert.NotEqual(a, b);
+		}
+
+		[Fact()]
 		public void Copy_CreatesAnEqualObject()
 		{
-			Assert.True(false, "This test is not implemented");
+			var a = new ArgumentAssignment(new Argument("expression", DataType.String, true), new CriteriaItemSimple(DataType.String, "test", true));
+			var b = a.Copy();
+
+			Assert.Equal(a, b);
 		}
 
 		[Fact()]
 		public void Copy_CreatesADeepDistinctCopy()
 		{
-			Assert.True(false, "This test is not implemented");
+			var a = new ArgumentAssignment(new Argument("expression", DataType.String, true), new CriteriaItemSimple(DataType.String, "test", true));
+			var b = a.Copy();
+
+			b.CriteriaItem = new CriteriaItemSimple(DataType.String, "test2", true);
+
+			Assert.NotEqual(a, b);
 		}
 
 		//[Fact()]

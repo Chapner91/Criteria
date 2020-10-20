@@ -62,13 +62,20 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 		[Fact()]
 		public void Copy_CreatesAnEqualObject()
 		{
-			Assert.True(false, "This test is not implemented");
+			var a = new Argument("expression", DataType.Numeric, true);
+			var b = a.Copy();
+
+			Assert.Equal(a, b);
 		}
 
 		[Fact()]
 		public void Copy_CreatesADeepDistinctCopy()
 		{
-			Assert.True(false, "This test is not implemented");
+			var a = new Argument("expression", DataType.Numeric, true);
+			var b = (Argument)a.Copy();
+			b.Name = "test";
+
+			Assert.NotEqual(a, b);
 		}
 	}
 }

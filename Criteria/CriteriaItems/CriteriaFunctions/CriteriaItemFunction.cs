@@ -13,7 +13,7 @@ namespace Criteria.CriteriaItems.CriteriaFunctions
 {
 
 	[JsonConverter(typeof(ICriteriaItemConverter))]
-	public class CriteriaItemFunction : ICriteriaItem
+	public class CriteriaItemFunction : ICriteriaItem, IEquatable<CriteriaItemFunction>
 	{
 		[JsonProperty(PropertyName = "CriteriaItemType")]
 		public string CriteriaItemType => "function";
@@ -101,6 +101,28 @@ namespace Criteria.CriteriaItems.CriteriaFunctions
 			return JsonConvert.SerializeObject(this, settings);
 		}
 
+
+		public void AssignArgument(Guid argumentAssignmentID, ICriteriaItem criteriaItem)
+		{
+			var argumentAssignment = _argumentAssignments.Find(x => x.ArgumentAssignmentID == argumentAssignmentID);
+			argumentAssignment.CriteriaItem = criteriaItem;
+		}
+
+		public void AssignArgument(string argumentName, ICriteriaItem criteriaItem)
+		{
+			var argumentAssignment = _argumentAssignments.Find(x => x.Argument.Name == argumentName);
+			argumentAssignment.CriteriaItem = criteriaItem;
+		}
+
+		public bool Equals(CriteriaItemFunction that)
+		{
+			return that != null &&
+				   this._functionScheme.Equals(that._functionScheme) &&
+				   FunctionName == that.FunctionName &&
+				   (this._argumentAssignments.Count == that._argumentAssignments.Count && this._argumentAssignments.All(that._argumentAssignments.Contains));
+		}
+
+
 		public ICriteriaItem Copy()
 		{
 			var NewArgumentAssignments = new List<ArgumentAssignment>();
@@ -113,16 +135,13 @@ namespace Criteria.CriteriaItems.CriteriaFunctions
 			return criteriaItemFunction;
 		}
 
-		public void AssignArgument(Guid argumentAssignmentID, ICriteriaItem criteriaItem)
+		public override int GetHashCode()
 		{
-			var argumentAssignment = _argumentAssignments.Find(x => x.ArgumentAssignmentID == argumentAssignmentID);
-			argumentAssignment.CriteriaItem = criteriaItem;
-		}
-
-		public void AssignArgument(string argumentName, ICriteriaItem criteriaItem)
-		{
-			var argumentAssignment = _argumentAssignments.Find(x => x.Argument.Name == argumentName);
-			argumentAssignment.CriteriaItem = criteriaItem;
+			var hashCode = 1891270760;
+			hashCode = hashCode * -1521134295 + EqualityComparer<ICriteriaFunctionScheme>.Default.GetHashCode(_functionScheme);
+			hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(FunctionName);
+			hashCode = hashCode * -1521134295 + EqualityComparer<List<ArgumentAssignment>>.Default.GetHashCode(_argumentAssignments);
+			return hashCode;
 		}
 
 		//*****************************************************************************

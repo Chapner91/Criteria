@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 namespace Criteria.CriteriaItems
 {
 	[JsonConverter(typeof(ICriteriaItemConverter))]
-	public class CriteriaItemCompound : ICriteriaItem
+	public class CriteriaItemCompound : ICriteriaItem, IEquatable<CriteriaItemCompound>
 	{
 		public string CriteriaItemType => "compound";
 
@@ -175,6 +175,11 @@ namespace Criteria.CriteriaItems
 			{
 				_criteriaItems.Remove(criteriaItem);
 			}
+		}
+
+		public bool Equals(CriteriaItemCompound that)
+		{
+			return this.Equals((object)that);
 		}
 
 		public override bool Equals(object obj)

@@ -1,4 +1,5 @@
-﻿using Criteria.Enums;
+﻿using Criteria.CriteriaItems;
+using Criteria.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,20 +8,16 @@ using System.Threading.Tasks;
 
 namespace Criteria
 {
-	public interface ICriteriaItem
+	public interface ICriteriaItem : ICopyable<ICriteriaItem>
 	{
 		string CriteriaItemType { get; }
 
 		Guid CriteriaItemID { get; }
 		DataType ReturnDataType { get; }
 		bool ReturnsSingleValue { get; }
-		//string Value { get; }
 		string SQLValue { get; }
 		string EnglishValue { get; }
 
 		string Serialize();
-		//string Deserialize();
-
-		ICriteriaItem Copy();
 	}
 }

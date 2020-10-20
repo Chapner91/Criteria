@@ -33,6 +33,11 @@ namespace CriteriaTests.Mocks
 		public void RemoveArgument(Guid argumentID) => throw new NotImplementedException();
 		public void SetTranslationString(Translator TranslatorToUpdate, string value) => throw new NotImplementedException();
 		public ICriteriaFunctionScheme Copy() { throw new NotImplementedException(); }
+
+		public bool Equals(ICriteriaFunctionScheme that)
+		{
+			throw new NotImplementedException();
+		}
 	}
 
 	public class CriteriaFunctionSchemeMockMonth : ICriteriaFunctionScheme
@@ -58,5 +63,10 @@ namespace CriteriaTests.Mocks
 		public void RemoveArgument(Guid argumentID) => throw new NotImplementedException();
 		public void SetTranslationString(Translator TranslatorToUpdate, string value) => throw new NotImplementedException();
 		public ICriteriaFunctionScheme Copy() { throw new NotImplementedException(); }
+
+		public bool Equals(ICriteriaFunctionScheme that)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

@@ -255,15 +255,203 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 		}
 
 		[Fact()]
+		public void Equal_EqualObject()
+		{
+			var a = new CriteriaFunctionScheme("Substring", new List<Argument>()
+			{
+				new Argument("expression", DataType.String, true),
+				new Argument("startFromIndex", DataType.Numeric, true),
+				new Argument("lengthOfSubstring", DataType.Numeric, true)
+			}, true, DataType.String, "SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})", "Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}");
+			var b = new CriteriaFunctionScheme("Substring", new List<Argument>()
+			{
+				new Argument("expression", DataType.String, true),
+				new Argument("startFromIndex", DataType.Numeric, true),
+				new Argument("lengthOfSubstring", DataType.Numeric, true)
+			}, true, DataType.String, "SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})", "Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}");
+
+			Assert.Equal(a, b);
+		}
+
+		[Fact()]
+		public void Equal_EqualObjectArgumentsOutOfOrder()
+		{
+			var a = new CriteriaFunctionScheme("Substring", new List<Argument>()
+			{
+				new Argument("startFromIndex", DataType.Numeric, true),
+				new Argument("expression", DataType.String, true),
+				new Argument("lengthOfSubstring", DataType.Numeric, true)
+			}, true, DataType.String, "SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})", "Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}");
+			var b = new CriteriaFunctionScheme("Substring", new List<Argument>()
+			{
+				new Argument("expression", DataType.String, true),
+				new Argument("startFromIndex", DataType.Numeric, true),
+				new Argument("lengthOfSubstring", DataType.Numeric, true)
+			}, true, DataType.String, "SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})", "Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}");
+
+			Assert.Equal(a, b);
+		}
+
+		[Fact()]
+		public void NotEqual_DifferentArgument()
+		{
+			var a = new CriteriaFunctionScheme("Substring", new List<Argument>()
+			{
+				new Argument("expression", DataType.String, true),
+				new Argument("startFromIndex", DataType.Numeric, true),
+				new Argument("DifferentName", DataType.Numeric, true)
+			}, true, DataType.String, "SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})", "Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}");
+			var b = new CriteriaFunctionScheme("Substring", new List<Argument>()
+			{
+				new Argument("expression", DataType.String, true),
+				new Argument("startFromIndex", DataType.Numeric, true),
+				new Argument("lengthOfSubstring", DataType.Numeric, true)
+			}, true, DataType.String, "SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})", "Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}");
+
+			Assert.NotEqual(a, b);
+		}
+
+		[Fact()]
+		public void NotEqual_DifferentArgumentCount()
+		{
+			var a = new CriteriaFunctionScheme("Substring", new List<Argument>()
+			{
+				new Argument("expression", DataType.String, true),
+				new Argument("startFromIndex", DataType.Numeric, true),
+				new Argument("lengthOfSubstring", DataType.Numeric, true)
+			}, true, DataType.String, "SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})", "Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}");
+			var b = new CriteriaFunctionScheme("Substring", new List<Argument>()
+			{
+				new Argument("expression", DataType.String, true),
+				new Argument("startFromIndex", DataType.Numeric, true)
+			}, true, DataType.String, "SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})", "Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}");
+
+			Assert.NotEqual(a, b);
+		}
+
+		[Fact()]
+		public void NotEqual_EnglishTranslationStrings()
+		{
+			var a = new CriteriaFunctionScheme("Substring", new List<Argument>()
+			{
+				new Argument("expression", DataType.String, true),
+				new Argument("startFromIndex", DataType.Numeric, true),
+				new Argument("lengthOfSubstring", DataType.Numeric, true)
+			}, true, DataType.String, "SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})", "Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}");
+			var b = new CriteriaFunctionScheme("Substring", new List<Argument>()
+			{
+				new Argument("expression", DataType.String, true),
+				new Argument("startFromIndex", DataType.Numeric, true),
+				new Argument("lengthOfSubstring", DataType.Numeric, true)
+			}, true, DataType.String, "SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})", "Test {lengthOfSubstring} characters from the {startFromIndex} character of {expression}");
+
+			Assert.NotEqual(a, b);
+		}
+
+		[Fact()]
+		public void NotEqual_SQLTranslationStrings()
+		{
+			var a = new CriteriaFunctionScheme("Substring", new List<Argument>()
+			{
+				new Argument("expression", DataType.String, true),
+				new Argument("startFromIndex", DataType.Numeric, true),
+				new Argument("lengthOfSubstring", DataType.Numeric, true)
+			}, true, DataType.String, "SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})", "Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}");
+			var b = new CriteriaFunctionScheme("Substring", new List<Argument>()
+			{
+				new Argument("expression", DataType.String, true),
+				new Argument("startFromIndex", DataType.Numeric, true),
+				new Argument("lengthOfSubstring", DataType.Numeric, true)
+			}, true, DataType.String, "TEST({expression}, {startFromIndex}, {lengthOfSubstring})", "Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}");
+
+			Assert.NotEqual(a, b);
+		}
+
+		[Fact()]
+		public void NotEqual_Name()
+		{
+			var a = new CriteriaFunctionScheme("Substring", new List<Argument>()
+			{
+				new Argument("expression", DataType.String, true),
+				new Argument("startFromIndex", DataType.Numeric, true),
+				new Argument("lengthOfSubstring", DataType.Numeric, true)
+			}, true, DataType.String, "SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})", "Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}");
+			var b = new CriteriaFunctionScheme("Test", new List<Argument>()
+			{
+				new Argument("expression", DataType.String, true),
+				new Argument("startFromIndex", DataType.Numeric, true),
+				new Argument("lengthOfSubstring", DataType.Numeric, true)
+			}, true, DataType.String, "SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})", "Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}");
+
+			Assert.NotEqual(a, b);
+		}
+
+		[Fact()]
+		public void NotEqual_ReturnType()
+		{
+			var a = new CriteriaFunctionScheme("Substring", new List<Argument>()
+			{
+				new Argument("expression", DataType.String, true),
+				new Argument("startFromIndex", DataType.Numeric, true),
+				new Argument("lengthOfSubstring", DataType.Numeric, true)
+			}, true, DataType.String, "SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})", "Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}");
+			var b = new CriteriaFunctionScheme("Substring", new List<Argument>()
+			{
+				new Argument("expression", DataType.String, true),
+				new Argument("startFromIndex", DataType.Numeric, true),
+				new Argument("lengthOfSubstring", DataType.Numeric, true)
+			}, true, DataType.Numeric, "SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})", "Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}");
+
+			Assert.NotEqual(a, b);
+		}
+
+		[Fact()]
+		public void NotEqual_ReturnSingleValue()
+		{
+			var a = new CriteriaFunctionScheme("Substring", new List<Argument>()
+			{
+				new Argument("expression", DataType.String, true),
+				new Argument("startFromIndex", DataType.Numeric, true),
+				new Argument("lengthOfSubstring", DataType.Numeric, true)
+			}, true, DataType.String, "SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})", "Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}");
+			var b = new CriteriaFunctionScheme("Substring", new List<Argument>()
+			{
+				new Argument("expression", DataType.String, true),
+				new Argument("startFromIndex", DataType.Numeric, true),
+				new Argument("lengthOfSubstring", DataType.Numeric, true)
+			}, false, DataType.String, "SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})", "Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}");
+
+			Assert.NotEqual(a, b);
+		}
+
+		[Fact()]
 		public void Copy_CreatesAnEqualObject()
 		{
-			Assert.True(false, "This test is not implemented");
+			var a = new CriteriaFunctionScheme("Substring", new List<Argument>()
+			{
+				new Argument(guid1, "expression", DataType.String, true),
+				new Argument(guid2, "startFromIndex", DataType.Numeric, true),
+				new Argument(guid3, "lengthOfSubstring", DataType.Numeric, true)
+			}, true, DataType.String, "SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})", "Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}");
+			var b = a.Copy();
+
+			Assert.Equal(a, b);
 		}
 
 		[Fact()]
 		public void Copy_CreatesADeepDistinctCopy()
 		{
-			Assert.True(false, "This test is not implemented");
+			var a = new CriteriaFunctionScheme("Substring", new List<Argument>()
+			{
+				new Argument(guid1, "expression", DataType.String, true),
+				new Argument(guid2, "startFromIndex", DataType.Numeric, true),
+				new Argument(guid3, "lengthOfSubstring", DataType.Numeric, true)
+			}, true, DataType.String, "SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})", "Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}");
+			var b = a.Copy();
+
+			b.AddArgument(new Argument("test", DataType.String, true));
+
+			Assert.NotEqual(a, b);
 		}
 	}
 }

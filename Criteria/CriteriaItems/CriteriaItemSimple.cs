@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace Criteria.CriteriaItems
 {
 	[JsonConverter(typeof(ICriteriaItemConverter))]
-	public class CriteriaItemSimple : ICriteriaItem
+	public class CriteriaItemSimple : ICriteriaItem, IEquatable<CriteriaItemSimple>
 	{
 		private string _value;
 
@@ -129,6 +129,11 @@ namespace Criteria.CriteriaItems
 		public ICriteriaItem Copy()
 		{
 			return new CriteriaItemSimple(ReturnDataType, Value, IsValueLiteral);
+		}
+
+		public bool Equals(CriteriaItemSimple that)
+		{
+			return this.Equals((object)that);
 		}
 
 		public override bool Equals(object obj)

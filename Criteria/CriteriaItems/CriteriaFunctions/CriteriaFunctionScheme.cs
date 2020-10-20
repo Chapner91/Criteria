@@ -9,7 +9,7 @@ using System.Linq;
 namespace Criteria.CriteriaItems.CriteriaFunctions
 {
 	[JsonConverter(typeof(ICriteriaFunctionSchemeConverter))]
-	public class CriteriaFunctionScheme : ICriteriaFunctionScheme
+	public class CriteriaFunctionScheme : ICriteriaFunctionScheme, IEquatable<CriteriaFunctionScheme>
 	{
 
 		[JsonProperty(PropertyName = "CriteriaFunctionSchemeID")]
@@ -122,6 +122,36 @@ namespace Criteria.CriteriaItems.CriteriaFunctions
 				arguments.Add((Argument)argument.Copy());
 			}
 			return new CriteriaFunctionScheme(FunctionSchemeName, arguments, ReturnsSingleValue, ReturnDataType, SQLTranslationString, EnglishTranslationString);
+		}
+
+		public bool Equals(ICriteriaFunctionScheme that)
+		{
+			return that != null &&
+				that.GetType() == typeof(CriteriaFunctionScheme) &&
+				this.Equals((CriteriaFunctionScheme)that);
+		}
+
+		public bool Equals(CriteriaFunctionScheme that)
+		{
+			return that != null &&
+				this.FunctionSchemeName == that.FunctionSchemeName &&
+				this.ReturnsSingleValue == that.ReturnsSingleValue &&
+				this.ReturnDataType == that.ReturnDataType &&
+				this.SQLTranslationString == that.SQLTranslationString &&
+				this.EnglishTranslationString == that.EnglishTranslationString &&
+				(this._arguments.Count == that._arguments.Count && this._arguments.All(that._arguments.Contains));
+		}
+
+		public override int GetHashCode()
+		{
+			var hashCode = -1989861219;
+			hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(FunctionSchemeName);
+			hashCode = hashCode * -1521134295 + EqualityComparer<List<Argument>>.Default.GetHashCode(_arguments);
+			hashCode = hashCode * -1521134295 + ReturnsSingleValue.GetHashCode();
+			hashCode = hashCode * -1521134295 + ReturnDataType.GetHashCode();
+			hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(SQLTranslationString);
+			hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(EnglishTranslationString);
+			return hashCode;
 		}
 	}
 

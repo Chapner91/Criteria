@@ -56,6 +56,7 @@
     <Compile Include="CriteriaItems\CriteriaItemCompound.cs" />
     <Compile Include="CriteriaItems\CriteriaFunctions\CriteriaItemFunction.cs" />
     <Compile Include="CriteriaItems\CriteriaItemSimple.cs" />
+    <Compile Include="Interfaces\ICopyable.cs" />
     <Compile Include="CriteriaItems\ICriteriaItemHelper.cs" />
     <Compile Include="CriteriaPredicate.cs" />
     <Compile Include="Enums\CriteriaItemFunction.cs" />

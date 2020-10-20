@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 namespace Criteria.CriteriaItems.CriteriaFunctions
 {
 	[JsonConverter(typeof(IArgumentConverter))]
-	public class Argument : IArgument
+	public class Argument : IArgument, IEquatable<Argument>
 	{
 		[JsonProperty(PropertyName = "Name")]
-		public string Name { get; private set; }
+		public string Name { get; set; }
 		[JsonProperty(PropertyName = "DataType")]
-		public DataType DataType { get; private set; }
+		public DataType DataType { get; set; }
 		[JsonProperty(PropertyName = "RequiresSingleValue")]
-		public bool RequiresSingleValue { get; private set; }
+		public bool RequiresSingleValue { get; set; }
 		[JsonProperty(PropertyName = "ArgumentID")]
 		public Guid ArgumentID { get; private set; }
 
@@ -39,6 +39,14 @@ namespace Criteria.CriteriaItems.CriteriaFunctions
 		public IArgument Copy()
 		{
 			return new Argument(Name, DataType, RequiresSingleValue);
+		}
+
+		public bool Equals(Argument that)
+		{
+			return that != null &&
+				this.Name == that.Name &&
+				this.RequiresSingleValue == that.RequiresSingleValue &&
+				this.DataType == that.DataType;
 		}
 
 		public override bool Equals(object obj)
