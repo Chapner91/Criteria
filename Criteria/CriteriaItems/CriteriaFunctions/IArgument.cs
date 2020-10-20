@@ -9,5 +9,7 @@ namespace Criteria.CriteriaItems.CriteriaFunctions
 		DataType DataType { get; }
 		string Name { get; }
 		bool RequiresSingleValue { get; }
+
+		IArgument Copy();
 	}
 }

@@ -126,6 +126,16 @@ namespace Criteria.CriteriaItems
 			return JsonConvert.SerializeObject(this, settings);
 		}
 
+		public ICriteriaItem Copy()
+		{
+			var criteriaItems = new List<ICriteriaItem>();
+			foreach(ICriteriaItem criteriaItem in CriteriaItems)
+			{
+				criteriaItems.Add(criteriaItem.Copy());
+			}
+			return new CriteriaItemCompound(ReturnDataType, criteriaItems);
+		}
+
 		public void AddCriteriaItem(ICriteriaItem criteriaItem)
 		{
 			if (ValueIsCorrectDataType(criteriaItem))

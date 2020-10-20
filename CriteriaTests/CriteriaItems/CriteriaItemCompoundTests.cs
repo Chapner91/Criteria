@@ -626,5 +626,32 @@ namespace Criteria.CriteriaItems.Tests
 
 			Assert.Throws<CriteriaItemTypeMismatchException>(() => target.AddCriteriaItem(criteriaItem));
 		}
+
+		[Fact()]
+		public void Copy_CreatesAnEqualCriteriaItem()
+		{
+			var a = new CriteriaItemCompound(DataType.Numeric, new List<ICriteriaItem>()
+				{
+					new CriteriaItemSimple(DataType.Numeric, "1", true),
+					new CriteriaItemSimple(DataType.Numeric, "2", true)
+				});
+			var b = a.Copy();
+
+			Assert.Equal(a, b);
+		}
+
+		[Fact()]
+		public void Copy_CreatesADeepDistinctCopy()
+		{
+			var a = new CriteriaItemCompound(DataType.Numeric, new List<ICriteriaItem>()
+				{
+					new CriteriaItemSimple(DataType.Numeric, "1", true),
+					new CriteriaItemSimple(DataType.Numeric, "2", true)
+				});
+			var b = (CriteriaItemCompound)a.Copy();
+			b.AddCriteriaItem(new CriteriaItemSimple(DataType.Numeric, "3", true));
+
+			Assert.NotEqual(a, b);
+		}
 	}
 }

@@ -58,5 +58,17 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 
 			Assert.Equal(a, b);
 		}
+
+		[Fact()]
+		public void Copy_CreatesAnEqualObject()
+		{
+			Assert.True(false, "This test is not implemented");
+		}
+
+		[Fact()]
+		public void Copy_CreatesADeepDistinctCopy()
+		{
+			Assert.True(false, "This test is not implemented");
+		}
 	}
 }

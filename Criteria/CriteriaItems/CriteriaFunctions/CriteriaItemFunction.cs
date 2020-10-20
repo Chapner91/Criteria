@@ -101,6 +101,18 @@ namespace Criteria.CriteriaItems.CriteriaFunctions
 			return JsonConvert.SerializeObject(this, settings);
 		}
 
+		public ICriteriaItem Copy()
+		{
+			var NewArgumentAssignments = new List<ArgumentAssignment>();
+			foreach (ArgumentAssignment argAssignment in _argumentAssignments)
+			{
+				NewArgumentAssignments.Add(argAssignment.Copy());
+			}
+			var criteriaItemFunction = new CriteriaItemFunction(FunctionName, _functionScheme.Copy());
+			criteriaItemFunction._argumentAssignments = NewArgumentAssignments;
+			return criteriaItemFunction;
+		}
+
 		public void AssignArgument(Guid argumentAssignmentID, ICriteriaItem criteriaItem)
 		{
 			var argumentAssignment = _argumentAssignments.Find(x => x.ArgumentAssignmentID == argumentAssignmentID);

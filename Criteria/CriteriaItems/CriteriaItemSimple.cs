@@ -126,6 +126,11 @@ namespace Criteria.CriteriaItems
 			return JsonConvert.SerializeObject(this, settings);
 		}
 
+		public ICriteriaItem Copy()
+		{
+			return new CriteriaItemSimple(ReturnDataType, Value, IsValueLiteral);
+		}
+
 		public override bool Equals(object obj)
 		{
 			CriteriaItemSimple that = obj as CriteriaItemSimple;

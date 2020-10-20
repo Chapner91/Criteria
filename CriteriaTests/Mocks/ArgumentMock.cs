@@ -14,6 +14,7 @@ namespace CriteriaTests.Mocks
 		public DataType DataType => DataType.String;
 		public string Name => "testexpression";
 		public bool RequiresSingleValue => true;
+		public IArgument Copy() { throw new NotImplementedException(); }
 	}
 
 	public class ArgumentMultipleStringMock : IArgument
@@ -22,6 +23,7 @@ namespace CriteriaTests.Mocks
 		public DataType DataType => DataType.String;
 		public string Name => "testexpression";
 		public bool RequiresSingleValue => false;
+		public IArgument Copy() { throw new NotImplementedException(); }
 	}
 
 	public class ArgumentMultipleNumericMock : IArgument
@@ -30,5 +32,6 @@ namespace CriteriaTests.Mocks
 		public DataType DataType => DataType.Numeric;
 		public string Name => "testexpression";
 		public bool RequiresSingleValue => false;
+		public IArgument Copy() { throw new NotImplementedException(); }
 	}
 }

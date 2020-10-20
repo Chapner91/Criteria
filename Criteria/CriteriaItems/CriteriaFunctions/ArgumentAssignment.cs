@@ -61,6 +61,11 @@ namespace Criteria.CriteriaItems.CriteriaFunctions
 			this.CriteriaItem = criteriaItem;
 		}
 
+		public ArgumentAssignment Copy()
+		{
+			return new ArgumentAssignment(Argument.Copy(), CriteriaItem.Copy());
+		}
+
 		private bool ArgumentTypeMatchesCriteriaItemType(IArgument argument)
 		{
 			if(CriteriaItem == null)

@@ -253,5 +253,17 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 				Assert.True(e.MissingArguments.Exists(x => x.Name == "startFromIndex") && e.MissingArguments.Exists(x => x.Name == "lengthOfSubstring"));
 			}
 		}
+
+		[Fact()]
+		public void Copy_CreatesAnEqualObject()
+		{
+			Assert.True(false, "This test is not implemented");
+		}
+
+		[Fact()]
+		public void Copy_CreatesADeepDistinctCopy()
+		{
+			Assert.True(false, "This test is not implemented");
+		}
 	}
 }

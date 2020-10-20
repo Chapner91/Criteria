@@ -113,6 +113,16 @@ namespace Criteria.CriteriaItems.CriteriaFunctions
 				}
 			}
 		}
+
+		public ICriteriaFunctionScheme Copy()
+		{
+			var arguments = new List<Argument>();
+			foreach(Argument argument in _arguments)
+			{
+				arguments.Add((Argument)argument.Copy());
+			}
+			return new CriteriaFunctionScheme(FunctionSchemeName, arguments, ReturnsSingleValue, ReturnDataType, SQLTranslationString, EnglishTranslationString);
+		}
 	}
 
 	public enum Translator

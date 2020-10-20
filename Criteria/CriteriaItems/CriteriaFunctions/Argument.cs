@@ -36,6 +36,11 @@ namespace Criteria.CriteriaItems.CriteriaFunctions
 			RequiresSingleValue = requiresSingleValue;
 		}
 
+		public IArgument Copy()
+		{
+			return new Argument(Name, DataType, RequiresSingleValue);
+		}
+
 		public override bool Equals(object obj)
 		{
 			var that = obj as Argument;

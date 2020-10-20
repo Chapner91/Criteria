@@ -20,5 +20,7 @@ namespace Criteria
 
 		string Serialize();
 		//string Deserialize();
+
+		ICriteriaItem Copy();
 	}
 }

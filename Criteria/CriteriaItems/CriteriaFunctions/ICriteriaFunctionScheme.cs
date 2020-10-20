@@ -17,5 +17,7 @@ namespace Criteria.CriteriaItems.CriteriaFunctions
 		void AddArgument(Argument argument);
 		void RemoveArgument(Guid argumentID);
 		void SetTranslationString(Translator TranslatorToUpdate, string value);
+
+		ICriteriaFunctionScheme Copy();
 	}
 }

@@ -21,6 +21,8 @@ namespace CriteriaTests.Mocks
 		{
 			throw new NotImplementedException();
 		}
+		public ICriteriaItem Copy() { throw new NotImplementedException(); }
+
 	}
 
 	public class CriteriaItemCompoundStringMock : ICriteriaItem
@@ -36,5 +38,6 @@ namespace CriteriaTests.Mocks
 		{
 			throw new NotImplementedException();
 		}
+		public ICriteriaItem Copy() { throw new NotImplementedException(); }
 	}
 }

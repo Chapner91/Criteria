@@ -250,5 +250,19 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 			Assert.Equal(expected, actual);
 		}
 
+		//**********************************************************************
+		// Should be able to create deep distinct copies of them
+
+		[Fact()]
+		public void Copy_CreatesAnEqualObject()
+		{
+			Assert.True(false, "This test is not implemented");
+		}
+
+		[Fact()]
+		public void Copy_CreatesADeepDistinctCopy()
+		{
+			Assert.True(false, "This test is not implemented");
+		}
 	}
 }

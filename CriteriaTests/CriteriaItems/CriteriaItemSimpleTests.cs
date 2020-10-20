@@ -180,6 +180,25 @@ namespace Criteria.CriteriaItems.Tests
 		}
 
 		[Fact()]
+		public void Copy_CreatesAnEqualCriteriaItem()
+		{
+			var a = new CriteriaItemSimple(DataType.String, "Test", true);
+			var b = a.Copy();
+
+			Assert.Equal(a, b);
+		}
+
+		[Fact()]
+		public void Copy_CreatesADeepDistinctCopy()
+		{
+			var a = new CriteriaItemSimple(DataType.String, "Test", true);
+			var b = (CriteriaItemSimple)a.Copy();
+			b.Value = "Test2";
+
+			Assert.NotEqual(a, b);
+		}
+
+		[Fact()]
 		public void Serialize_BasicCriteriaItemSimple()
 		{
 			var target = new CriteriaItemSimple(_commonGuidA, DataType.String, "Test", true);
