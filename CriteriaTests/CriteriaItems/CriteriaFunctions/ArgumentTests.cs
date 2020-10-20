@@ -51,12 +51,12 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 		}
 
 		[Fact()]
-		public void NotEqual_DifferentArgumentID()
+		public void Equal_DifferentArgumentID()
 		{
 			var a = new Argument("expression", DataType.Numeric, true);
 			var b = new Argument("expression", DataType.Numeric, true);
 
-			Assert.NotEqual(a, b);
+			Assert.Equal(a, b);
 		}
 	}
 }

@@ -178,7 +178,6 @@ namespace Criteria.CriteriaItems
 			{
 				return
 				(
-					this.CriteriaItemID == that.CriteriaItemID &&
 					this.ReturnDataType == that.ReturnDataType &&
 					(
 						this._criteriaItems.Count == that.CriteriaItems.Count() &&

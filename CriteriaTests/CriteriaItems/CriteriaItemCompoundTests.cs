@@ -331,7 +331,7 @@ namespace Criteria.CriteriaItems.Tests
 		}
 
 		[Fact()]
-		public void NotEqual_CriteriaItemID()
+		public void Equal_DifferentCriteriaItemID()
 		{
 			var a = new CriteriaItemCompound(DataType.Numeric, new List<ICriteriaItem>()
 				{
@@ -345,7 +345,7 @@ namespace Criteria.CriteriaItems.Tests
 					new CriteriaItemSimple(DataType.Numeric, "2", true),
 				});
 
-			Assert.NotEqual(a, b);
+			Assert.Equal(a, b);
 		}
 
 		[Fact()]
@@ -572,7 +572,7 @@ namespace Criteria.CriteriaItems.Tests
 					new CriteriaItemSimple(_CommonGuidB, DataType.Numeric, "2", true)
 				});
 
-			actual.RemoveCriteriaItem(new CriteriaItemSimple(Guid.NewGuid(), DataType.Numeric, "2", true));
+			actual.RemoveCriteriaItem(new CriteriaItemSimple(Guid.NewGuid(), DataType.Numeric, "4", true));
 
 			Assert.True(
 				actual.CriteriaItems.Count() == expected.CriteriaItems.Count() &&

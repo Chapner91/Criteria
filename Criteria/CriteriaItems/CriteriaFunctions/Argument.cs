@@ -45,7 +45,6 @@ namespace Criteria.CriteriaItems.CriteriaFunctions
 				return false;
 			}
 			else if(
-				this.ArgumentID == that.ArgumentID &&
 				this.Name == that.Name && 
 				this.RequiresSingleValue == that.RequiresSingleValue &&
 				this.DataType == that.DataType

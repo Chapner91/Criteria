@@ -138,7 +138,6 @@ namespace Criteria.CriteriaItems
 				return (
 					this.ReturnDataType == that.ReturnDataType && 
 					this.Value == that.Value && 
-					this.CriteriaItemID == that.CriteriaItemID &&
 					this.IsValueLiteral == that.IsValueLiteral
 					);
 			}

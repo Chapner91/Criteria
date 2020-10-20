@@ -153,12 +153,12 @@ namespace Criteria.CriteriaItems.Tests
 		}
 
 		[Fact()]
-		public void NotEqual_DifferentGuid()
+		public void Equal_DifferentGuid()
 		{
 			var a = new CriteriaItemSimple(_commonGuidB, DataType.String, "Test", true);
 			var b = new CriteriaItemSimple(_commonGuidA, DataType.String, "Test", true);
 
-			Assert.NotEqual(a, b);
+			Assert.Equal(a, b);
 		}
 
 		[Fact()]
