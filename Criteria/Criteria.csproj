@@ -53,19 +53,19 @@
     <Compile Include="CriteriaItems\CriteriaFunctions\CriteriaFunctionRepository.cs" />
     <Compile Include="CriteriaItems\CriteriaFunctions\IArgument.cs" />
     <Compile Include="CriteriaItems\CriteriaFunctions\ICriteriaFunctionScheme.cs" />
-    <Compile Include="CriteriaItems\CriteriaItemCompound.cs" />
-    <Compile Include="CriteriaItems\CriteriaFunctions\CriteriaItemFunction.cs" />
-    <Compile Include="CriteriaItems\CriteriaItemSimple.cs" />
+    <Compile Include="CriteriaItems\CriteriaUnitCompound.cs" />
+    <Compile Include="CriteriaItems\CriteriaFunctions\CriteriaUnitFunction.cs" />
+    <Compile Include="CriteriaItems\CriteriaUnitSimple.cs" />
     <Compile Include="Interfaces\ICopyable.cs" />
-    <Compile Include="CriteriaItems\ICriteriaItemHelper.cs" />
+    <Compile Include="CriteriaItems\ICriteriaUnitHelper.cs" />
     <Compile Include="CriteriaPredicate.cs" />
     <Compile Include="Enums\CriteriaItemFunction.cs" />
     <Compile Include="Enums\Datatype.cs" />
-    <Compile Include="CriteriaItems\ICriteriaItem.cs" />
+    <Compile Include="CriteriaItems\ICriteriaUnit.cs" />
     <Compile Include="JsonConverters\IArgumentConverter.cs" />
     <Compile Include="JsonConverters\ICriteriaFunctionSchemeConverter.cs" />
-    <Compile Include="JsonConverters\ICriteriaItemConverter.cs" />
-    <Compile Include="JsonConverters\ICriteriaItemListConverter.cs" />
+    <Compile Include="JsonConverters\ICriteriaUnitConverter.cs" />
+    <Compile Include="JsonConverters\ICriteriaUnitListConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

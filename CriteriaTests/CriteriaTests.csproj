@@ -69,16 +69,16 @@
     <Compile Include="CriteriaItems\CriteriaFunctions\ArgumentAssignmentTests.cs" />
     <Compile Include="CriteriaItems\CriteriaFunctions\ArgumentTests.cs" />
     <Compile Include="CriteriaItems\CriteriaFunctions\CriteriaFunctionSchemeTests.cs" />
-    <Compile Include="CriteriaItems\CriteriaFunctions\CriteriaItemFunctionTests.cs" />
-    <Compile Include="CriteriaItems\CriteriaItemCompoundTests.cs" />
-    <Compile Include="CriteriaItems\ICriteriaItemHelperTests.cs" />
+    <Compile Include="CriteriaItems\CriteriaFunctions\CriteriaUnitFunctionTests.cs" />
+    <Compile Include="CriteriaItems\CriteriaUnitCompoundTests.cs" />
+    <Compile Include="CriteriaItems\ICriteriaUnitHelperTests.cs" />
     <Compile Include="CriteriaPredicateTests.cs" />
     <Compile Include="JsonConverters\ICriteriaItemConverterTests.cs" />
     <Compile Include="Mocks\ArgumentMock.cs" />
     <Compile Include="Mocks\CriteriaFunctionSchemeMock.cs" />
     <Compile Include="Mocks\CriteriaItemMock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CriteriaItems\CriteriaItemSimpleTests.cs" />
+    <Compile Include="CriteriaItems\CriteriaUnitSimpleTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

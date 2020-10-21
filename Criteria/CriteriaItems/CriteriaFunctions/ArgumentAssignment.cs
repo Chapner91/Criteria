@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Criteria.CriteriaItems.CriteriaFunctions
+namespace Criteria.CriteriaUnits.CriteriaFunctions
 {
 	public class ArgumentAssignment : IEquatable<ArgumentAssignment>
 	{
@@ -18,18 +18,18 @@ namespace Criteria.CriteriaItems.CriteriaFunctions
 		[JsonConverter(typeof(IArgumentConverter))]
 		public IArgument Argument { get; private set; }
 
-		[JsonConverter(typeof(ICriteriaItemConverter))]
-		[JsonProperty(PropertyName = "CriteriaItem")]
-		private ICriteriaItem _criteriaItem;
+		[JsonConverter(typeof(ICriteriaUnitConverter))]
+		[JsonProperty(PropertyName = "CriteriaUnit")]
+		private ICriteriaUnit _criteriaUnit;
 		[JsonIgnore]
-		public ICriteriaItem CriteriaItem
+		public ICriteriaUnit CriteriaUnit
 		{
-			get => _criteriaItem;
+			get => _criteriaUnit;
 			set
 			{
-				if(CriteriaItemTypeMatchesArgumentType(value))
+				if(CriteriaUnitTypeMatchesArgumentType(value))
 				{
-					_criteriaItem = value;
+					_criteriaUnit = value;
 				}
 				else
 				{
@@ -51,19 +51,19 @@ namespace Criteria.CriteriaItems.CriteriaFunctions
 			this.ArgumentAssignmentID = argumentAssignmentID;
 		}
 
-		public ArgumentAssignment(IArgument argument, ICriteriaItem criteriaItem) : this (argument)
+		public ArgumentAssignment(IArgument argument, ICriteriaUnit criteriaUnit) : this (argument)
 		{
-			this.CriteriaItem = criteriaItem;
+			this.CriteriaUnit = criteriaUnit;
 		}
 
-		public ArgumentAssignment(Guid argumentAssignmentID, IArgument argument, ICriteriaItem criteriaItem) : this (argumentAssignmentID, argument)
+		public ArgumentAssignment(Guid argumentAssignmentID, IArgument argument, ICriteriaUnit criteriaUnit) : this (argumentAssignmentID, argument)
 		{
-			this.CriteriaItem = criteriaItem;
+			this.CriteriaUnit = criteriaUnit;
 		}
 
 		public ArgumentAssignment Copy()
 		{
-			return new ArgumentAssignment(Argument.Copy(), CriteriaItem.Copy());
+			return new ArgumentAssignment(Argument.Copy(), CriteriaUnit.Copy());
 		}
 
 		public override bool Equals(object obj)
@@ -75,19 +75,19 @@ namespace Criteria.CriteriaItems.CriteriaFunctions
 			}
 			else
 			{
-				return (this.Argument.Equals(that.Argument) && this.CriteriaItem.Equals(that.CriteriaItem));
+				return (this.Argument.Equals(that.Argument) && this.CriteriaUnit.Equals(that.CriteriaUnit));
 			}
 		}
 
-		private bool ArgumentTypeMatchesCriteriaItemType(IArgument argument)
+		private bool ArgumentTypeMatchesCriteriaUnitType(IArgument argument)
 		{
-			if(CriteriaItem == null)
+			if(CriteriaUnit == null)
 			{
 				return true;
 			}
-			else if (CriteriaItem.ReturnDataType == argument.DataType)
+			else if (CriteriaUnit.ReturnDataType == argument.DataType)
 			{
-				if (argument.RequiresSingleValue == false || (argument.RequiresSingleValue == true && CriteriaItem.ReturnsSingleValue == true))
+				if (argument.RequiresSingleValue == false || (argument.RequiresSingleValue == true && CriteriaUnit.ReturnsSingleValue == true))
 				{
 					return true;
 				}
@@ -96,11 +96,11 @@ namespace Criteria.CriteriaItems.CriteriaFunctions
 			else return false;
 		}
 
-		private bool CriteriaItemTypeMatchesArgumentType(ICriteriaItem criteriaItem)
+		private bool CriteriaUnitTypeMatchesArgumentType(ICriteriaUnit criteriaUnit)
 		{
-			if (criteriaItem.ReturnDataType == Argument.DataType)
+			if (criteriaUnit.ReturnDataType == Argument.DataType)
 			{
-				if (Argument.RequiresSingleValue == false || (Argument.RequiresSingleValue == true && criteriaItem.ReturnsSingleValue == true))
+				if (Argument.RequiresSingleValue == false || (Argument.RequiresSingleValue == true && criteriaUnit.ReturnsSingleValue == true))
 				{
 					return true;
 				}
@@ -113,14 +113,14 @@ namespace Criteria.CriteriaItems.CriteriaFunctions
 		{
 			return that != null &&
 				   EqualityComparer<IArgument>.Default.Equals(Argument, that.Argument) &&
-				   EqualityComparer<ICriteriaItem>.Default.Equals(CriteriaItem, that.CriteriaItem);
+				   EqualityComparer<ICriteriaUnit>.Default.Equals(CriteriaUnit, that.CriteriaUnit);
 		}
 
 		public override int GetHashCode()
 		{
 			var hashCode = 1392270585;
 			hashCode = hashCode * -1521134295 + EqualityComparer<IArgument>.Default.GetHashCode(Argument);
-			hashCode = hashCode * -1521134295 + EqualityComparer<ICriteriaItem>.Default.GetHashCode(CriteriaItem);
+			hashCode = hashCode * -1521134295 + EqualityComparer<ICriteriaUnit>.Default.GetHashCode(CriteriaUnit);
 			return hashCode;
 		}
 	}

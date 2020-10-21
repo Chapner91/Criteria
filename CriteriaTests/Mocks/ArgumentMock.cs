@@ -1,4 +1,4 @@
-﻿using Criteria.CriteriaItems.CriteriaFunctions;
+﻿using Criteria.CriteriaUnits.CriteriaFunctions;
 using Criteria.Enums;
 using System;
 using System.Collections.Generic;

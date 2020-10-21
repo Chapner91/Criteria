@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Criteria.CriteriaItems.CriteriaFunctions
+namespace Criteria.CriteriaUnits.CriteriaFunctions
 {
 	[JsonConverter(typeof(IArgumentConverter))]
 	public class Argument : IArgument, IEquatable<Argument>

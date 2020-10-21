@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Criteria.Enums;
 
-namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
+namespace Criteria.CriteriaUnits.CriteriaFunctions.Tests
 {
 	public class ArgumentTests
 	{

@@ -4,46 +4,46 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Criteria.CriteriaItems.CriteriaFunctions
+namespace Criteria.CriteriaUnits.CriteriaFunctions
 {
 	public class CriteriaFunctionConfigurationRepository
 	{
 		//	Date functions 
 		//-------------------------------------------------------------------------------------
-		//DateAdd(enum interval, int increment, ICriteriaItem Date)
-		//DateDiff(enum interval, ICriteriaItem StartDate, ICriteriaItem EndDate)
-		//DateName(enum interval, ICriteriaItem Date)
+		//DateAdd(enum interval, int increment, ICriteriaUnit Date)
+		//DateDiff(enum interval, ICriteriaUnit StartDate, ICriteriaUnit EndDate)
+		//DateName(enum interval, ICriteriaUnit Date)
 		//GetDate()
-		//Day(ICriteriaItem EndDate)
-		//Month(ICriteriaItem EndDate)
-		//Year(ICriteriaItem EndDate)
+		//Day(ICriteriaUnit EndDate)
+		//Month(ICriteriaUnit EndDate)
+		//Year(ICriteriaUnit EndDate)
 
 		//	String functions
 		//-------------------------------------------------------------------------------------
-		//Left(CriteriaItemSimple, Int increment)
-		//Substring(CriteriaItemSimple, Int StartingIndex, Int Length)
-		//Len(CriteriaItemSimple)
-		//Lower(CriteriaItemSimple)
-		//Upper(CriteriaItemSimple)
-		//LTrim(CriteriaItemSimple)
-		//RTrim(CriteriaItemSimple)
-		//Trim(CriteriaItemSimple)
-		//Lpad(CriteriaItemSimple, char padding)
-		//RPad(CriteriaItemSimple, char padding)
+		//Left(CriteriaUnitSimple, Int increment)
+		//Substring(CriteriaUnitSimple, Int StartingIndex, Int Length)
+		//Len(CriteriaUnitSimple)
+		//Lower(CriteriaUnitSimple)
+		//Upper(CriteriaUnitSimple)
+		//LTrim(CriteriaUnitSimple)
+		//RTrim(CriteriaUnitSimple)
+		//Trim(CriteriaUnitSimple)
+		//Lpad(CriteriaUnitSimple, char padding)
+		//RPad(CriteriaUnitSimple, char padding)
 
 		//	Math Functions
 		//-------------------------------------------------------------------------------------
-		//ABS(CriteriaItemSimple)
-		//Ceiling(CriteriaItemSimple)
-		//Floor(CriteriaItemSimple)
-		//Round(CriteriaItemSimple, Int precision)
+		//ABS(CriteriaUnitSimple)
+		//Ceiling(CriteriaUnitSimple)
+		//Floor(CriteriaUnitSimple)
+		//Round(CriteriaUnitSimple, Int precision)
 
 		// General Functions
 		//-------------------------------------------------------------------------------------
-		//Concat(Ordered list of ICriteriaItems)
-		//Coalesce(Ordered list of ICriteriaItem)
-		//Isnull(ICriteriaItem ExpressionToCheck, ICriteriaItem Replacement)
-		//Nullif(ICriteriaItem ExpressionToCheck, ICriteriaItem ExpressionToCheckFor)
+		//Concat(Ordered list of ICriteriaUnits)
+		//Coalesce(Ordered list of ICriteriaUnit)
+		//Isnull(ICriteriaUnit ExpressionToCheck, ICriteriaUnit Replacement)
+		//Nullif(ICriteriaUnit ExpressionToCheck, ICriteriaUnit ExpressionToCheckFor)
 
 		//private static Dictionary<string, CriteriaFunctionConfiguration> ConfiguredFunctionList = new Dictionary<string, CriteriaFunctionConfiguration>();
 

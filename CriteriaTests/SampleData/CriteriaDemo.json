@@ -6,15 +6,15 @@
 			"CriteriaGroupID": "e4d1ecd2-9cee-4266-b6d2-64b116a43ac8",
 			"CriteriaGroupOperator": "AND",
 			"CriteriaGroups": [],
-			"CriteriaItems": [
+			"CriteriaUnits": [
 				{
 					"LeftSide": "A",
-					"CriteriaItemOperator": "equal",
+					"CriteriaUnitOperator": "equal",
 					"RightSide": "B"
 				},
 				{
 					"LeftSide": "C",
-					"CriteriaItemOperator": "lessThan",
+					"CriteriaUnitOperator": "lessThan",
 					"RightSide": "5000"
 				}
 			]

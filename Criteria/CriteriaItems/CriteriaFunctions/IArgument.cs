@@ -1,7 +1,7 @@
 ﻿using System;
 using Criteria.Enums;
 
-namespace Criteria.CriteriaItems.CriteriaFunctions
+namespace Criteria.CriteriaUnits.CriteriaFunctions
 {
 	public interface IArgument
 	{

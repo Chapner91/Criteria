@@ -4,27 +4,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Criteria.CriteriaExceptions;
-using Criteria.CriteriaItems.CriteriaFunctions;
+using Criteria.CriteriaUnits.CriteriaFunctions;
 using Criteria.Enums;
 using Criteria.JsonConverters;
 using Newtonsoft.Json;
 
-namespace Criteria.CriteriaItems.CriteriaFunctions
+namespace Criteria.CriteriaUnits.CriteriaFunctions
 {
 
-	[JsonConverter(typeof(ICriteriaItemConverter))]
-	public class CriteriaItemFunction : ICriteriaItem, IEquatable<CriteriaItemFunction>
+	[JsonConverter(typeof(ICriteriaUnitConverter))]
+	public class CriteriaUnitFunction : ICriteriaUnit, IEquatable<CriteriaUnitFunction>
 	{
-		[JsonProperty(PropertyName = "CriteriaItemType")]
-		public string CriteriaItemType => "function";
+		[JsonProperty(PropertyName = "CriteriaUnitType")]
+		public string CriteriaUnitType => "function";
 
 		[JsonProperty(PropertyName = "FunctionScheme")]
 		[JsonConverter(typeof(ICriteriaFunctionSchemeConverter))]
 		private ICriteriaFunctionScheme _functionScheme;
 		[JsonProperty(PropertyName = "FunctionName")]
 		public string FunctionName { get; private set; }
-		[JsonProperty(PropertyName = "CriteriaItemID")]
-		public Guid CriteriaItemID { get; private set; }
+		[JsonProperty(PropertyName = "CriteriaUnitID")]
+		public Guid CriteriaUnitID { get; private set; }
 		[JsonIgnore]
 		public DataType ReturnDataType => _functionScheme.ReturnDataType;
 		[JsonIgnore]
@@ -36,7 +36,7 @@ namespace Criteria.CriteriaItems.CriteriaFunctions
 				string result = _functionScheme.SQLTranslationString;
 				foreach(ArgumentAssignment argumentAssignment in _argumentAssignments)
 				{
-					string criteriaString = argumentAssignment.CriteriaItem == null ? "NULL" : argumentAssignment.CriteriaItem.SQLValue;
+					string criteriaString = argumentAssignment.CriteriaUnit == null ? "NULL" : argumentAssignment.CriteriaUnit.SQLValue;
 					string translatorIndex = $"{{{argumentAssignment.Argument.Name}}}";
 					result = result.Replace($"{{{argumentAssignment.Argument.Name}}}", criteriaString);
 				}
@@ -50,7 +50,7 @@ namespace Criteria.CriteriaItems.CriteriaFunctions
 				string result = _functionScheme.EnglishTranslationString;
 				foreach (ArgumentAssignment argumentAssignment in _argumentAssignments)
 				{
-					string criteriaString = argumentAssignment.CriteriaItem == null ? "UNASSIGNED" : argumentAssignment.CriteriaItem.EnglishValue;
+					string criteriaString = argumentAssignment.CriteriaUnit == null ? "UNASSIGNED" : argumentAssignment.CriteriaUnit.EnglishValue;
 					string translatorIndex = $"{{{argumentAssignment.Argument.Name}}}";
 					result = result.Replace($"{{{argumentAssignment.Argument.Name}}}", criteriaString);
 				}
@@ -68,11 +68,11 @@ namespace Criteria.CriteriaItems.CriteriaFunctions
 		// ******** CONSTRUCTORS
 		//*****************************************************************************
 
-		public CriteriaItemFunction() { }
+		public CriteriaUnitFunction() { }
 
-		public CriteriaItemFunction(string functionName, ICriteriaFunctionScheme functionScheme)
+		public CriteriaUnitFunction(string functionName, ICriteriaFunctionScheme functionScheme)
 		{
-			this.CriteriaItemID = Guid.NewGuid();
+			this.CriteriaUnitID = Guid.NewGuid();
 			this.FunctionName = functionName;
 			this._functionScheme = functionScheme;
 
@@ -82,9 +82,9 @@ namespace Criteria.CriteriaItems.CriteriaFunctions
 			}
 		}
 
-		public CriteriaItemFunction(Guid criteriaItemID, string functionName, ICriteriaFunctionScheme functionScheme) : this(functionName, functionScheme)
+		public CriteriaUnitFunction(Guid criteriaUnitID, string functionName, ICriteriaFunctionScheme functionScheme) : this(functionName, functionScheme)
 		{
-			this.CriteriaItemID = criteriaItemID;
+			this.CriteriaUnitID = criteriaUnitID;
 		}
 
 		//*****************************************************************************
@@ -102,19 +102,19 @@ namespace Criteria.CriteriaItems.CriteriaFunctions
 		}
 
 
-		public void AssignArgument(Guid argumentAssignmentID, ICriteriaItem criteriaItem)
+		public void AssignArgument(Guid argumentAssignmentID, ICriteriaUnit criteriaUnit)
 		{
 			var argumentAssignment = _argumentAssignments.Find(x => x.ArgumentAssignmentID == argumentAssignmentID);
-			argumentAssignment.CriteriaItem = criteriaItem;
+			argumentAssignment.CriteriaUnit = criteriaUnit;
 		}
 
-		public void AssignArgument(string argumentName, ICriteriaItem criteriaItem)
+		public void AssignArgument(string argumentName, ICriteriaUnit criteriaUnit)
 		{
 			var argumentAssignment = _argumentAssignments.Find(x => x.Argument.Name == argumentName);
-			argumentAssignment.CriteriaItem = criteriaItem;
+			argumentAssignment.CriteriaUnit = criteriaUnit;
 		}
 
-		public bool Equals(CriteriaItemFunction that)
+		public bool Equals(CriteriaUnitFunction that)
 		{
 			return that != null &&
 				   this._functionScheme.Equals(that._functionScheme) &&
@@ -123,16 +123,16 @@ namespace Criteria.CriteriaItems.CriteriaFunctions
 		}
 
 
-		public ICriteriaItem Copy()
+		public ICriteriaUnit Copy()
 		{
 			var NewArgumentAssignments = new List<ArgumentAssignment>();
 			foreach (ArgumentAssignment argAssignment in _argumentAssignments)
 			{
 				NewArgumentAssignments.Add(argAssignment.Copy());
 			}
-			var criteriaItemFunction = new CriteriaItemFunction(FunctionName, _functionScheme.Copy());
-			criteriaItemFunction._argumentAssignments = NewArgumentAssignments;
-			return criteriaItemFunction;
+			var criteriaUnitFunction = new CriteriaUnitFunction(FunctionName, _functionScheme.Copy());
+			criteriaUnitFunction._argumentAssignments = NewArgumentAssignments;
+			return criteriaUnitFunction;
 		}
 
 		public override int GetHashCode()
@@ -148,14 +148,14 @@ namespace Criteria.CriteriaItems.CriteriaFunctions
 		// ******** PRIVATE METHODS
 		//*****************************************************************************
 
-		public static CriteriaItemFunction Deserialize(string criteriaItemJson)
+		public static CriteriaUnitFunction Deserialize(string criteriaUnitJson)
 		{
 			var settings = new JsonSerializerSettings()
 			{
 				//TypeNameHandling = TypeNameHandling.All
 			};
 
-			return JsonConvert.DeserializeObject<CriteriaItemFunction>(criteriaItemJson, settings);
+			return JsonConvert.DeserializeObject<CriteriaUnitFunction>(criteriaUnitJson, settings);
 		}
 	}
 }

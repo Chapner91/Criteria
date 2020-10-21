@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace CriteriaTests.Mocks
 {
-	public class CriteriaItemSimpleStringMock : ICriteriaItem
+	public class CriteriaUnitSimpleStringMock : ICriteriaUnit
 	{
-		public string CriteriaItemType => "simple";
-		public Guid CriteriaItemID => Guid.Parse("8f84f401-2de2-42b7-b9e1-939385c0eace");
+		public string CriteriaUnitType => "simple";
+		public Guid CriteriaUnitID => Guid.Parse("8f84f401-2de2-42b7-b9e1-939385c0eace");
 		public DataType ReturnDataType => DataType.String;
 		public bool ReturnsSingleValue => true;
 		public string Value => "Test";
@@ -21,14 +21,14 @@ namespace CriteriaTests.Mocks
 		{
 			throw new NotImplementedException();
 		}
-		public ICriteriaItem Copy() { throw new NotImplementedException(); }
+		public ICriteriaUnit Copy() { throw new NotImplementedException(); }
 
 	}
 
-	public class CriteriaItemCompoundStringMock : ICriteriaItem
+	public class CriteriaUnitCompoundStringMock : ICriteriaUnit
 	{
-		public string CriteriaItemType => "compound";
-		public Guid CriteriaItemID => Guid.Parse("08360bb0-6c78-4d8e-b49b-857b385ab190");
+		public string CriteriaUnitType => "compound";
+		public Guid CriteriaUnitID => Guid.Parse("08360bb0-6c78-4d8e-b49b-857b385ab190");
 		public DataType ReturnDataType => DataType.String;
 		public bool ReturnsSingleValue => false;
 		public string Value => "Test";
@@ -38,6 +38,6 @@ namespace CriteriaTests.Mocks
 		{
 			throw new NotImplementedException();
 		}
-		public ICriteriaItem Copy() { throw new NotImplementedException(); }
+		public ICriteriaUnit Copy() { throw new NotImplementedException(); }
 	}
 }

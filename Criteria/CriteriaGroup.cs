@@ -11,7 +11,7 @@ namespace Criteria
 		public Guid CriteriaGroupID { get; set; }
 		public CriteriaGroupOperator CriteriaGroupOperator { get; set; }
 		public List<CriteriaGroup> CriteriaGroups { get; set; }
-		public List<CriteriaPredicate> CriteriaItems { get; set; }
+		public List<CriteriaPredicate> CriteriaUnits { get; set; }
 	}
 	
 	public enum CriteriaGroupOperator

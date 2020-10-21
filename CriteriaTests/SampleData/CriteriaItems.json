@@ -1,35 +1,35 @@
 [
 
 	{
-		"$type": "Criteria.CriteriaItems.SimpleCriteriaItem, Criteria",
+		"$type": "Criteria.CriteriaUnits.SimpleCriteriaUnit, Criteria",
 		"DataType": "String",
 		"Value": "Test"
 	},
 	{
-		"$type": "Criteria.CriteriaItems.SimpleCriteriaItem, Criteria",
+		"$type": "Criteria.CriteriaUnits.SimpleCriteriaUnit, Criteria",
 		"DataType": 1,
 		"Value": "Test"
 	},
 	{
-		"$type": "Criteria.CriteriaItems.SimpleCriteriaItem, Criteria",
+		"$type": "Criteria.CriteriaUnits.SimpleCriteriaUnit, Criteria",
 		"DataType": 1,
 		"Value": "Test"
 	},
 	{
 
-		"$type": "Criteria.CriteriaItems.CompoundCriteriaItem, Criteria",
+		"$type": "Criteria.CriteriaUnits.CompoundCriteriaUnit, Criteria",
 		"DataType": 0,
 		"Value": "(1),(2)",
-		"CriteriaItems": {
-			"$type": "System.Collections.Generic.List`1[[Criteria.ICriteriaItem, Criteria]], mscorlib",
+		"CriteriaUnits": {
+			"$type": "System.Collections.Generic.List`1[[Criteria.ICriteriaUnit, Criteria]], mscorlib",
 			"$values": [
 				{
-					"$type": "Criteria.CriteriaItems.SimpleCriteriaItem, Criteria",
+					"$type": "Criteria.CriteriaUnits.SimpleCriteriaUnit, Criteria",
 					"DataType": 0,
 					"Value": "1"
 				},
 				{
-					"$type": "Criteria.CriteriaItems.SimpleCriteriaItem, Criteria",
+					"$type": "Criteria.CriteriaUnits.SimpleCriteriaUnit, Criteria",
 					"DataType": 0,
 					"Value": "2"
 				}

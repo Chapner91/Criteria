@@ -1,5 +1,5 @@
 ﻿using Xunit;
-using Criteria.CriteriaItems.CriteriaFunctions;
+using Criteria.CriteriaUnits.CriteriaFunctions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Criteria.Enums;
 using Criteria.CriteriaExceptions;
 
-namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
+namespace Criteria.CriteriaUnits.CriteriaFunctions.Tests
 {
 	public class CriteriaFunctionSchemeTests
 	{

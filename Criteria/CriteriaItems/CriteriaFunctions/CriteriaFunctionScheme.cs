@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Criteria.CriteriaItems.CriteriaFunctions
+namespace Criteria.CriteriaUnits.CriteriaFunctions
 {
 	[JsonConverter(typeof(ICriteriaFunctionSchemeConverter))]
 	public class CriteriaFunctionScheme : ICriteriaFunctionScheme, IEquatable<CriteriaFunctionScheme>

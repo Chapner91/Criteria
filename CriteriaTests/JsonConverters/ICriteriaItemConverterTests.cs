@@ -6,55 +6,55 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Criteria.CriteriaItems;
+using Criteria.CriteriaUnits;
 using System.IO;
 using Criteria.Enums;
 
 namespace Criteria.JsonConverters.Tests
 {
-	public class ICriteriaItemConverterTests
+	public class ICriteriaUnitConverterTests
 	{
-		private CriteriaItemSimple _criteriaItemSimple; 
-		private string _criteriaItemSimpleJson;
-		private CriteriaItemCompound _criteriaItemCompound; 
-		private string _criteriaItemCompoundJson; 
+		private CriteriaUnitSimple _criteriaUnitSimple; 
+		private string _criteriaUnitSimpleJson;
+		private CriteriaUnitCompound _criteriaUnitCompound; 
+		private string _criteriaUnitCompoundJson; 
 
 
-		public ICriteriaItemConverterTests()
+		public ICriteriaUnitConverterTests()
 		{
-			_criteriaItemSimple = new CriteriaItemSimple(DataType.String, "Test", true);
-			_criteriaItemSimpleJson = _criteriaItemSimple.Serialize();
-			_criteriaItemCompound = new CriteriaItemCompound(DataType.Numeric, new List<ICriteriaItem>()
+			_criteriaUnitSimple = new CriteriaUnitSimple(DataType.String, "Test", true);
+			_criteriaUnitSimpleJson = _criteriaUnitSimple.Serialize();
+			_criteriaUnitCompound = new CriteriaUnitCompound(DataType.Numeric, new List<ICriteriaUnit>()
 			{
-				new CriteriaItemSimple(DataType.Numeric, "1", true),
-				new CriteriaItemSimple(DataType.Numeric, "2", true)
+				new CriteriaUnitSimple(DataType.Numeric, "1", true),
+				new CriteriaUnitSimple(DataType.Numeric, "2", true)
 			});
-			_criteriaItemCompoundJson = _criteriaItemCompound.Serialize();
+			_criteriaUnitCompoundJson = _criteriaUnitCompound.Serialize();
 		}
-		//"{\"CriteriaItemType\":\"simple\",\"DataType\":1,\"Value\":\"Test\"}";
-		//private string _criteriaItemCompoundJson = "{\"CriteriaItemType\":\"compound\",\"DataType\":0,\"Value\":\"((1),(2))\",\"CriteriaItems\":[{\"CriteriaItemType\":\"simple\",\"DataType\":0,\"Value\":\"1\"},{\"CriteriaItemType\":\"simple\",\"DataType\":0,\"Value\":\"2\"}]}";
+		//"{\"CriteriaUnitType\":\"simple\",\"DataType\":1,\"Value\":\"Test\"}";
+		//private string _criteriaUnitCompoundJson = "{\"CriteriaUnitType\":\"compound\",\"DataType\":0,\"Value\":\"((1),(2))\",\"CriteriaUnits\":[{\"CriteriaUnitType\":\"simple\",\"DataType\":0,\"Value\":\"1\"},{\"CriteriaUnitType\":\"simple\",\"DataType\":0,\"Value\":\"2\"}]}";
 
 
 		[Fact()]
-		public void Deserialize_CriteriaItemSimple()
+		public void Deserialize_CriteriaUnitSimple()
 		{
-			var converter = new JsonConverter[] { new ICriteriaItemConverter() };
+			var converter = new JsonConverter[] { new ICriteriaUnitConverter() };
 
-			ICriteriaItem criteriaItem = JsonConvert.DeserializeObject<ICriteriaItem>(_criteriaItemSimpleJson, converter);	
-			Assert.True(criteriaItem.CriteriaItemType == "simple", $"The CriteriaItemType property of the returned ICriteriaItem was \"{criteriaItem.CriteriaItemType}\" and should have been \"simple\"");
+			ICriteriaUnit criteriaUnit = JsonConvert.DeserializeObject<ICriteriaUnit>(_criteriaUnitSimpleJson, converter);	
+			Assert.True(criteriaUnit.CriteriaUnitType == "simple", $"The CriteriaUnitType property of the returned ICriteriaUnit was \"{criteriaUnit.CriteriaUnitType}\" and should have been \"simple\"");
 		}
 
 		[Fact()]
-		public void Deserialize_CriteriaItemCompound()
+		public void Deserialize_CriteriaUnitCompound()
 		{
 			var converter = new JsonConverter[]	
 			{
-				new ICriteriaItemListConverter(),
-				new ICriteriaItemConverter()
+				new ICriteriaUnitListConverter(),
+				new ICriteriaUnitConverter()
 			};
 
-			ICriteriaItem criteriaItem = JsonConvert.DeserializeObject<ICriteriaItem>(_criteriaItemCompoundJson, converter);
-			Assert.True(criteriaItem.CriteriaItemType == "compound", $"The CriteriaItemType property of the returned ICriteriaItem was \"{criteriaItem.CriteriaItemType}\" and should have been \"compound\"");
+			ICriteriaUnit criteriaUnit = JsonConvert.DeserializeObject<ICriteriaUnit>(_criteriaUnitCompoundJson, converter);
+			Assert.True(criteriaUnit.CriteriaUnitType == "compound", $"The CriteriaUnitType property of the returned ICriteriaUnit was \"{criteriaUnit.CriteriaUnitType}\" and should have been \"compound\"");
 		}
 	}
 }

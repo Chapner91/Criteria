@@ -1,4 +1,4 @@
-﻿using Criteria.CriteriaItems.CriteriaFunctions;
+﻿using Criteria.CriteriaUnits.CriteriaFunctions;
 using Criteria.Enums;
 using System;
 using System.Collections.Generic;
@@ -8,31 +8,31 @@ using System.Threading.Tasks;
 
 namespace Criteria.CriteriaExceptions
 {
-	public class CriteriaItemException : Exception
+	public class CriteriaUnitException : Exception
 	{
-		public CriteriaItemException() : base() { }
-		public CriteriaItemException(string message) : base(message) { }
+		public CriteriaUnitException() : base() { }
+		public CriteriaUnitException(string message) : base(message) { }
 	}
 
 
-	public class CriteriaItemTypeMismatchException : CriteriaItemException
+	public class CriteriaUnitTypeMismatchException : CriteriaUnitException
 	{
 		public DataType DataType { get; }
 		public string Value { get; }
-		public ICriteriaItem ExceptionCriteriaItem { get; }
+		public ICriteriaUnit ExceptionCriteriaUnit { get; }
 
-		public CriteriaItemTypeMismatchException() : base() { }
-		public CriteriaItemTypeMismatchException(string message) : base(message) { }
-		public CriteriaItemTypeMismatchException(DataType dataType, string value) : base($"The value \"{value}\" does not match the DataType {dataType}")
+		public CriteriaUnitTypeMismatchException() : base() { }
+		public CriteriaUnitTypeMismatchException(string message) : base(message) { }
+		public CriteriaUnitTypeMismatchException(DataType dataType, string value) : base($"The value \"{value}\" does not match the DataType {dataType}")
 		{
 			DataType = dataType;
 			Value = value;
 		}
 
-		public CriteriaItemTypeMismatchException(DataType dataType, ICriteriaItem exceptionCriteriaItem) : base($"The DataType of the child ICriteriaItem does not match the DataType of the parent ICriteriaItem")
+		public CriteriaUnitTypeMismatchException(DataType dataType, ICriteriaUnit exceptionCriteriaUnit) : base($"The DataType of the child ICriteriaUnit does not match the DataType of the parent ICriteriaUnit")
 		{
 			DataType = dataType;
-			ExceptionCriteriaItem = exceptionCriteriaItem;
+			ExceptionCriteriaUnit = exceptionCriteriaUnit;
 		}
 	}
 

@@ -11,25 +11,25 @@ namespace Criteria.Tests
 	public class CriteriaPredicateTests
 	{
 
-		private string _jsonAEqualB					= "{\"LeftSide\": \"A\",\"CriteriaItemOperator\": \"Equal\",\"RightSide\": \"B\"}";
-		private string _jsonANotEqualB				= "{\"LeftSide\": \"A\",\"CriteriaItemOperator\": \"NotEqual\",\"RightSide\": \"B\"}";
-		private string _jsonALessThanB				= "{\"LeftSide\": \"A\",\"CriteriaItemOperator\": \"LessThan\",\"RightSide\": \"B\"}";
-		private string _jsonALessThanOrEqualB		= "{\"LeftSide\": \"A\",\"CriteriaItemOperator\": \"LessThanOrEqual\",\"RightSide\": \"B\"}";
-		private string _jsonAGreaterThanB			= "{\"LeftSide\": \"A\",\"CriteriaItemOperator\": \"GreaterThan\",\"RightSide\": \"B\"};";
-		private string _jsonAGreaterThanOrEqualB	= "{\"LeftSide\": \"A\",\"CriteriaItemOperator\": \"GreaterThanOrEqual\",\"RightSide\": \"B\"}";
-		private string _jsonAInListBCD				= "{\"LeftSide\": \"A\",\"CriteriaItemOperator\": \"InList\",\"RightSide\": \"B, C, D\"}";
-		private string _jsonANotInListBCD			= "{\"LeftSide\": \"A\",\"CriteriaItemOperator\": \"NotInList\",\"RightSide\": \"B, C, D\"}";
+		private string _jsonAEqualB					= "{\"LeftSide\": \"A\",\"CriteriaUnitOperator\": \"Equal\",\"RightSide\": \"B\"}";
+		private string _jsonANotEqualB				= "{\"LeftSide\": \"A\",\"CriteriaUnitOperator\": \"NotEqual\",\"RightSide\": \"B\"}";
+		private string _jsonALessThanB				= "{\"LeftSide\": \"A\",\"CriteriaUnitOperator\": \"LessThan\",\"RightSide\": \"B\"}";
+		private string _jsonALessThanOrEqualB		= "{\"LeftSide\": \"A\",\"CriteriaUnitOperator\": \"LessThanOrEqual\",\"RightSide\": \"B\"}";
+		private string _jsonAGreaterThanB			= "{\"LeftSide\": \"A\",\"CriteriaUnitOperator\": \"GreaterThan\",\"RightSide\": \"B\"};";
+		private string _jsonAGreaterThanOrEqualB	= "{\"LeftSide\": \"A\",\"CriteriaUnitOperator\": \"GreaterThanOrEqual\",\"RightSide\": \"B\"}";
+		private string _jsonAInListBCD				= "{\"LeftSide\": \"A\",\"CriteriaUnitOperator\": \"InList\",\"RightSide\": \"B, C, D\"}";
+		private string _jsonANotInListBCD			= "{\"LeftSide\": \"A\",\"CriteriaUnitOperator\": \"NotInList\",\"RightSide\": \"B, C, D\"}";
 
 		[Fact()]
 		public void CriteriaPredicate_InitializeWithJsonString()
 		{
 
 			var target = new CriteriaPredicate(_jsonAEqualB);
-			var control = new CriteriaPredicate() { LeftSide = "A", CriteriaItemOperator = CriteriaItemOperator.Equal, RightSide = "B" };
+			var control = new CriteriaPredicate() { LeftSide = "A", CriteriaUnitOperator = CriteriaUnitOperator.Equal, RightSide = "B" };
 
 			Assert.True(
 				(control.LeftSide == target.LeftSide) && 
-				(control.CriteriaItemOperator == target.CriteriaItemOperator) && 
+				(control.CriteriaUnitOperator == target.CriteriaUnitOperator) && 
 				(control.RightSide == target.RightSide)
 				, "Target and Control CriteriaPredicate properties differ");
 		}
@@ -38,12 +38,12 @@ namespace Criteria.Tests
 		public void CriteriaPredicate_InitializeWithOperators()
 		{
 
-			var target = new CriteriaPredicate("A", CriteriaItemOperator.Equal, "B");
-			var control = new CriteriaPredicate() { LeftSide = "A", CriteriaItemOperator = CriteriaItemOperator.Equal, RightSide = "B" };
+			var target = new CriteriaPredicate("A", CriteriaUnitOperator.Equal, "B");
+			var control = new CriteriaPredicate() { LeftSide = "A", CriteriaUnitOperator = CriteriaUnitOperator.Equal, RightSide = "B" };
 
 			Assert.True(
 				(control.LeftSide == target.LeftSide) &&
-				(control.CriteriaItemOperator == target.CriteriaItemOperator) &&
+				(control.CriteriaUnitOperator == target.CriteriaUnitOperator) &&
 				(control.RightSide == target.RightSide)
 				, "Target and Control CriteriaPredicate properties differ");
 		}

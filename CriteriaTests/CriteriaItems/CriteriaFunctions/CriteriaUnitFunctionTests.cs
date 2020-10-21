@@ -1,5 +1,5 @@
 ﻿using Xunit;
-using Criteria.CriteriaItems;
+using Criteria.CriteriaUnits;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 using CriteriaTests.Mocks;
 using Criteria.Enums;
 
-namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
+namespace Criteria.CriteriaUnits.CriteriaFunctions.Tests
 {
-	public class CriteriaItemFunctionTests
+	public class CriteriaUnitFunctionTests
 	{
 		private CriteriaFunctionScheme _schemeSubString;
 		private Guid guid1, guid2, guid3, guid4, guid5, guid6, guid7;
-		private CriteriaItemFunction _substringFunction;
-		private CriteriaItemFunction _substringFunctionAssignedArguments;
+		private CriteriaUnitFunction _substringFunction;
+		private CriteriaUnitFunction _substringFunctionAssignedArguments;
 		private string _substringFunctionAssignedArgumentsJson;
 
-		public CriteriaItemFunctionTests()
+		public CriteriaUnitFunctionTests()
 		{
 			guid1 = Guid.NewGuid();
 			guid2 = Guid.NewGuid();
@@ -33,16 +33,16 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 			_schemeSubString = new CriteriaFunctionScheme("Substring", arguments, true, DataType.String, "SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})", "Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}");
 
 			guid4 = Guid.NewGuid();
-			_substringFunction = new CriteriaItemFunction(guid4, "substring", _schemeSubString);
+			_substringFunction = new CriteriaUnitFunction(guid4, "substring", _schemeSubString);
 
 			guid5 = Guid.NewGuid();
 			guid6 = Guid.NewGuid();
 			guid7 = Guid.NewGuid();
 
-			_substringFunctionAssignedArguments = new CriteriaItemFunction(guid4, "substring", _schemeSubString);
-			_substringFunctionAssignedArguments.AssignArgument("expression", new CriteriaItemSimple(guid5, DataType.String, "ExpressionColumnName", false));
-			_substringFunctionAssignedArguments.AssignArgument("startFromIndex", new CriteriaItemSimple(guid6, DataType.Numeric, "StartFromIndexColumnName", false));
-			_substringFunctionAssignedArguments.AssignArgument("lengthOfSubstring", new CriteriaItemSimple(guid7, DataType.Numeric, "LengthOfSubstringColumnName", false));
+			_substringFunctionAssignedArguments = new CriteriaUnitFunction(guid4, "substring", _schemeSubString);
+			_substringFunctionAssignedArguments.AssignArgument("expression", new CriteriaUnitSimple(guid5, DataType.String, "ExpressionColumnName", false));
+			_substringFunctionAssignedArguments.AssignArgument("startFromIndex", new CriteriaUnitSimple(guid6, DataType.Numeric, "StartFromIndexColumnName", false));
+			_substringFunctionAssignedArguments.AssignArgument("lengthOfSubstring", new CriteriaUnitSimple(guid7, DataType.Numeric, "LengthOfSubstringColumnName", false));
 
 			_substringFunctionAssignedArgumentsJson = _substringFunctionAssignedArguments.Serialize();
 		}
@@ -54,7 +54,7 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 			var target = _substringFunction;
 
 			var expected = guid;
-			var actual = target.CriteriaItemID;
+			var actual = target.CriteriaUnitID;
 
 			Assert.Equal(expected, actual);
 		}
@@ -65,7 +65,7 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 			var target = _substringFunction;
 
 			Assert.True(
-				target.CriteriaItemType == "function" &&
+				target.CriteriaUnitType == "function" &&
 				target.ReturnDataType == DataType.String &&
 				target.ReturnsSingleValue == true
 				);
@@ -85,28 +85,28 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 			var target = _substringFunction.ArgumentAssignments.ToList();
 
 			Assert.True(
-				target.Exists(x => x.Argument.Name == "expression" && x.CriteriaItem == null) &&
-				target.Exists(x => x.Argument.Name == "startFromIndex" && x.CriteriaItem == null) &&
-				target.Exists(x => x.Argument.Name == "lengthOfSubstring" && x.CriteriaItem == null)
+				target.Exists(x => x.Argument.Name == "expression" && x.CriteriaUnit == null) &&
+				target.Exists(x => x.Argument.Name == "startFromIndex" && x.CriteriaUnit == null) &&
+				target.Exists(x => x.Argument.Name == "lengthOfSubstring" && x.CriteriaUnit == null)
 				);
 		}
 
 		[Fact()]
 		public void DeserializeFromJson()
 		{
-			var target = CriteriaItemFunction.Deserialize(_substringFunctionAssignedArgumentsJson);
+			var target = CriteriaUnitFunction.Deserialize(_substringFunctionAssignedArgumentsJson);
 
 			var argumentAssignments = target.ArgumentAssignments.ToList();
 
 			Assert.True(
-				target.CriteriaItemType == "function" &&
+				target.CriteriaUnitType == "function" &&
 				target.FunctionName == "substring" &&
-				target.CriteriaItemID == guid4 &&
+				target.CriteriaUnitID == guid4 &&
 				target.ReturnDataType == DataType.String &&
 				target.ReturnsSingleValue == true &&
-				argumentAssignments.Exists(x => x.Argument.Name == "expression" && x.CriteriaItem.CriteriaItemID == guid5) &&
-				argumentAssignments.Exists(x => x.Argument.Name == "startFromIndex" && x.CriteriaItem.CriteriaItemID == guid6) &&
-				argumentAssignments.Exists(x => x.Argument.Name == "lengthOfSubstring" && x.CriteriaItem.CriteriaItemID == guid7)
+				argumentAssignments.Exists(x => x.Argument.Name == "expression" && x.CriteriaUnit.CriteriaUnitID == guid5) &&
+				argumentAssignments.Exists(x => x.Argument.Name == "startFromIndex" && x.CriteriaUnit.CriteriaUnitID == guid6) &&
+				argumentAssignments.Exists(x => x.Argument.Name == "lengthOfSubstring" && x.CriteriaUnit.CriteriaUnitID == guid7)
 				);
 		}
 
@@ -123,10 +123,10 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 			var argumentAssignmentID = argumentAssignment.ArgumentAssignmentID;
 
 			var guid = Guid.NewGuid();
-			target.AssignArgument(argumentAssignmentID, new CriteriaItemSimple(guid, DataType.String, "ColumnName", false));
+			target.AssignArgument(argumentAssignmentID, new CriteriaUnitSimple(guid, DataType.String, "ColumnName", false));
 
 			var expected = guid;
-			var actual = argumentAssignment.CriteriaItem.CriteriaItemID;
+			var actual = argumentAssignment.CriteriaUnit.CriteriaUnitID;
 
 			Assert.Equal(expected, actual);
 
@@ -141,10 +141,10 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 			var argumentAssignmentID = argumentAssignment.ArgumentAssignmentID;
 
 			var guid = Guid.NewGuid();
-			target.AssignArgument("expression", new CriteriaItemSimple(guid, DataType.String, "ColumnName", false));
+			target.AssignArgument("expression", new CriteriaUnitSimple(guid, DataType.String, "ColumnName", false));
 
 			var expected = guid;
-			var actual = argumentAssignment.CriteriaItem.CriteriaItemID;
+			var actual = argumentAssignment.CriteriaUnit.CriteriaUnitID;
 
 			Assert.Equal(expected, actual);
 
@@ -163,12 +163,12 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 
 
 			var guid = Guid.NewGuid();
-			target.AssignArgument(argumentAssignment1ID, new CriteriaItemSimple(guid, DataType.String, "ColumnName", false));
+			target.AssignArgument(argumentAssignment1ID, new CriteriaUnitSimple(guid, DataType.String, "ColumnName", false));
 			var guid2 = Guid.NewGuid();
-			target.AssignArgument(argumentAssignment2ID, new CriteriaItemSimple(guid2, DataType.Numeric, "ColumnName", false));
+			target.AssignArgument(argumentAssignment2ID, new CriteriaUnitSimple(guid2, DataType.Numeric, "ColumnName", false));
 
 
-			Assert.NotEqual(argumentAssignment1.CriteriaItem.CriteriaItemID, argumentAssignment2.CriteriaItem.CriteriaItemID);
+			Assert.NotEqual(argumentAssignment1.CriteriaUnit.CriteriaUnitID, argumentAssignment2.CriteriaUnit.CriteriaUnitID);
 		}
 
 		[Fact()]
@@ -181,12 +181,12 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 
 
 			var guid = Guid.NewGuid();
-			target.AssignArgument(argumentAssignmentID, new CriteriaItemSimple(guid, DataType.String, "ColumnName", false));
+			target.AssignArgument(argumentAssignmentID, new CriteriaUnitSimple(guid, DataType.String, "ColumnName", false));
 			var guid2 = Guid.NewGuid();
-			target.AssignArgument(argumentAssignmentID, new CriteriaItemSimple(guid2, DataType.String, "ColumnName2", false));
+			target.AssignArgument(argumentAssignmentID, new CriteriaUnitSimple(guid2, DataType.String, "ColumnName2", false));
 
 			var expected = guid2;
-			var actual = argumentAssignment.CriteriaItem.CriteriaItemID;
+			var actual = argumentAssignment.CriteriaUnit.CriteriaUnitID;
 
 			Assert.Equal(expected, actual);
 		}
@@ -200,9 +200,9 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 		public void GetEnglishForAllValuesAssigned()
 		{
 			var target = _substringFunction;
-			target.AssignArgument("expression", new CriteriaItemSimple(DataType.String, "ExpressionColumnName", false));
-			target.AssignArgument("startFromIndex", new CriteriaItemSimple(DataType.Numeric, "StartFromIndexColumnName", false));
-			target.AssignArgument("lengthOfSubstring", new CriteriaItemSimple(DataType.Numeric, "LengthOfSubstringColumnName", false));
+			target.AssignArgument("expression", new CriteriaUnitSimple(DataType.String, "ExpressionColumnName", false));
+			target.AssignArgument("startFromIndex", new CriteriaUnitSimple(DataType.Numeric, "StartFromIndexColumnName", false));
+			target.AssignArgument("lengthOfSubstring", new CriteriaUnitSimple(DataType.Numeric, "LengthOfSubstringColumnName", false));
 
 			var expected = $"Substring LengthOfSubstringColumnName characters from the StartFromIndexColumnName character of ExpressionColumnName";
 			var actual = target.EnglishValue;
@@ -214,8 +214,8 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 		public void GetEnglishForSomeValuesAssigned()
 		{
 			var target = _substringFunction;
-			target.AssignArgument("expression", new CriteriaItemSimple(DataType.String, "ExpressionColumnName", false));
-			target.AssignArgument("startFromIndex", new CriteriaItemSimple(DataType.Numeric, "StartFromIndexColumnName", false));
+			target.AssignArgument("expression", new CriteriaUnitSimple(DataType.String, "ExpressionColumnName", false));
+			target.AssignArgument("startFromIndex", new CriteriaUnitSimple(DataType.Numeric, "StartFromIndexColumnName", false));
 
 			var expected = $"Substring UNASSIGNED characters from the StartFromIndexColumnName character of ExpressionColumnName";
 			var actual = target.EnglishValue;
@@ -227,9 +227,9 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 		public void GetSQLForAllValuesAssigned()
 		{
 			var target = _substringFunction;
-			target.AssignArgument("expression", new CriteriaItemSimple(DataType.String, "ExpressionColumnName", false));
-			target.AssignArgument("startFromIndex", new CriteriaItemSimple(DataType.Numeric, "StartFromIndexColumnName", false));
-			target.AssignArgument("lengthOfSubstring", new CriteriaItemSimple(DataType.Numeric, "LengthOfSubstringColumnName", false));
+			target.AssignArgument("expression", new CriteriaUnitSimple(DataType.String, "ExpressionColumnName", false));
+			target.AssignArgument("startFromIndex", new CriteriaUnitSimple(DataType.Numeric, "StartFromIndexColumnName", false));
+			target.AssignArgument("lengthOfSubstring", new CriteriaUnitSimple(DataType.Numeric, "LengthOfSubstringColumnName", false));
 
 			var expected = $"SUBSTRING(ExpressionColumnName, StartFromIndexColumnName, LengthOfSubstringColumnName)";
 			var actual = target.SQLValue;
@@ -241,8 +241,8 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 		public void GetSQLForSomeValuesAssigned()
 		{
 			var target = _substringFunction;
-			target.AssignArgument("expression", new CriteriaItemSimple(DataType.String, "ExpressionColumnName", false));
-			target.AssignArgument("startFromIndex", new CriteriaItemSimple(DataType.Numeric, "StartFromIndexColumnName", false));
+			target.AssignArgument("expression", new CriteriaUnitSimple(DataType.String, "ExpressionColumnName", false));
+			target.AssignArgument("startFromIndex", new CriteriaUnitSimple(DataType.Numeric, "StartFromIndexColumnName", false));
 
 			var expected = $"SUBSTRING(ExpressionColumnName, StartFromIndexColumnName, NULL)";
 			var actual = target.SQLValue;
@@ -260,7 +260,7 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 		public void Equal_EqualObjects()
 		{
 
-			var a = new CriteriaItemFunction("substring", 
+			var a = new CriteriaUnitFunction("substring", 
 				new CriteriaFunctionScheme(
 					"Substring", 
 					new List<Argument>()
@@ -274,11 +274,11 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 					"SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})", 
 					"Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}")
 				);
-			a.AssignArgument("expression", new CriteriaItemSimple(DataType.String, "ExpressionColumnName", false));
-			a.AssignArgument("startFromIndex", new CriteriaItemSimple(DataType.Numeric, "StartFromIndexColumnName", false));
-			a.AssignArgument("lengthOfSubstring", new CriteriaItemSimple(DataType.Numeric, "LengthOfSubstringColumnName", false));
+			a.AssignArgument("expression", new CriteriaUnitSimple(DataType.String, "ExpressionColumnName", false));
+			a.AssignArgument("startFromIndex", new CriteriaUnitSimple(DataType.Numeric, "StartFromIndexColumnName", false));
+			a.AssignArgument("lengthOfSubstring", new CriteriaUnitSimple(DataType.Numeric, "LengthOfSubstringColumnName", false));
 
-			var b = new CriteriaItemFunction("substring",
+			var b = new CriteriaUnitFunction("substring",
 				new CriteriaFunctionScheme(
 					"Substring",
 					new List<Argument>()
@@ -292,18 +292,18 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 					"SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})",
 					"Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}")
 				);
-			b.AssignArgument("expression", new CriteriaItemSimple(DataType.String, "ExpressionColumnName", false));
-			b.AssignArgument("startFromIndex", new CriteriaItemSimple(DataType.Numeric, "StartFromIndexColumnName", false));
-			b.AssignArgument("lengthOfSubstring", new CriteriaItemSimple(DataType.Numeric, "LengthOfSubstringColumnName", false));
+			b.AssignArgument("expression", new CriteriaUnitSimple(DataType.String, "ExpressionColumnName", false));
+			b.AssignArgument("startFromIndex", new CriteriaUnitSimple(DataType.Numeric, "StartFromIndexColumnName", false));
+			b.AssignArgument("lengthOfSubstring", new CriteriaUnitSimple(DataType.Numeric, "LengthOfSubstringColumnName", false));
 
 			Assert.Equal(a, b);
 		}
 
 		[Fact]
-		public void Equal_ListItemOrderDifferent()
+		public void Equal_ListUnitOrderDifferent()
 		{
 
-			var a = new CriteriaItemFunction("substring",
+			var a = new CriteriaUnitFunction("substring",
 				new CriteriaFunctionScheme(
 					"Substring",
 					new List<Argument>()
@@ -317,11 +317,11 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 					"SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})",
 					"Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}")
 				);
-			a.AssignArgument("expression", new CriteriaItemSimple(DataType.String, "ExpressionColumnName", false));
-			a.AssignArgument("startFromIndex", new CriteriaItemSimple(DataType.Numeric, "StartFromIndexColumnName", false));
-			a.AssignArgument("lengthOfSubstring", new CriteriaItemSimple(DataType.Numeric, "LengthOfSubstringColumnName", false));
+			a.AssignArgument("expression", new CriteriaUnitSimple(DataType.String, "ExpressionColumnName", false));
+			a.AssignArgument("startFromIndex", new CriteriaUnitSimple(DataType.Numeric, "StartFromIndexColumnName", false));
+			a.AssignArgument("lengthOfSubstring", new CriteriaUnitSimple(DataType.Numeric, "LengthOfSubstringColumnName", false));
 
-			var b = new CriteriaItemFunction("substring",
+			var b = new CriteriaUnitFunction("substring",
 				new CriteriaFunctionScheme(
 					"Substring",
 					new List<Argument>()
@@ -335,9 +335,9 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 					"SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})",
 					"Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}")
 				);
-			b.AssignArgument("expression", new CriteriaItemSimple(DataType.String, "ExpressionColumnName", false));
-			b.AssignArgument("startFromIndex", new CriteriaItemSimple(DataType.Numeric, "StartFromIndexColumnName", false));
-			b.AssignArgument("lengthOfSubstring", new CriteriaItemSimple(DataType.Numeric, "LengthOfSubstringColumnName", false));
+			b.AssignArgument("expression", new CriteriaUnitSimple(DataType.String, "ExpressionColumnName", false));
+			b.AssignArgument("startFromIndex", new CriteriaUnitSimple(DataType.Numeric, "StartFromIndexColumnName", false));
+			b.AssignArgument("lengthOfSubstring", new CriteriaUnitSimple(DataType.Numeric, "LengthOfSubstringColumnName", false));
 
 			Assert.Equal(a, b);
 		}
@@ -346,7 +346,7 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 		public void NotEqual_FunctionName()
 		{
 
-			var a = new CriteriaItemFunction("Test",
+			var a = new CriteriaUnitFunction("Test",
 				new CriteriaFunctionScheme(
 					"Substring",
 					new List<Argument>()
@@ -360,11 +360,11 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 					"SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})",
 					"Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}")
 				);
-			a.AssignArgument("expression", new CriteriaItemSimple(DataType.String, "ExpressionColumnName", false));
-			a.AssignArgument("startFromIndex", new CriteriaItemSimple(DataType.Numeric, "StartFromIndexColumnName", false));
-			a.AssignArgument("lengthOfSubstring", new CriteriaItemSimple(DataType.Numeric, "LengthOfSubstringColumnName", false));
+			a.AssignArgument("expression", new CriteriaUnitSimple(DataType.String, "ExpressionColumnName", false));
+			a.AssignArgument("startFromIndex", new CriteriaUnitSimple(DataType.Numeric, "StartFromIndexColumnName", false));
+			a.AssignArgument("lengthOfSubstring", new CriteriaUnitSimple(DataType.Numeric, "LengthOfSubstringColumnName", false));
 
-			var b = new CriteriaItemFunction("substring",
+			var b = new CriteriaUnitFunction("substring",
 				new CriteriaFunctionScheme(
 					"Substring",
 					new List<Argument>()
@@ -378,9 +378,9 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 					"SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})",
 					"Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}")
 				);
-			b.AssignArgument("expression", new CriteriaItemSimple(DataType.String, "ExpressionColumnName", false));
-			b.AssignArgument("startFromIndex", new CriteriaItemSimple(DataType.Numeric, "StartFromIndexColumnName", false));
-			b.AssignArgument("lengthOfSubstring", new CriteriaItemSimple(DataType.Numeric, "LengthOfSubstringColumnName", false));
+			b.AssignArgument("expression", new CriteriaUnitSimple(DataType.String, "ExpressionColumnName", false));
+			b.AssignArgument("startFromIndex", new CriteriaUnitSimple(DataType.Numeric, "StartFromIndexColumnName", false));
+			b.AssignArgument("lengthOfSubstring", new CriteriaUnitSimple(DataType.Numeric, "LengthOfSubstringColumnName", false));
 
 			Assert.NotEqual(a, b);
 		}
@@ -389,7 +389,7 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 		public void NotEqual_ArgumentAssignments()
 		{
 
-			var a = new CriteriaItemFunction("substring",
+			var a = new CriteriaUnitFunction("substring",
 				new CriteriaFunctionScheme(
 					"Substring",
 					new List<Argument>()
@@ -403,11 +403,11 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 					"SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})",
 					"Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}")
 				);
-			a.AssignArgument("expression", new CriteriaItemSimple(DataType.String, "ExpressionColumnName", false));
-			a.AssignArgument("startFromIndex", new CriteriaItemSimple(DataType.Numeric, "StartFromIndexColumnName", false));
-			a.AssignArgument("lengthOfSubstring", new CriteriaItemSimple(DataType.Numeric, "TestColumnName", false));
+			a.AssignArgument("expression", new CriteriaUnitSimple(DataType.String, "ExpressionColumnName", false));
+			a.AssignArgument("startFromIndex", new CriteriaUnitSimple(DataType.Numeric, "StartFromIndexColumnName", false));
+			a.AssignArgument("lengthOfSubstring", new CriteriaUnitSimple(DataType.Numeric, "TestColumnName", false));
 
-			var b = new CriteriaItemFunction("substring",
+			var b = new CriteriaUnitFunction("substring",
 				new CriteriaFunctionScheme(
 					"Substring",
 					new List<Argument>()
@@ -421,9 +421,9 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 					"SUBSTRING({expression}, {startFromIndex}, {lengthOfSubstring})",
 					"Substring {lengthOfSubstring} characters from the {startFromIndex} character of {expression}")
 				);
-			b.AssignArgument("expression", new CriteriaItemSimple(DataType.String, "ExpressionColumnName", false));
-			b.AssignArgument("startFromIndex", new CriteriaItemSimple(DataType.Numeric, "StartFromIndexColumnName", false));
-			b.AssignArgument("lengthOfSubstring", new CriteriaItemSimple(DataType.Numeric, "LengthOfSubstringColumnName", false));
+			b.AssignArgument("expression", new CriteriaUnitSimple(DataType.String, "ExpressionColumnName", false));
+			b.AssignArgument("startFromIndex", new CriteriaUnitSimple(DataType.Numeric, "StartFromIndexColumnName", false));
+			b.AssignArgument("lengthOfSubstring", new CriteriaUnitSimple(DataType.Numeric, "LengthOfSubstringColumnName", false));
 
 			Assert.NotEqual(a, b);
 		}
@@ -441,9 +441,9 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 		public void Copy_CreatesADeepDistinctCopy()
 		{
 			var a = _substringFunctionAssignedArguments;
-			var b = (CriteriaItemFunction)a.Copy();
+			var b = (CriteriaUnitFunction)a.Copy();
 
-			b.AssignArgument("lengthOfSubstring", new CriteriaItemSimple(DataType.Numeric, "TestColumnName", false));
+			b.AssignArgument("lengthOfSubstring", new CriteriaUnitSimple(DataType.Numeric, "TestColumnName", false));
 
 			Assert.NotEqual(a, b);
 		}

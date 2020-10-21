@@ -36,9 +36,9 @@
 				"RequiresSingleValue": true,
 				"ArgumentID": "8b776698-0a80-4773-b5d8-ab575d314b6b"
 			},
-			"CriteriaItem": {
-				"CriteriaItemType": "simple",
-				"CriteriaItemID": "6bcafbb5-7326-4cf2-9a27-33d25ca7a11c",
+			"CriteriaUnit": {
+				"CriteriaUnitType": "simple",
+				"CriteriaUnitID": "6bcafbb5-7326-4cf2-9a27-33d25ca7a11c",
 				"ReturnDataType": 2,
 				"IsValueLiteral": false,
 				"Value": "ExpressionColumnName"
@@ -52,9 +52,9 @@
 				"RequiresSingleValue": true,
 				"ArgumentID": "fdf4e1c9-8762-4e7e-8372-23e618727c5f"
 			},
-			"CriteriaItem": {
-				"CriteriaItemType": "simple",
-				"CriteriaItemID": "4ce7b8f3-3e16-4538-a1bb-1a03ca5d4c52",
+			"CriteriaUnit": {
+				"CriteriaUnitType": "simple",
+				"CriteriaUnitID": "4ce7b8f3-3e16-4538-a1bb-1a03ca5d4c52",
 				"ReturnDataType": 1,
 				"IsValueLiteral": false,
 				"Value": "StartFromIndexColumnName"
@@ -68,18 +68,18 @@
 				"RequiresSingleValue": true,
 				"ArgumentID": "67c4d2c4-e613-4a61-a136-750126745baf"
 			},
-			"CriteriaItem": {
-				"CriteriaItemType": "simple",
-				"CriteriaItemID": "2ed2192e-3243-42ae-907b-038871b79b1e",
+			"CriteriaUnit": {
+				"CriteriaUnitType": "simple",
+				"CriteriaUnitID": "2ed2192e-3243-42ae-907b-038871b79b1e",
 				"ReturnDataType": 1,
 				"IsValueLiteral": false,
 				"Value": "LengthOfSubstringColumnName"
 			}
 		}
 	],
-	"CriteriaItemType": "function",
+	"CriteriaUnitType": "function",
 	"FunctionName": "substring",
-	"CriteriaItemID": "04d295e7-640c-4d83-bf0b-f6797954865e",
+	"CriteriaUnitID": "04d295e7-640c-4d83-bf0b-f6797954865e",
 	"SQLValue": "SUBSTRING(ExpressionColumnName, StartFromIndexColumnName, LengthOfSubstringColumnName)",
 	"EnglishValue": "Substring LengthOfSubstringColumnName characters from the StartFromIndexColumnName character of ExpressionColumnName"
 }

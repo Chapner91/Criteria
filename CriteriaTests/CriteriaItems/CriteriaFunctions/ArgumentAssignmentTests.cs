@@ -1,5 +1,5 @@
 ﻿using Xunit;
-using Criteria.CriteriaItems.CriteriaFunctions;
+using Criteria.CriteriaUnits.CriteriaFunctions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,38 +9,38 @@ using CriteriaTests.Mocks;
 using Criteria.Enums;
 using Criteria.CriteriaExceptions;
 
-namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
+namespace Criteria.CriteriaUnits.CriteriaFunctions.Tests
 {
 	public class ArgumentAssignmentTests
 	{
 
-		private CriteriaItemSimpleStringMock criteriaItemSimpleString;
+		private CriteriaUnitSimpleStringMock criteriaUnitSimpleString;
 		private ArgumentSingleStringMock argumentSingleString;
 
-		private CriteriaItemCompoundStringMock criteriaItemCompoundString;
+		private CriteriaUnitCompoundStringMock criteriaUnitCompoundString;
 		private ArgumentMultipleStringMock argumentMultipleString;
 
 		public ArgumentAssignmentTests()
 		{
-			criteriaItemSimpleString = new CriteriaItemSimpleStringMock();
+			criteriaUnitSimpleString = new CriteriaUnitSimpleStringMock();
 			argumentSingleString = new ArgumentSingleStringMock();
-			criteriaItemCompoundString = new CriteriaItemCompoundStringMock();
+			criteriaUnitCompoundString = new CriteriaUnitCompoundStringMock();
 			argumentMultipleString = new ArgumentMultipleStringMock();
 		}
 
 		[Fact()]
-		public void ArgumentAssignment_ConstructorWithNoCriteriaItem()
+		public void ArgumentAssignment_ConstructorWithNoCriteriaUnit()
 		{
 			var target = new ArgumentAssignment(argumentSingleString);
 
 			Assert.True(
 				target.Argument.ArgumentID == Guid.Parse("ed52dd9d-1f0c-482a-ada9-77faef448dab") &&
-				target.CriteriaItem == null
+				target.CriteriaUnit == null
 				);
 		}
 
 		[Fact()]
-		public void ArgumentAssignment_ConstructorWithNoCriteriaItemWithIDPassed()
+		public void ArgumentAssignment_ConstructorWithNoCriteriaUnitWithIDPassed()
 		{
 			var guid = Guid.NewGuid();
 			var target = new ArgumentAssignment(guid, argumentSingleString);
@@ -48,18 +48,18 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 			Assert.True(
 				target.ArgumentAssignmentID == guid &&
 				target.Argument.ArgumentID == Guid.Parse("ed52dd9d-1f0c-482a-ada9-77faef448dab") &&
-				target.CriteriaItem == null
+				target.CriteriaUnit == null
 				);
 		}
 
 		[Fact()]
 		public void ArgumentAssignment_ConstructorWithBothParameters()
 		{
-			var target = new ArgumentAssignment(argumentSingleString, criteriaItemSimpleString);
+			var target = new ArgumentAssignment(argumentSingleString, criteriaUnitSimpleString);
 
 			Assert.True(
 				target.Argument.ArgumentID == Guid.Parse("ed52dd9d-1f0c-482a-ada9-77faef448dab") &&
-				target.CriteriaItem.CriteriaItemID == Guid.Parse("8f84f401-2de2-42b7-b9e1-939385c0eace")
+				target.CriteriaUnit.CriteriaUnitID == Guid.Parse("8f84f401-2de2-42b7-b9e1-939385c0eace")
 				);
 		}
 
@@ -67,57 +67,57 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 		public void ArgumentAssignment_ConstructorWithBothParametersWithIDPassed()
 		{
 			var guid = Guid.NewGuid();
-			var target = new ArgumentAssignment(guid, argumentSingleString, criteriaItemSimpleString);
+			var target = new ArgumentAssignment(guid, argumentSingleString, criteriaUnitSimpleString);
 
 			Assert.True(
 				target.ArgumentAssignmentID == guid &&
 				target.Argument.ArgumentID == Guid.Parse("ed52dd9d-1f0c-482a-ada9-77faef448dab") &&
-				target.CriteriaItem.CriteriaItemID == Guid.Parse("8f84f401-2de2-42b7-b9e1-939385c0eace")
+				target.CriteriaUnit.CriteriaUnitID == Guid.Parse("8f84f401-2de2-42b7-b9e1-939385c0eace")
 				);
 		}
 
 		[Fact()]
-		public void SetCriteriaItem()
+		public void SetCriteriaUnit()
 		{
 			var target = new ArgumentAssignment(argumentSingleString);
 
-			target.CriteriaItem = criteriaItemSimpleString;
+			target.CriteriaUnit = criteriaUnitSimpleString;
 
 			var expected = Guid.Parse("8f84f401-2de2-42b7-b9e1-939385c0eace");
-			var actual = target.CriteriaItem.CriteriaItemID;
+			var actual = target.CriteriaUnit.CriteriaUnitID;
 
 			Assert.Equal(expected, actual);
 		}
 
 		[Fact()]
-		public void SetCriteriaItem_WrongDataType()
+		public void SetCriteriaUnit_WrongDataType()
 		{
 			var argument = new Argument("expression", DataType.Numeric, true);
 			var target = new ArgumentAssignment(argument);
 
-			Assert.Throws<ArgumentTypeException>(() => target.CriteriaItem = criteriaItemSimpleString);
+			Assert.Throws<ArgumentTypeException>(() => target.CriteriaUnit = criteriaUnitSimpleString);
 		}
 
 		[Fact()]
-		public void SetCriteriaItem_WrongCardinality()
+		public void SetCriteriaUnit_WrongCardinality()
 		{
 			var argument = new Argument("expression", DataType.String, true);
 			var target = new ArgumentAssignment(argument);
 
-			Assert.Throws<ArgumentTypeException>(() => target.CriteriaItem = criteriaItemCompoundString);
+			Assert.Throws<ArgumentTypeException>(() => target.CriteriaUnit = criteriaUnitCompoundString);
 		}
 
 		[Fact()]
-		public void SetCriteriaItem_OverwriteExistingCriteria()
+		public void SetCriteriaUnit_OverwriteExistingCriteria()
 		{
 			var guid = Guid.NewGuid();
-			var replacementCriteriaItem = new CriteriaItemSimple(guid, DataType.String, "test", true);
-			var target = new ArgumentAssignment(argumentSingleString, criteriaItemSimpleString);
+			var replacementCriteriaUnit = new CriteriaUnitSimple(guid, DataType.String, "test", true);
+			var target = new ArgumentAssignment(argumentSingleString, criteriaUnitSimpleString);
 
-			target.CriteriaItem = replacementCriteriaItem;
+			target.CriteriaUnit = replacementCriteriaUnit;
 
 			var expected = guid;
-			var actual = target.CriteriaItem.CriteriaItemID;
+			var actual = target.CriteriaUnit.CriteriaUnitID;
 
 			Assert.Equal(expected, actual);
 		}
@@ -125,31 +125,31 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 		[Fact()]
 		public void Equal_EqualObject()
 		{
-			var a = new ArgumentAssignment(new Argument("expression", DataType.String, true), new CriteriaItemSimple(DataType.String, "test", true));
-			var b = new ArgumentAssignment(new Argument("expression", DataType.String, true), new CriteriaItemSimple(DataType.String, "test", true));
+			var a = new ArgumentAssignment(new Argument("expression", DataType.String, true), new CriteriaUnitSimple(DataType.String, "test", true));
+			var b = new ArgumentAssignment(new Argument("expression", DataType.String, true), new CriteriaUnitSimple(DataType.String, "test", true));
 			Assert.Equal(a, b);
 		}
 
 		[Fact()]
 		public void NotEqual_NotEqualArgument()
 		{
-			var a = new ArgumentAssignment(new Argument("expression", DataType.String, true), new CriteriaItemSimple(DataType.String, "test", true));
-			var b = new ArgumentAssignment(new Argument("expression1", DataType.String, true), new CriteriaItemSimple(DataType.String, "test", true));
+			var a = new ArgumentAssignment(new Argument("expression", DataType.String, true), new CriteriaUnitSimple(DataType.String, "test", true));
+			var b = new ArgumentAssignment(new Argument("expression1", DataType.String, true), new CriteriaUnitSimple(DataType.String, "test", true));
 			Assert.NotEqual(a, b);
 		}
 
 		[Fact()]
 		public void NotEqual_NotEqualCriteria()
 		{
-			var a = new ArgumentAssignment(new Argument("expression", DataType.String, true), new CriteriaItemSimple(DataType.String, "test", true));
-			var b = new ArgumentAssignment(new Argument("expression", DataType.String, true), new CriteriaItemSimple(DataType.String, "test1", true));
+			var a = new ArgumentAssignment(new Argument("expression", DataType.String, true), new CriteriaUnitSimple(DataType.String, "test", true));
+			var b = new ArgumentAssignment(new Argument("expression", DataType.String, true), new CriteriaUnitSimple(DataType.String, "test1", true));
 			Assert.NotEqual(a, b);
 		}
 
 		[Fact()]
 		public void Copy_CreatesAnEqualObject()
 		{
-			var a = new ArgumentAssignment(new Argument("expression", DataType.String, true), new CriteriaItemSimple(DataType.String, "test", true));
+			var a = new ArgumentAssignment(new Argument("expression", DataType.String, true), new CriteriaUnitSimple(DataType.String, "test", true));
 			var b = a.Copy();
 
 			Assert.Equal(a, b);
@@ -158,10 +158,10 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 		[Fact()]
 		public void Copy_CreatesADeepDistinctCopy()
 		{
-			var a = new ArgumentAssignment(new Argument("expression", DataType.String, true), new CriteriaItemSimple(DataType.String, "test", true));
+			var a = new ArgumentAssignment(new Argument("expression", DataType.String, true), new CriteriaUnitSimple(DataType.String, "test", true));
 			var b = a.Copy();
 
-			b.CriteriaItem = new CriteriaItemSimple(DataType.String, "test2", true);
+			b.CriteriaUnit = new CriteriaUnitSimple(DataType.String, "test2", true);
 
 			Assert.NotEqual(a, b);
 		}
@@ -216,7 +216,7 @@ namespace Criteria.CriteriaItems.CriteriaFunctions.Tests
 		//{
 		//	var guid = Guid.NewGuid();
 		//	var replacementArgument = new Argument(guid, "replacement", DataType.String, true);
-		//	var target = new ArgumentAssignment(argumentSingleString, criteriaItemSimpleString);
+		//	var target = new ArgumentAssignment(argumentSingleString, criteriaUnitSimpleString);
 
 		//	target.SetArgument(replacementArgument);
 

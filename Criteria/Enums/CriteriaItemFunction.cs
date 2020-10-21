@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Criteria.Enums
 {
-	class CriteriaItemFunction
+	class CriteriaUnitFunction
 	{
 		public string FunctionName { get; private set; }
 	}

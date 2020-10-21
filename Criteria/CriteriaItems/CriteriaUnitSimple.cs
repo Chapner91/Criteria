@@ -9,18 +9,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Criteria.CriteriaItems
+namespace Criteria.CriteriaUnits
 {
-	[JsonConverter(typeof(ICriteriaItemConverter))]
-	public class CriteriaItemSimple : ICriteriaItem, IEquatable<CriteriaItemSimple>
+	[JsonConverter(typeof(ICriteriaUnitConverter))]
+	public class CriteriaUnitSimple : ICriteriaUnit, IEquatable<CriteriaUnitSimple>
 	{
 		private string _value;
 
-		[JsonProperty(PropertyName = "CriteriaItemType")]
-		public string CriteriaItemType => "simple";
+		[JsonProperty(PropertyName = "CriteriaUnitType")]
+		public string CriteriaUnitType => "simple";
 
-		[JsonProperty(PropertyName = "CriteriaItemID")]
-		public Guid CriteriaItemID { get; private set; }
+		[JsonProperty(PropertyName = "CriteriaUnitID")]
+		public Guid CriteriaUnitID { get; private set; }
 
 		[JsonProperty(PropertyName = "ReturnDataType")]
 		public DataType ReturnDataType { get; set; }
@@ -40,7 +40,7 @@ namespace Criteria.CriteriaItems
 				} 
 				else
 				{
-					throw new CriteriaItemTypeMismatchException(ReturnDataType, value);
+					throw new CriteriaUnitTypeMismatchException(ReturnDataType, value);
 				}
 			}
 		}
@@ -84,29 +84,29 @@ namespace Criteria.CriteriaItems
 		// ******** CONSTRUCTORS
 		//*****************************************************************************
 
-		public CriteriaItemSimple()	{ }
+		public CriteriaUnitSimple()	{ }
 
-		public CriteriaItemSimple(string criteriaItemJson)
+		public CriteriaUnitSimple(string criteriaUnitJson)
 		{
-			CriteriaItemSimple that = Deserialize(criteriaItemJson);
+			CriteriaUnitSimple that = Deserialize(criteriaUnitJson);
 			
-			this.CriteriaItemID = that.CriteriaItemID;
+			this.CriteriaUnitID = that.CriteriaUnitID;
 			this.ReturnDataType = that.ReturnDataType;
 			this.Value = that.Value;
 			this.IsValueLiteral = that.IsValueLiteral;
 		}
 
-		public CriteriaItemSimple(DataType dataType, string value, bool isValueLiteral)
+		public CriteriaUnitSimple(DataType dataType, string value, bool isValueLiteral)
 		{
-			this.CriteriaItemID = Guid.NewGuid();
+			this.CriteriaUnitID = Guid.NewGuid();
 			this.ReturnDataType = dataType;
 			this.Value = value;
 			this.IsValueLiteral = isValueLiteral;
 		}
 
-		public CriteriaItemSimple(Guid criteriaItemID, DataType dataType, string value, bool isValueLiteral) : this(dataType, value, isValueLiteral)
+		public CriteriaUnitSimple(Guid criteriaUnitID, DataType dataType, string value, bool isValueLiteral) : this(dataType, value, isValueLiteral)
 		{
-			this.CriteriaItemID = criteriaItemID;
+			this.CriteriaUnitID = criteriaUnitID;
 			//this.ReturnDataType = dataType;
 			//this.Value = value;
 			//this.IsValueLiteral = isValueLiteral;
@@ -126,19 +126,19 @@ namespace Criteria.CriteriaItems
 			return JsonConvert.SerializeObject(this, settings);
 		}
 
-		public ICriteriaItem Copy()
+		public ICriteriaUnit Copy()
 		{
-			return new CriteriaItemSimple(ReturnDataType, Value, IsValueLiteral);
+			return new CriteriaUnitSimple(ReturnDataType, Value, IsValueLiteral);
 		}
 
-		public bool Equals(CriteriaItemSimple that)
+		public bool Equals(CriteriaUnitSimple that)
 		{
 			return this.Equals((object)that);
 		}
 
 		public override bool Equals(object obj)
 		{
-			CriteriaItemSimple that = obj as CriteriaItemSimple;
+			CriteriaUnitSimple that = obj as CriteriaUnitSimple;
 			if (that == null)
 			{
 				return false;
@@ -165,14 +165,14 @@ namespace Criteria.CriteriaItems
 		// ******** PRIVATE METHODS
 		//*****************************************************************************
 
-		private static CriteriaItemSimple Deserialize(string criteriaItemJson)
+		private static CriteriaUnitSimple Deserialize(string criteriaUnitJson)
 		{
 			var settings = new JsonSerializerSettings()
 			{
 				//TypeNameHandling = TypeNameHandling.All
 			};
 
-			return JsonConvert.DeserializeObject<CriteriaItemSimple>(criteriaItemJson, settings);
+			return JsonConvert.DeserializeObject<CriteriaUnitSimple>(criteriaUnitJson, settings);
 		}
 
 		private bool ValueIsCorrectDataType(string value)

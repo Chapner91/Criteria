@@ -1,4 +1,4 @@
-﻿using Criteria.CriteriaItems;
+﻿using Criteria.CriteriaUnits;
 using Criteria.Enums;
 using System;
 using System.Collections.Generic;
@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Criteria
 {
-	public interface ICriteriaItem : ICopyable<ICriteriaItem>
+	public interface ICriteriaUnit : ICopyable<ICriteriaUnit>
 	{
-		string CriteriaItemType { get; }
+		string CriteriaUnitType { get; }
 
-		Guid CriteriaItemID { get; }
+		Guid CriteriaUnitID { get; }
 		DataType ReturnDataType { get; }
 		bool ReturnsSingleValue { get; }
 		string SQLValue { get; }

@@ -1,2 +1,2 @@
-"{\"CriteriaItemType\":\"simple\",\"DataType\":1,\"IsValueLiteral\":false,\"Value\":\"Test\"}"
-"{\"CriteriaItemType\":\"simple\",\"DataType\":1,\"IsValueLiteral\":true,\"Value\":\"Test\"}"
+"{\"CriteriaUnitType\":\"simple\",\"DataType\":1,\"IsValueLiteral\":false,\"Value\":\"Test\"}"
+"{\"CriteriaUnitType\":\"simple\",\"DataType\":1,\"IsValueLiteral\":true,\"Value\":\"Test\"}"

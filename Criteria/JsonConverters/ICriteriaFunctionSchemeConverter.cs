@@ -1,4 +1,4 @@
-﻿using Criteria.CriteriaItems.CriteriaFunctions;
+﻿using Criteria.CriteriaUnits.CriteriaFunctions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -28,7 +28,7 @@ namespace Criteria.JsonConverters
 		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
 		{
 			var jsonObject = JObject.Load(reader);
-			//var criteriaItemType = jsonObject["CriteriaItemType"].Value<string>();
+			//var criteriaUnitType = jsonObject["CriteriaUnitType"].Value<string>();
 			var criteriaFunctionScheme = new CriteriaFunctionScheme();
 			serializer.Populate(jsonObject.CreateReader(), criteriaFunctionScheme);
 			return criteriaFunctionScheme;
