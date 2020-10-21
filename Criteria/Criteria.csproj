@@ -51,7 +51,6 @@
     <Compile Include="CriteriaItems\CriteriaFunctions\ArgumentAssignment.cs" />
     <Compile Include="CriteriaItems\CriteriaFunctions\CriteriaFunctionScheme.cs" />
     <Compile Include="CriteriaItems\CriteriaFunctions\CriteriaFunctionRepository.cs" />
-    <Compile Include="CriteriaItems\CriteriaFunctions\IArgument.cs" />
     <Compile Include="CriteriaItems\CriteriaFunctions\ICriteriaFunctionScheme.cs" />
     <Compile Include="CriteriaItems\CriteriaUnitCompound.cs" />
     <Compile Include="CriteriaItems\CriteriaFunctions\CriteriaUnitFunction.cs" />
@@ -62,7 +61,6 @@
     <Compile Include="Enums\CriteriaItemFunction.cs" />
     <Compile Include="Enums\Datatype.cs" />
     <Compile Include="CriteriaItems\ICriteriaUnit.cs" />
-    <Compile Include="JsonConverters\IArgumentConverter.cs" />
     <Compile Include="JsonConverters\ICriteriaFunctionSchemeConverter.cs" />
     <Compile Include="JsonConverters\ICriteriaUnitConverter.cs" />
     <Compile Include="JsonConverters\ICriteriaUnitListConverter.cs" />

@@ -74,7 +74,6 @@
     <Compile Include="CriteriaItems\ICriteriaUnitHelperTests.cs" />
     <Compile Include="CriteriaPredicateTests.cs" />
     <Compile Include="JsonConverters\ICriteriaItemConverterTests.cs" />
-    <Compile Include="Mocks\ArgumentMock.cs" />
     <Compile Include="Mocks\CriteriaFunctionSchemeMock.cs" />
     <Compile Include="Mocks\CriteriaItemMock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

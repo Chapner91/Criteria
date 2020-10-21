@@ -15,8 +15,7 @@ namespace Criteria.CriteriaUnits.CriteriaFunctions
 		public Guid ArgumentAssignmentID { get; }
 
 		[JsonProperty(PropertyName = "Argument")]
-		[JsonConverter(typeof(IArgumentConverter))]
-		public IArgument Argument { get; private set; }
+		public Argument Argument { get; private set; }
 
 		[JsonConverter(typeof(ICriteriaUnitConverter))]
 		[JsonProperty(PropertyName = "CriteriaUnit")]
@@ -40,23 +39,23 @@ namespace Criteria.CriteriaUnits.CriteriaFunctions
 
 		public ArgumentAssignment() { }
 
-		public ArgumentAssignment(IArgument argument)
+		public ArgumentAssignment(Argument argument)
 		{
 			this.ArgumentAssignmentID = Guid.NewGuid();
 			this.Argument = argument;
 		}
 
-		public ArgumentAssignment(Guid argumentAssignmentID, IArgument argument) : this(argument)
+		public ArgumentAssignment(Guid argumentAssignmentID, Argument argument) : this(argument)
 		{
 			this.ArgumentAssignmentID = argumentAssignmentID;
 		}
 
-		public ArgumentAssignment(IArgument argument, ICriteriaUnit criteriaUnit) : this (argument)
+		public ArgumentAssignment(Argument argument, ICriteriaUnit criteriaUnit) : this (argument)
 		{
 			this.CriteriaUnit = criteriaUnit;
 		}
 
-		public ArgumentAssignment(Guid argumentAssignmentID, IArgument argument, ICriteriaUnit criteriaUnit) : this (argumentAssignmentID, argument)
+		public ArgumentAssignment(Guid argumentAssignmentID, Argument argument, ICriteriaUnit criteriaUnit) : this (argumentAssignmentID, argument)
 		{
 			this.CriteriaUnit = criteriaUnit;
 		}
@@ -79,7 +78,7 @@ namespace Criteria.CriteriaUnits.CriteriaFunctions
 			}
 		}
 
-		private bool ArgumentTypeMatchesCriteriaUnitType(IArgument argument)
+		private bool ArgumentTypeMatchesCriteriaUnitType(Argument argument)
 		{
 			if(CriteriaUnit == null)
 			{
@@ -112,14 +111,14 @@ namespace Criteria.CriteriaUnits.CriteriaFunctions
 		public bool Equals(ArgumentAssignment that)
 		{
 			return that != null &&
-				   EqualityComparer<IArgument>.Default.Equals(Argument, that.Argument) &&
+				   EqualityComparer<Argument>.Default.Equals(Argument, that.Argument) &&
 				   EqualityComparer<ICriteriaUnit>.Default.Equals(CriteriaUnit, that.CriteriaUnit);
 		}
 
 		public override int GetHashCode()
 		{
 			var hashCode = 1392270585;
-			hashCode = hashCode * -1521134295 + EqualityComparer<IArgument>.Default.GetHashCode(Argument);
+			hashCode = hashCode * -1521134295 + EqualityComparer<Argument>.Default.GetHashCode(Argument);
 			hashCode = hashCode * -1521134295 + EqualityComparer<ICriteriaUnit>.Default.GetHashCode(CriteriaUnit);
 			return hashCode;
 		}

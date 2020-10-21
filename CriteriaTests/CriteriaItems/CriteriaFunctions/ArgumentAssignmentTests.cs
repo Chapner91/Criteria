@@ -15,17 +15,17 @@ namespace Criteria.CriteriaUnits.CriteriaFunctions.Tests
 	{
 
 		private CriteriaUnitSimpleStringMock criteriaUnitSimpleString;
-		private ArgumentSingleStringMock argumentSingleString;
+		private Argument argumentSingleString;
 
 		private CriteriaUnitCompoundStringMock criteriaUnitCompoundString;
-		private ArgumentMultipleStringMock argumentMultipleString;
+		private Argument argumentMultipleString;
 
 		public ArgumentAssignmentTests()
 		{
 			criteriaUnitSimpleString = new CriteriaUnitSimpleStringMock();
-			argumentSingleString = new ArgumentSingleStringMock();
+			argumentSingleString = new Argument(Guid.Parse("ed52dd9d-1f0c-482a-ada9-77faef448dab"), "testexpression", DataType.String, true);
 			criteriaUnitCompoundString = new CriteriaUnitCompoundStringMock();
-			argumentMultipleString = new ArgumentMultipleStringMock();
+			argumentMultipleString = new Argument(Guid.Parse("94c2daeb-bff3-4139-89b4-509f3115a847"), "testexpression", DataType.String, false);
 		}
 
 		[Fact()]

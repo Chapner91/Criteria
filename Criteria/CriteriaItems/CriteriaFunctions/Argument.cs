@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 
 namespace Criteria.CriteriaUnits.CriteriaFunctions
 {
-	[JsonConverter(typeof(IArgumentConverter))]
-	public class Argument : IArgument, IEquatable<Argument>
+	public class Argument : IEquatable<Argument>
 	{
 		[JsonProperty(PropertyName = "Name")]
 		public string Name { get; set; }
@@ -36,7 +35,7 @@ namespace Criteria.CriteriaUnits.CriteriaFunctions
 			RequiresSingleValue = requiresSingleValue;
 		}
 
-		public IArgument Copy()
+		public Argument Copy()
 		{
 			return new Argument(Name, DataType, RequiresSingleValue);
 		}
